@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Virtualization? - Tamojit Roy Verse 360 V1.0</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Reset for better mobile experience */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .blog-post__title {
+            font-size: clamp(1.8em, 5vw, 2.5em);
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .blog-post__content {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+
+        .blog-post__date {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .blog-post__images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .blog-post__image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .blog-post {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__images {
+                grid-template-columns: 1fr;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .blog-post {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .blog-post__date {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__images {
+                margin-top: 20px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .blog-post {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .blog-post {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .blog-post__title,
+            .blog-post__content,
+            .blog-post__date {
+                color: #000;
+            }
+
+            .blog-post__images {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1 class="blog-post__title">What is Virtualization?</h1>
+        
+        <div class="blog-post__content">
+Virtualization is the process of running a virtual instance of a computer system in a layer abstracted from the actual hardware. Most commonly, it refers to running multiple operating systems on a computer system simultaneously. To the applications running on top of the virtualized machine, it can appear as if they are on their own dedicated machine, where the operating system, libraries, and other programs are unique to the guest virtualized system and unconnected to the host operating system which sits below it.
+
+There are many reasons why people utilize virtualization in computing. To desktop users, the most common use is to be able to run applications meant for a different operating system without having to switch computers or reboot into a different system. For administrators of servers, virtualization also offers the ability to run different operating systems, but perhaps, more importantly, it offers a way to segment a large system into many smaller parts, allowing the server to be used more efficiently by a number of different users or applications with different needs. It also allows for isolation, keeping programs running inside of a virtual machine safe from the processes taking place in another virtual machine on the same host.
+        </div>
+
+        <div class="blog-post__date">
+            Published: 30th Jun 2021
+        </div>
+
+        <div class="blog-post__images">
+            <img src="../blogImage9.jpg" alt="Blog Image 9" class="blog-post__image">
+        </div>
+    </div>
+</body>
+</html>

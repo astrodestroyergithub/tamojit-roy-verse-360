@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Great Start... - Tamojit Roy Verse 360 V1.0</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Reset for better mobile experience */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .blog-post__title {
+            font-size: clamp(1.8em, 5vw, 2.5em);
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .blog-post__content {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+
+        .blog-post__date {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .blog-post__images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .blog-post__image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .blog-post {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__images {
+                grid-template-columns: 1fr;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .blog-post {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .blog-post__date {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__images {
+                margin-top: 20px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .blog-post {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .blog-post {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .blog-post__title,
+            .blog-post__content,
+            .blog-post__date {
+                color: #000;
+            }
+
+            .blog-post__images {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1 class="blog-post__title">The Great Start...</h1>
+        
+        <div class="blog-post__content">
+This is the start of my blog. Here, in this website, I shall discuss about coding principles, programming paradigms, different programming languages like C, C++, Java, Python, etc. I will also be talking about the very basic and principle languages used for Web Dev like HTML5 (Hyper text Markup Language 5), CSS (Cascading Style Sheets), PHP, Javascript, JSON (JavaScript Object Notation), etc. and also some other frameworks such as Nodejs, MongoDB, Reactjs, ReactNative, Vuejs, Vanilla js, and what not. Being a computer science student, I like to keep myself updated with the recent developments in the world of programming and development. It is one of the integral reasons why I started this website so that my knowledge base might help those who are in need of these kinds of information. I will also be discussing about Machine Learning, Artificial Intelligence, Big Data Analytics, Large Scale Data Processing, etc. I am an avid reader of Sci-Fi stuffs and also love to watch movies related to the same. Hence, yes, you all guessed it right! I will also write articles on them in the Blog section of my website. Finally, as already discussed, I am a very philanthropic and philosophical kind of person, who loves to think of new possibilities which can be unfolded in the world by innovative ideas and the right people having like mindset to implement those ideas into practicality. Thus I would like to cover these domains of content writing as well.
+        </div>
+
+        <div class="blog-post__date">
+            Published: 30th Jun 2021
+        </div>
+
+        <div class="blog-post__images">
+            <img src="../blogImage10.jpg" alt="Blog Image 10" class="blog-post__image">
+        </div>
+    </div>
+</body>
+</html>

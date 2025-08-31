@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web GIS Technology - Tamojit Roy Verse 360 V1.0</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Reset for better mobile experience */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .blog-post__title {
+            font-size: clamp(1.8em, 5vw, 2.5em);
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .blog-post__content {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+
+        .blog-post__date {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .blog-post__images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .blog-post__image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .blog-post {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__images {
+                grid-template-columns: 1fr;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .blog-post {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .blog-post__date {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__images {
+                margin-top: 20px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .blog-post {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .blog-post {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .blog-post__title,
+            .blog-post__content,
+            .blog-post__date {
+                color: #000;
+            }
+
+            .blog-post__images {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1 class="blog-post__title">Web GIS Technology</h1>
+        
+        <div class="blog-post__content">
+Web GIS is an advanced form of geospatial data transfer in which the communication takes place between the client and the server. GIS stands for Geospatial Information system. In this client-server architecture, the client can access large geographical data of parts of the globe, located in a remote server by making use of an URL (Uniform Resource Locater), without having to access those informations by creating custom applications. The client can be a web server, mobile application and desktop application.
+
+The Web GIS technology allows organizations to effectively manage their geographic data, and also it provides a platform for integrating GIS with other business systems and enables cross-organizational collaboration. Earlier to answer a set of questions based on such data, the data had to be throughly analyzed and then a possible answer had to be framed, but with the emergence of this technology, now the data is transformed into web maps or services that are mashed up with different layers into a webGIS, which provides the possibility to answer any sort of questions.
+        </div>
+
+        <div class="blog-post__date">
+            Published: 1st Jul 2021
+        </div>
+
+        <div class="blog-post__images">
+            <img src="../blogImage8.jpg" alt="Blog Image 8" class="blog-post__image">
+        </div>
+    </div>
+</body>
+</html>
