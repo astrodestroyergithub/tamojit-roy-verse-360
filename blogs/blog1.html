@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What are Web Frameworks? - Tamojit Roy Verse 360 V1.0</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Reset for better mobile experience */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .blog-post__title {
+            font-size: clamp(1.8em, 5vw, 2.5em);
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .blog-post__content {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+        }
+
+        .blog-post__date {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .blog-post__images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .blog-post__image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .blog-post {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__images {
+                grid-template-columns: 1fr;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .blog-post {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .blog-post__date {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__images {
+                margin-top: 20px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .blog-post {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .blog-post {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .blog-post__title,
+            .blog-post__content,
+            .blog-post__date {
+                color: #000;
+            }
+
+            .blog-post__images {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1 class="blog-post__title">What are Web Frameworks?</h1>
+        
+        <div class="blog-post__content">
+            Web Application Frameworks or simply Web Frameworks represents collection of libraries and modules. It is a software framework that was developed in order to simplify the web development process and make it easier to build a website. It includes templating capabilities that allow you to present information within a browser, provides an environment for scripting how information flows and also contains many application programming interfaces (APIs) for gaining access to underlying data resources. Most frameworks also provide tools in order for web developers to build a content management system (CMS) for managing digital information on websites and the Internet. A web application or development framework can be considered as a pre-built structure that handles the more repetitive processes and features involved with developing a website. This means that a web developer will spend most of their time interacting with the different parts of the web framework through the use of code. Some of the features associated with web frameworks include web caching, authentication and authorisation procedures, database mapping and configuration and URL mapping. It enables a web application developer to write applications without having to bother about low level details such as protocols, thread management etc. The majority of Web Frameworks are exclusively server-side technology. Some Web frameworks are beginning to include AJAX code that helps developers with the particularly tricky task of programming (client-side) the user's browser. Some common examples are Django, Flask, Pyramis, TurboGears, web2py, etc.
+        </div>
+
+        <div class="blog-post__date">
+            Published: 22nd Jul 2021
+        </div>
+
+        <div class="blog-post__images">
+            <img src="../blogImage1.jpg" alt="Blog Image 1" class="blog-post__image">
+        </div>
+    </div>
+</body>
+</html>

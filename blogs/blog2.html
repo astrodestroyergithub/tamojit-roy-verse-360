@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Django will never lose its popularity? - Tamojit Roy Verse 360 V1.0</title>
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Reset for better mobile experience */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .blog-post {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .blog-post__title {
+            font-size: clamp(1.8em, 5vw, 2.5em);
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .blog-post__content {
+            font-size: clamp(1em, 3vw, 1.2em);
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 40px;
+            word-wrap: break-word;
+        }
+
+        .blog-post__date {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+            color: #cccccc;
+            margin-bottom: 40px;
+        }
+
+        .blog-post__images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .blog-post__image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .blog-post {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 30px;
+            }
+
+            .blog-post__images {
+                grid-template-columns: 1fr;
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .blog-post {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .blog-post__title {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__content {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .blog-post__date {
+                margin-bottom: 20px;
+            }
+
+            .blog-post__images {
+                margin-top: 20px;
+                padding: 0 5px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .blog-post {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .blog-post {
+                margin: 0;
+                padding: 20px;
+            }
+
+            .blog-post__title,
+            .blog-post__content,
+            .blog-post__date {
+                color: #000;
+            }
+
+            .blog-post__images {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post">
+        <h1 class="blog-post__title">Why Django will never lose its popularity?</h1>
+        
+        <div class="blog-post__content">
+            Django is a very popular framework when one wants to integrate the functionalities of python and web development. Django can also be used to build websites and blogs in a relatively small period of time, without having to write the entire code from scratch. It is such a powerful framework that it already provides the basic implementation files for developing your website. With python framework behind it, it can also be used for machine learning and for applying many algorithms on the content present upon the website. Django is a simple framework, with a database called "dB SQLite" automatically stored in it for its users. It is user-friendly. It supports basic HTML, CSS, JavaScript for building responsive web applications. It is easy to use and also it is built in python that's why it is most suitable for python lovers out there. This framework is for large and advanced web applications. At the same time here, some might say that many articles came up and said that flask is a better and easier framework to use if going for a machine learning based web application. Well, flask might be a better replacement for Django, but the developer friendly environment and also after looking at the rising popularity of Django, I will say the opposite. Django can help you develop quite large web applications opening up a lot of opportunities for future.
+        </div>
+
+        <div class="blog-post__date">
+            Published: 5th Jul 2021
+        </div>
+
+        <div class="blog-post__images">
+            <img src="../blogImage2.jpg" alt="Blog Image 2" class="blog-post__image">
+        </div>
+    </div>
+</body>
+</html>

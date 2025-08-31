@@ -1,0 +1,1535 @@
+/* Global Styles & Variables */
+:root {
+    --primary-purple: #1a0e36;
+    --secondary-purple: #3a2a6b;
+    --light-purple: #9b8edc;
+    --accent-gold: #ffc107;
+    --white: #ffffff;
+    --grey-text: #b6b6b6;
+    --black: #000000;
+    --card-bg-light: #ece7f7;
+    /* Layout dimensions */
+    --marquee-image-height: 340px;
+    --marquee-gap: 24px;
+    --marquee-column-width: 240px;
+    --side-panel-width: 340px;
+    --side-buffer: 40px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-purple);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+.btn__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.btn__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* SECTION 1: STICKY HEADER */
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--white);
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+}
+
+.header__badge-image {
+    width: 120px;
+    height: auto;
+    transition: width 0.3s ease;
+}
+
+.header__register-btn {
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+
+.header__register-btn .btn__icon {
+    transform: rotate(45deg);
+}
+
+/* Final state of the header when scrolled */
+.header.scrolled {
+    background: linear-gradient(90deg, #1a0e36, #3a2a6b);
+    color: var(--white);
+}
+
+.header.scrolled .header__register-btn {
+    background: var(--white);
+    color: var(--primary-purple);
+}
+
+.header.scrolled .header__register-btn .btn__icon svg path {
+    stroke: var(--primary-purple);
+}
+
+.header.scrolled .header__register-btn .btn__icon {
+    transform: rotate(0deg);
+}
+
+.header.scrolled .header__badge-image {
+    width: 80px;
+}
+
+/* Button animation on click/hover */
+.btn:hover,
+.btn.active {
+    background: linear-gradient(to right, #8e44ad, #9b59b6);
+    color: var(--white);
+    border: none;
+}
+
+.btn.active .btn__icon,
+.btn:hover .btn__icon {
+    transform: rotate(0deg);
+}
+
+/* SECTION 2: MAIN SECTION */
+.main-section {
+    background: linear-gradient(90deg, #1a0e36, #3a2a6b);
+    padding: 5rem 0;
+}
+
+.main-section__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--side-buffer);
+}
+
+.main-section__discover {
+    flex: 0 0 var(--side-panel-width);
+    text-align: left;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+.main-section__headline {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.main-section__subhead {
+    font-size: 1.2rem;
+    color: var(--grey-text);
+    margin-bottom: 2rem;
+}
+
+.main-section__event-details {
+    display: flex;
+    gap: 1rem;
+}
+
+.main-section__detail-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+.main-section__detail-title {
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+
+.main-section__detail-text {
+    color: var(--white);
+}
+
+/* Marquee Section */
+/* Marquee Section */
+.main-section__marquee-wrapper {
+    display: flex;
+    flex: 1;
+    gap: 1.25rem;
+    overflow: hidden;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* variables to control sizing so exactly 2 images show */
+:root {
+    --marquee-image-height: 340px; /* visible image height (increased) */
+    --marquee-gap: 24px; /* vertical gap between images */
+    --marquee-column-width: 192px; /* horizontal width of each column (reduced to 60%) */
+}
+
+.main-section__marquee-column {
+    flex: 0 0 var(--marquee-column-width);
+    display: block; /* single stacking context for mask */
+    background-color: var(--secondary-purple);
+    border-radius: 20px;
+    padding: 0.2rem;
+    overflow: hidden;
+    /* height tuned so exactly two images fit in view: 2*image + gap */
+    height: calc((var(--marquee-image-height) * 1.7) + var(--marquee-gap));
+}
+
+.main-section__marquee-track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--marquee-gap);
+    /* the duplicated content will be twice the visible height */
+    will-change: transform;
+}
+
+.main-section__marquee-image {
+    width: 100%;
+    height: var(--marquee-image-height);
+    object-fit: cover;
+    border-radius: 16px;
+    background: #4b2179;
+    display: block;
+}
+
+/* animation speeds: center is faster */
+.main-section__marquee-track--center {
+    animation: marquee-up-center 6.5s linear infinite;
+    -webkit-animation: marquee-up-center 6.5s linear infinite;
+}
+.main-section__marquee-track--side {
+    animation: marquee-up-side 18s linear infinite;
+    -webkit-animation: marquee-up-side 18s linear infinite;
+}
+
+/* duplicated content scrolls by half the total height to loop cleanly */
+@keyframes marquee-up-center {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+@keyframes marquee-up-side {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+/* responsiveness: scale down on smaller screens */
+@media (max-width: 992px) {
+    :root { --marquee-image-height: 240px; --marquee-column-width: 210px; }
+}
+@media (max-width: 768px) {
+    .main-section__marquee-wrapper {
+        gap: 0.75rem;
+    }
+    :root { --marquee-image-height: 180px; --marquee-column-width: 140px; --marquee-gap: 16px; }
+    .main-section__marquee-column { height: calc((var(--marquee-image-height) * 2) + var(--marquee-gap)); }
+}
+
+/* Enquire Now Card */
+.main-section__enquire-card {
+    flex: 0 0 400px;
+    background-color: var(--secondary-purple);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    align-self: flex-start;
+    margin-left: auto;
+}
+
+.main-section__enquire-heading {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.main-section__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.main-section__input {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 1rem;
+    color: var(--white);
+    font-size: 1rem;
+}
+
+/* Make the third input box double height */
+.main-section__input:nth-of-type(3) {
+    height: calc(2.5rem * 2 + 2rem);
+    resize: none;
+    padding-top: 1.5rem;
+}
+
+.main-section__input::placeholder {
+    color: var(--grey-text);
+}
+
+.main-section__submit-btn {
+    background: var(--white);
+    color: var(--primary-purple);
+    border: 1px solid var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-section__submit-btn .btn__icon {
+    transform: rotate(45deg);
+}
+
+/* SECTION 3: PARTICIPATING SCHOOLS */
+.participating-schools {
+    background-color: var(--white);
+    color: var(--primary-purple);
+    text-align: center;
+    padding: 5rem 0;
+}
+
+.participating-schools__taglines {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 0 80px;
+}
+
+.participating-schools__taglines::before,
+.participating-schools__taglines::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 120px;
+    background: url('decorativeLeaf.png') no-repeat center center;
+    background-size: contain;
+}
+
+.participating-schools__taglines::before {
+    left: 0;
+}
+
+.participating-schools__taglines::after {
+    right: 0;
+    transform: translateY(-50%) scaleX(-1);
+}
+
+.participating-schools__tagline-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 2rem;
+    flex: 1;
+}
+
+.participating-schools__headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.participating-schools__marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.participating-schools__marquee {
+    display: inline-block;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+.participating-schools__marquee--left {
+    animation-name: marquee-left;
+    animation-duration: 40s;
+}
+
+.participating-schools__marquee--right {
+    animation-name: marquee-right;
+    animation-duration: 40s;
+}
+
+@keyframes marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee-right {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+.participating-schools__marquee:hover {
+    animation-play-state: paused;
+}
+
+.participating-schools__logo-wrapper {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.participating-schools__logo {
+    width: 150px;
+    height: 100px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+/* SECTION 4: BEST FIT SCHOOL */
+.best-fit-school {
+    background-color: #f7f7f7;
+    color: var(--primary-purple);
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.best-fit-school__headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 3rem;
+}
+
+.best-fit-school__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.best-fit-school__card {
+    height: 350px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--white);
+    text-align: left;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.best-fit-school__card--1 { background-image: url('bestFitSchoolCard1.jpg'); }
+.best-fit-school__card--2 { background-image: url('bestFitSchoolCard2.jpg'); }
+.best-fit-school__card--3 { background-image: url('bestFitSchoolCard3.jpg'); }
+.best-fit-school__card--4 { background-image: url('bestFitSchoolCard4.jpg'); }
+
+.best-fit-school__overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.2) 85%, transparent 100%);
+    padding: 3rem;
+    border-radius: 15px;
+    height: 150%;
+    width: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: -30%;
+    margin-bottom: -20%;
+    margin-left: -10%;
+    position: relative;
+}
+
+.best-fit-school__card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.best-fit-school__card-text {
+    font-size: 1rem;
+    color: var(--grey-text);
+}
+
+/* SECTION 5: PRE-SCHEDULE APPOINTMENT */
+.pre-schedule {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #1a0e36, #3a2a6b);
+    min-height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.pre-schedule__content {
+    flex: 1;
+    padding: 3rem 5%;
+    position: relative;
+    z-index: 10;
+}
+
+.pre-schedule__heading {
+    font-style: italic;
+    color: #ffd700;
+    margin-bottom: 0.5rem;
+}
+
+.pre-schedule__subheading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.pre-schedule__caption {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--grey-text);
+    margin-bottom: 2rem;
+}
+
+.pre-schedule__btn {
+    background: var(--white);
+    color: var(--primary-purple);
+    border: 1px solid var(--white);
+}
+
+.pre-schedule__btn .btn__icon {
+    transform: rotate(45deg);
+}
+
+.pre-schedule__image-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.pre-schedule__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: luminosity;
+    opacity: 0.7;
+}
+
+/* SECTION 6: EXHIBITION MUST-VISIT */
+.must-visit {
+    background-color: var(--primary-purple);
+    padding: 5rem 0;
+    color: var(--white);
+    text-align: center;
+}
+
+.must-visit__headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 3rem;
+}
+
+.must-visit__slider-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.must-visit__cards-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.must-visit__cards-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.must-visit__card {
+    flex: 0 0 25%;
+    background-color: var(--secondary-purple);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: left;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.must-visit__card:active {
+    transform: scale(0.98);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.must-visit__icon {
+    width: 50px;
+    height: 50px;
+    background-color: #9b8edc;
+    border-radius: 10px;
+    position: absolute;
+    margin-top: 10px;
+    top: -25px;
+    left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.must-visit__icon::before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.must-visit__icon--1::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233a2a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 17a2 2 0 0 1 2 2v2H6v-2a2 2 0 0 1 2-2h8z"/><path d="M12 9a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/><path d="M12 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>');
+}
+
+.must-visit__icon--2::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233a2a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>');
+}
+
+.must-visit__icon--3::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233a2a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15.2a.5.5 0 0 1 0-.7L12 3.8l-9.2 10.7a.5.5 0 0 1 0 .7l9.2 10.7z"/><path d="M12 3.8v17.4"/><path d="M21.2 15.2l-9.2-10.7"/><path d="M2.8 15.2l9.2-10.7"/></svg>');
+}
+.must-visit__icon--4::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233a2a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M9 10h6m-6 4h4m-4 4h4M9 6h6"/></svg>');
+}
+.must-visit__icon--5::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%233a2a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>');
+}
+
+.must-visit__card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.must-visit__card-text {
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    color: var(--grey-text);
+}
+
+.must-visit__slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.must-visit__slider-btn {
+    background-color: var(--secondary-purple);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.must-visit__slider-btn:hover {
+    background-color: #5d4a8e;
+}
+
+.must-visit__slider-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* SECTION 7: CONTACTS SECTION */
+.contacts-section {
+    background-color: var(--primary-purple);
+    padding: 3rem 5%;
+    color: var(--white);
+    border-top: 1px solid #4a3875;
+}
+
+.contacts-section__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.contacts-section__logo {
+    flex-shrink: 0;
+}
+
+.contacts-section__badge-image {
+    width: 150px;
+}
+
+.contacts-section__info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.contacts-section__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.contacts-section__icon-wrapper {
+    background-color: var(--secondary-purple);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contacts-section__icon {
+    width: 60%;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.contacts-section__icon--location {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>');
+}
+
+.contacts-section__icon--phone {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5l-2.5 2.5a11 11 0 0 0 5 5l2.5-2.5l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/><path d="M15 7a4 4 0 0 1 4 4"/><path d="M15 3a8 8 0 0 1 8 8"/></svg>');
+}
+
+.contacts-section__heading {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.contacts-section__text {
+    font-size: 0.9rem;
+    color: var(--grey-text);
+}
+
+.contacts-section__socials {
+    flex-shrink: 0;
+}
+
+.contacts-section__social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.contacts-section__social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--secondary-purple);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.contacts-section__social-icon:hover {
+    background-color: #5d4a8e;
+}
+
+.contacts-section__social-icon::before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.contacts-section__social-icon--insta::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 3h-8a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5v-8a5 5 0 0 0-5-5zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>');
+}
+.contacts-section__social-icon--fb::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>');
+}
+.contacts-section__social-icon--youtube::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="%239b8edc" points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>');
+}
+
+/* SECTION 8: FOOTER */
+.footer {
+    background-color: var(--white);
+    border-top: 1px solid #4a3875;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.footer__copyright {
+    color: var(--black);
+    font-size: 0.9rem;
+}
+
+/* MEDIA QUERIES for responsiveness */
+@media (max-width: 1200px) {
+    .best-fit-school__cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    /* Main Section */
+    .main-section {
+        padding: 2rem 0;
+    }
+
+    .main-section__content {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .main-section__discover {
+        margin-left: 0 !important;
+        margin-top: 20px !important;
+    }
+
+    .main-section__headline {
+        font-size: 2.5rem;
+    }
+
+    .main-section__discover,
+    .main-section__marquee-wrapper,
+    .main-section__enquire-card {
+        flex: none;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .main-section__event-details {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .main-section__detail-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .main-section__enquire-card {
+        margin-right: 0 !important;
+        margin-top: 30px !important;
+        padding: 2rem;
+    }
+
+    /* Pre-schedule Section */
+    .pre-schedule {
+        flex-direction: column;
+        padding: 2rem 0;
+    }
+
+    .pre-schedule__content {
+        text-align: center;
+        padding: 2rem 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pre-schedule__subheading {
+        font-size: 2rem;
+    }
+
+    .pre-schedule__image-wrapper {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+
+    .pre-schedule__image {
+        mix-blend-mode: normal;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Must Visit Section */
+    .must-visit {
+        padding: 3rem 20px;
+    }
+
+    .must-visit__headline {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .must-visit__card {
+        flex: 0 0 calc(50% - 1rem);
+        min-width: 280px;
+    }
+
+    .must-visit__cards-wrapper {
+        padding: 1rem 0;
+        scroll-snap-type: x mandatory;
+    }
+
+    .must-visit__card {
+        scroll-snap-align: start;
+    }
+
+    /* Best Fit School Section */
+    .best-fit-school {
+        padding: 3rem 20px;
+    }
+
+    .best-fit-school__headline {
+        font-size: 2rem;
+        margin-bottom: 2rem !important;
+    }
+
+    .best-fit-school__cards {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Header */
+    .header__inner {
+        padding: 8px 15px;
+    }
+    
+    .header__badge-image {
+        width: 100px;
+    }
+    
+    .header.scrolled .header__badge-image {
+        width: 80px;
+    }
+
+    .header__register-btn {
+        padding: 0.5rem 1rem;
+        font-size: 14px;
+    }
+
+    .btn__icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Main Section */
+    .main-section {
+        padding: 1.5rem 0;
+    }
+
+    .main-section__headline {
+        font-size: 2rem;
+    }
+
+    .main-section__subhead {
+        font-size: 1rem;
+    }
+
+    .main-section__marquee-column {
+        display: none;
+    }
+
+    .main-section__enquire-card {
+        padding: 1.5rem;
+    }
+
+    .main-section__input {
+        padding: 0.75rem;
+    }
+
+    /* Participating Schools */
+    .participating-schools {
+        padding: 2rem 15px;
+    }
+
+    .participating-schools__taglines {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0;
+    }
+
+    .participating-schools__tagline-card {
+        font-size: 1rem;
+        padding: 1.5rem;
+    }
+
+    .participating-schools__headline {
+        font-size: 2rem;
+        margin: 2rem 0;
+    }
+
+    /* Best Fit School */
+    .best-fit-school__cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .best-fit-school__card {
+        height: 300px;
+    }
+
+    .best-fit-school__card-title {
+        font-size: 1.25rem;
+    }
+
+    /* Must Visit Section */
+    .must-visit__card {
+        flex: 0 0 85%;
+        min-width: 260px;
+    }
+
+    .must-visit__card-title {
+        font-size: 1.1rem;
+    }
+
+    /* Contacts Section */
+    .contacts-section {
+        padding: 2rem 15px;
+    }
+
+    .contacts-section__inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .contacts-section__logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .contacts-section__logo img {
+        margin: 0 auto;
+    }
+
+    .contacts-section__info {
+        width: 100%;
+    }
+
+    .contacts-section__item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .contacts-section__icon-wrapper {
+        margin: 0 auto;
+    }
+
+    .contacts-section__social-icons {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 1rem 15px;
+    }
+
+    .footer__copyright {
+        font-size: 0.8rem;
+    }
+}
+
+/* Participating Schools Section Styles */
+.participating-schools {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    overflow-x: hidden;
+}
+
+.participating-schools__container {
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+}
+
+/* Add viewport meta tag and additional mobile optimizations */
+@media (max-width: 480px) {
+    /* Extra small devices */
+    .main-section__headline {
+        font-size: 1.75rem;
+    }
+
+    .main-section__detail-card {
+        padding: 0.75rem 1rem;
+    }
+
+    .main-section__enquire-card {
+        padding: 1.25rem;
+    }
+
+    .main-section__input {
+        padding: 0.75rem;
+        font-size: 14px;
+    }
+
+    .participating-schools__tagline-card {
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+
+    .must-visit__card {
+        flex: 0 0 90%;
+        min-width: 240px;
+    }
+
+    .best-fit-school__card {
+        height: 250px;
+    }
+
+    .pre-schedule__subheading {
+        font-size: 1.75rem;
+    }
+
+    .contacts-section__text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Improve touch targets for mobile */
+@media (hover: none) {
+    .btn,
+    .must-visit__slider-btn,
+    .contacts-section__social-icon {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .main-section__input {
+        min-height: 44px;
+    }
+}
+
+/* Statistics Section */
+.statistics {
+    margin-bottom: 60px;
+}
+
+.statistics__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(103, 58, 183, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%);
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(103, 58, 183, 0.2);
+}
+
+.stat-card__icon {
+    margin-bottom: 20px;
+}
+
+.laurel-icon {
+    width: 40px;
+    height: 40px;
+    color: #ffd700;
+}
+
+.stat-card__number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #673ab7;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.stat-card__label {
+    font-size: 1rem;
+    color: #666;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+/* Participating Schools Header */
+.participating-schools__header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.participating-schools__title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #673ab7;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.participating-schools__title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%);
+    border-radius: 2px;
+}
+
+/* School Logos Section */
+.school-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.school-logos__row {
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+}
+
+.school-logos__track {
+    display: flex;
+    gap: 40px;
+    animation: slideLeft 50s infinite linear;
+    width: fit-content;
+}
+
+.school-logos__track--reverse {
+    animation: slideRight 50s infinite linear;
+}
+
+.school-logos__track:hover {
+    animation-play-state: paused;
+}
+
+.school-logo-card {
+    flex: 0 0 200px;
+    height: 120px;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.school-logo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(103, 58, 183, 0.15);
+    border-color: rgba(103, 58, 183, 0.2);
+}
+
+.school-logo-card__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(0);
+    transition: filter 0.3s ease;
+}
+
+.school-logo-card:hover .school-logo-card__image {
+    filter: grayscale(0) brightness(1.1);
+}
+
+/* Animations for school logos */
+@keyframes slideLeft {
+    0% {
+        transform: translateX(150%);
+    }
+    100% {
+        transform: translateX(-150%);
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(-150%);
+    }
+    100% {
+        transform: translateX(150%);
+    }
+}
+
+/* Responsive adjustments for participating schools */
+@media (max-width: 1024px) {
+    .statistics__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .participating-schools__title {
+        font-size: 2.5rem;
+    }
+    
+    .school-logo-card {
+        flex: 0 0 180px;
+        height: 100px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .participating-schools {
+        padding: 60px 0;
+    }
+    
+    .statistics__grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px 15px;
+    }
+    
+    .stat-card__number {
+        font-size: 2rem;
+    }
+    
+    .participating-schools__title {
+        font-size: 2rem;
+    }
+    
+    .school-logo-card {
+        flex: 0 0 150px;
+        height: 80px;
+        padding: 10px;
+    }
+    
+    .school-logos {
+        gap: 20px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .marquee-column__track {
+        animation: none;
+    }
+    
+    .school-logos__track,
+    .school-logos__track--reverse {
+        animation: none;
+    }
+}
+
+/* Cookie Consent Section */
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cookie-consent.hidden {
+    transform: translateY(100%);
+}
+
+.cookie-consent__text {
+    flex: 1;
+    margin-right: 24px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.cookie-consent__settings {
+    color: #2196F3;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.cookie-consent__settings:hover {
+    text-decoration: underline;
+}
+
+.cookie-consent__buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.cookie-consent__button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.cookie-consent__button--accept {
+    background-color: #2196F3;
+    color: white;
+}
+
+.cookie-consent__button--accept:hover {
+    background-color: #1976D2;
+}
+
+.cookie-consent__button--decline {
+    background-color: #424242;
+    color: white;
+}
+
+.cookie-consent__button--decline:hover {
+    background-color: #616161;
+}
+
+.cookie-consent__button--close {
+    background: none;
+    padding: 4px;
+    margin-left: 8px;
+    color: #757575;
+}
+
+.cookie-consent__button--close:hover {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .cookie-consent {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .cookie-consent__text {
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
+}
+
+.participating-schools__tagline-card {
+  position: relative;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+
+.participating-schools__tagline-card::before,
+.participating-schools__tagline-card::after {
+  content: '';
+  position: absolute;
+  width: 100px; /* Adjust size of the leaf image */
+  height: 100px; /* Adjust size of the leaf image */
+  background-image: url('/mnt/data/leavesOpeningSticky.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.participating-schools__tagline-card::before {
+  top: -30px; /* Adjust positioning of left leaf */
+  left: -30px;
+  transform: rotate(45deg); /* Adjust rotation */
+}
+
+.participating-schools__tagline-card::after {
+  bottom: -30px; /* Adjust positioning of right leaf */
+  right: -30px;
+  transform: rotate(-45deg); /* Adjust rotation for the opposite side */
+}
