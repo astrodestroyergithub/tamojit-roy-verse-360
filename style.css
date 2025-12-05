@@ -836,7 +836,7 @@ body {
 }
 
 @media (max-width: 1368px) {
-    .main-section__marquee-track .main-section__marquee-track--side {
+    .main-section__marquee-wrapper {
         display: none;
     }
 }
