@@ -841,16 +841,16 @@ body {
         padding-left: 2em;
     }
 
+    .main-section__marquee-column {
+        padding: 0.1rem;
+    }
+
     .main-section__marquee-wrapper {
         max-width: auto;
     }
 
     .main-section__marquee-wrapper .main-section__marquee-column:last-child {
         display: none;
-    }
-
-    .main-section__marquee-image {
-        width: 90%;
     }
 
     .main-section__enquire-card {
