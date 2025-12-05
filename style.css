@@ -838,7 +838,7 @@ body {
     .main-section__discover {
         margin-left: 0;
         margin-right: none;
-        padding-left: 0.25em;
+        padding-left: 0.05em;
     }
 
     .main-section__marquee-wrapper {
@@ -851,7 +851,7 @@ body {
 
     .main-section__enquire-card {
         margin-left: none;
-        margin-right: 0.25em;
+        margin-right: 0.05em;
     }
 }
 
