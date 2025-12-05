@@ -842,7 +842,7 @@ body {
     }
 
     .main-section__marquee-wrapper {
-        max-width: 400px;
+        max-width: auto;
     }
 
     .main-section__marquee-wrapper .main-section__marquee-column:last-child {
