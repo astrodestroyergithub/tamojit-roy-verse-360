@@ -835,6 +835,100 @@ body {
     }
 }
 
+@media (max-width: 1024px) and (min-width: 769px) {
+    .main-section__content {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+        padding: 0 40px;
+    }
+    
+    .main-section__discover {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        max-width: 100%;
+        text-align: center;
+        flex: none;
+    }
+    
+    .main-section__headline {
+        font-size: 2.5rem;
+    }
+    
+    /* Hide marquee on medium screens */
+    .main-section__marquee-wrapper {
+        display: none;
+    }
+    
+    .main-section__enquire-card {
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        max-width: 600px;
+        width: 100%;
+        flex: none;
+    }
+    
+    .main-section__event-details {
+        justify-content: center;
+    }
+}
+
+/* iPad, MacBook Pro screens (768px-1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .main-section {
+        padding: 3rem 0;
+    }
+
+    .main-section__content {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+        padding: 0 40px;
+    }
+    
+    .main-section__discover {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        flex: none;
+    }
+    
+    .main-section__headline {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .main-section__subhead {
+        font-size: 1.1rem;
+    }
+    
+    /* Hide marquee on medium screens to fit content properly */
+    .main-section__marquee-wrapper {
+        display: none;
+    }
+    
+    .main-section__enquire-card {
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        max-width: 600px;
+        width: 100%;
+        flex: none;
+    }
+    
+    .main-section__event-details {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .main-section__detail-card {
+        width: auto;
+        min-width: 200px;
+    }
+}
+
 @media (max-width: 992px) {
     /* Main Section */
     .main-section {
@@ -849,7 +943,10 @@ body {
 
     .main-section__discover {
         margin-left: 0 !important;
-        margin-top: 20px !important;
+        margin-top: 0 !important;
+        flex: none;
+        width: 100%;
+        max-width: 600px;
     }
 
     .main-section__headline {
@@ -881,7 +978,9 @@ body {
         margin-top: 30px !important;
         padding: 2rem;
     }
+}
 
+@media (max-width: 992px) {
     /* Pre-schedule Section */
     .pre-schedule {
         flex-direction: column;
@@ -974,31 +1073,6 @@ body {
     .btn__icon {
         width: 20px;
         height: 20px;
-    }
-
-    /* Main Section */
-    .main-section {
-        padding: 1.5rem 0;
-    }
-
-    .main-section__headline {
-        font-size: 2rem;
-    }
-
-    .main-section__subhead {
-        font-size: 1rem;
-    }
-
-    .main-section__marquee-column {
-        display: none;
-    }
-
-    .main-section__enquire-card {
-        padding: 1.5rem;
-    }
-
-    .main-section__input {
-        padding: 0.75rem;
     }
 
     /* Participating Schools */
