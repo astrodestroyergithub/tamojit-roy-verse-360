@@ -836,8 +836,16 @@ body {
 }
 
 @media (max-width: 1368px) {
-    .main-section__marquee-wrapper {
+    .main-section__discover {
+        margin-left: 10px;
+    }
+
+    .main-section__marquee-wrapper .main-section__marquee-column:last-child {
         display: none;
+    }
+
+    .main-section__enquire-card {
+        margin-right: 10px;
     }
 }
 
