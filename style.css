@@ -841,6 +841,10 @@ body {
         padding-left: 2em;
     }
 
+    .main-section__marquee-wrapper .main-section__marquee-column:first-child {
+        display: none;
+    }
+
     .main-section__marquee-wrapper .main-section__marquee-column:last-child {
         display: none;
     }
