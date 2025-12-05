@@ -841,10 +841,6 @@ body {
         padding-left: 2em;
     }
 
-    .main-section__marquee-column {
-        padding: 0.1rem;
-    }
-
     .main-section__marquee-wrapper {
         max-width: auto;
     }
