@@ -839,7 +839,7 @@ body {
     .main-section__discover {
         margin-left: 0;
         margin-right: none;
-        padding-left: 10px;
+        padding-left: 2em;
     }
 
     .main-section__marquee-wrapper .main-section__marquee-column:last-child {
@@ -849,7 +849,7 @@ body {
     .main-section__enquire-card {
         margin-left: none;
         margin-right: 0;
-        padding-right: 10px;
+        padding-right: 2em;
     }
 }
 
