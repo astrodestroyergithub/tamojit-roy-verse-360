@@ -836,7 +836,7 @@ body {
 
 @media (max-width: 1368px) {
     .main-content__content {
-        gap: 0.5rem;
+        max-width: 1200px;
     }
 
     .main-section__discover {
