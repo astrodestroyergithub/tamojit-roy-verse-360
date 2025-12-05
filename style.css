@@ -835,6 +835,12 @@ body {
     }
 }
 
+@media (max-width: 1368px) {
+    .main-section__marquee-track--side {
+        display: none;
+    }
+}
+
 @media (max-width: 1200px) {
     .best-fit-school__cards {
         grid-template-columns: repeat(2, 1fr);
