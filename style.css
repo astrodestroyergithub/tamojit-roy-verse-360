@@ -836,9 +836,8 @@ body {
 
 @media (max-width: 1368px) {
     .main-section__discover {
-        margin-left: 0;
+        margin-left: 0.05rem;
         margin-right: none;
-        padding-left: 0.05em;
     }
 
     .main-section__marquee-wrapper {
