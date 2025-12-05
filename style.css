@@ -829,6 +829,12 @@ body {
 }
 
 /* MEDIA QUERIES for responsiveness */
+@media (max-width: 1368px) {
+    .main-section__marquee-wrapper {
+        display: none;
+    }
+}
+
 @media (max-width: 1200px) {
     .best-fit-school__cards {
         grid-template-columns: repeat(2, 1fr);
@@ -857,7 +863,6 @@ body {
     }
 
     .main-section__discover,
-    .main-section__marquee-wrapper,
     .main-section__enquire-card {
         flex: none;
         width: 100%;
