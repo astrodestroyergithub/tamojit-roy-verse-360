@@ -193,7 +193,6 @@ body {
 }
 
 /* Marquee Section */
-/* Marquee Section */
 .main-section__marquee-wrapper {
     display: flex;
     flex: 1;
@@ -836,6 +835,10 @@ body {
 }
 
 @media (max-width: 1368px) {
+    .main-content__content {
+        gap: 1.2rem;
+    }
+
     .main-section__discover {
         margin-left: 0;
         margin-right: none;
@@ -866,12 +869,10 @@ body {
     }
 
     .main-section__discover {
-        margin-left: 0; /* ignore previous inline styles */
         transform: translateX(-40px);
     }
 
     .main-section__enquire-card {
-        margin-right: 0;
         transform: translateX(40px);
     }
 }
