@@ -109,3 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+document.getElementById('pre-schedule-btn').addEventListener('click', function() {
+    window.location.href = 'appointmentForm.html';
+});

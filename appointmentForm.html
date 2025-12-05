@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Appointment - Tamojit's Services</title>
+    <link rel="stylesheet" href="appointmentForm.css">
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h1 class="form-title">Schedule Your Appointment</h1>
+            <p class="form-subtitle">Let's discuss how I can help bring your vision to life</p>
+        </div>
+
+        <form id="appointment-form" class="appointment-form">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="company" class="form-label">Company/Organization (Optional)</label>
+                    <input type="text" id="company" name="company" class="form-input">
+                </div>
+            </div>
+
+            <!-- Services Required Section -->
+            <div class="form-section">
+                <h2 class="section-title">Services Required <span class="required">*</span></h2>
+                <p class="section-description">Select all services you're interested in</p>
+                
+                <div class="checkbox-grid">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Video Editing Services" class="form-checkbox">
+                        <span class="checkbox-text">Video Editing Services</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Graphic Design Solutions" class="form-checkbox">
+                        <span class="checkbox-text">Graphic Design Solutions</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Content Creation Support" class="form-checkbox">
+                        <span class="checkbox-text">Content Creation Support</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Full-Stack Development" class="form-checkbox">
+                        <span class="checkbox-text">Full-Stack Development</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Frontend Development" class="form-checkbox">
+                        <span class="checkbox-text">Frontend Development</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Backend Development" class="form-checkbox">
+                        <span class="checkbox-text">Backend Development</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="UI/UX Design" class="form-checkbox">
+                        <span class="checkbox-text">UI/UX Design</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Mobile App Development" class="form-checkbox">
+                        <span class="checkbox-text">Mobile App Development</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Database Design & Management" class="form-checkbox">
+                        <span class="checkbox-text">Database Design & Management</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="API Development & Integration" class="form-checkbox">
+                        <span class="checkbox-text">API Development & Integration</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Website Maintenance & Support" class="form-checkbox">
+                        <span class="checkbox-text">Website Maintenance & Support</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="SEO Optimization" class="form-checkbox">
+                        <span class="checkbox-text">SEO Optimization</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Social Media Management" class="form-checkbox">
+                        <span class="checkbox-text">Social Media Management</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Branding & Identity Design" class="form-checkbox">
+                        <span class="checkbox-text">Branding & Identity Design</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Motion Graphics & Animation" class="form-checkbox">
+                        <span class="checkbox-text">Motion Graphics & Animation</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="Technical Consultation" class="form-checkbox">
+                        <span class="checkbox-text">Technical Consultation</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherServices" class="form-label">Other Services (Please specify)</label>
+                    <input type="text" id="otherServices" name="otherServices" class="form-input">
+                </div>
+            </div>
+
+            <!-- Project Details Section -->
+            <div class="form-section">
+                <h2 class="section-title">Project Details</h2>
+                
+                <div class="form-group">
+                    <label for="projectTitle" class="form-label">Project Title <span class="required">*</span></label>
+                    <input type="text" id="projectTitle" name="projectTitle" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDescription" class="form-label">Project Description <span class="required">*</span></label>
+                    <textarea id="projectDescription" name="projectDescription" class="form-textarea" rows="5" required placeholder="Please provide a detailed description of your project, including goals, target audience, and any specific requirements..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="budget" class="form-label">Estimated Budget <span class="required">*</span></label>
+                        <select id="budget" name="budget" class="form-select" required>
+                            <option value="">Select budget range</option>
+                            <option value="Under $500">Under $500</option>
+                            <option value="$500 - $1,000">$500 - $1,000</option>
+                            <option value="$1,000 - $2,500">$1,000 - $2,500</option>
+                            <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                            <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                            <option value="Above $10,000">Above $10,000</option>
+                            <option value="To be discussed">To be discussed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeline" class="form-label">Expected Timeline <span class="required">*</span></label>
+                        <select id="timeline" name="timeline" class="form-select" required>
+                            <option value="">Select timeline</option>
+                            <option value="Urgent (Within 1 week)">Urgent (Within 1 week)</option>
+                            <option value="1-2 weeks">1-2 weeks</option>
+                            <option value="2-4 weeks">2-4 weeks</option>
+                            <option value="1-2 months">1-2 months</option>
+                            <option value="2-3 months">2-3 months</option>
+                            <option value="3+ months">3+ months</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliverables" class="form-label">Expected Deliverables</label>
+                    <textarea id="deliverables" name="deliverables" class="form-textarea" rows="3" placeholder="List the specific deliverables you expect from this project..."></textarea>
+                </div>
+            </div>
+
+            <!-- Appointment Scheduling Section -->
+            <div class="form-section">
+                <h2 class="section-title">Preferred Appointment Details</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="preferredDate" class="form-label">Preferred Date <span class="required">*</span></label>
+                        <input type="date" id="preferredDate" name="preferredDate" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferredTime" class="form-label">Preferred Time <span class="required">*</span></label>
+                        <input type="time" id="preferredTime" name="preferredTime" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="alternateDate" class="form-label">Alternate Date (Optional)</label>
+                        <input type="date" id="alternateDate" name="alternateDate" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternateTime" class="form-label">Alternate Time (Optional)</label>
+                        <input type="time" id="alternateTime" name="alternateTime" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="meetingType" class="form-label">Meeting Type <span class="required">*</span></label>
+                    <select id="meetingType" name="meetingType" class="form-select" required>
+                        <option value="">Select meeting type</option>
+                        <option value="Video Call (Zoom/Google Meet)">Video Call (Zoom/Google Meet)</option>
+                        <option value="Phone Call">Phone Call</option>
+                        <option value="In-Person Meeting">In-Person Meeting</option>
+                        <option value="Email Discussion">Email Discussion</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="timezone" class="form-label">Your Timezone <span class="required">*</span></label>
+                    <select id="timezone" name="timezone" class="form-select" required>
+                        <option value="">Select timezone</option>
+                        <option value="IST (UTC+5:30)">IST (UTC+5:30) - India</option>
+                        <option value="EST (UTC-5)">EST (UTC-5) - Eastern US</option>
+                        <option value="PST (UTC-8)">PST (UTC-8) - Pacific US</option>
+                        <option value="GMT (UTC+0)">GMT (UTC+0) - UK</option>
+                        <option value="CET (UTC+1)">CET (UTC+1) - Central Europe</option>
+                        <option value="JST (UTC+9)">JST (UTC+9) - Japan</option>
+                        <option value="AEST (UTC+10)">AEST (UTC+10) - Australia East</option>
+                        <option value="Other">Other (Please specify in notes)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Additional Information</h2>
+                
+                <div class="form-group">
+                    <label for="referralSource" class="form-label">How did you hear about my services?</label>
+                    <select id="referralSource" name="referralSource" class="form-select">
+                        <option value="">Select source</option>
+                        <option value="Google Search">Google Search</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Referral from friend/colleague">Referral from friend/colleague</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="Portfolio Website">Portfolio Website</option>
+                        <option value="Previous Client">Previous Client</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="attachments" class="form-label">Relevant Documents/Files (Optional)</label>
+                    <input type="file" id="attachments" name="attachments" class="form-file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip">
+                    <p class="form-help-text">You can attach project briefs, reference materials, or any relevant documents (Max 10MB)</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalNotes" class="form-label">Additional Notes/Requirements</label>
+                    <textarea id="additionalNotes" name="additionalNotes" class="form-textarea" rows="4" placeholder="Any other information you'd like me to know before our meeting..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label checkbox-label--inline">
+                        <input type="checkbox" name="urgentRequest" value="Yes" class="form-checkbox">
+                        <span class="checkbox-text">This is an urgent request</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label checkbox-label--inline">
+                        <input type="checkbox" name="nda" value="Yes" class="form-checkbox">
+                        <span class="checkbox-text">NDA required for this project</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.9576 6.00001L19.0002 12.0426L12.9576 18.0852" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 12.0425H18.8471" stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="btn__text">SCHEDULE APPOINTMENT</span>
+                </button>
+                <a href="index.html" class="back-link">← Back to Home</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#4CAF50" stroke-width="2"/>
+                    <path d="M8 12L11 15L16 9" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="modal-title">Appointment Request Sent!</h2>
+            <p class="modal-message">
+                Thank you for reaching out and attempting to schedule an appointment with Tamojit! 
+                <br><br>
+                Your appointment request has been successfully received. Tamojit will review your request and check his availability. 
+                <br><br>
+                You will receive a confirmation email within <strong>24 hours</strong> regarding whether the appointment can be scheduled based on availability.
+                <br><br>
+                Please wait patiently for the response. Thank you for your interest!
+            </p>
+            <button class="modal-btn" onclick="window.location.href='index.html'">Return to Home</button>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="appointmentForm.js"></script>
+</body>
+</html>
