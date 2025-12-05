@@ -835,18 +835,6 @@ body {
 }
 
 @media (max-width: 1368px) {
-    .main-section__headline {
-        font-size: 2rem;
-    }
-
-    .main-section__detail-title {
-        font-size: 0.4rem;
-    }
-
-    .main-section__detail-text {
-        font-size: 0.4rem;
-    }
-
     .main-section__discover {
         margin-left: 0;
         margin-right: none;
@@ -859,6 +847,10 @@ body {
 
     .main-section__marquee-wrapper .main-section__marquee-column:last-child {
         display: none;
+    }
+
+    .main-section__marquee-image {
+        width: 90%;
     }
 
     .main-section__enquire-card {
