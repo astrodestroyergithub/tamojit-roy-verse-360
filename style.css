@@ -829,15 +829,42 @@ body {
 }
 
 /* MEDIA QUERIES for responsiveness */
-@media (max-width: 1368px) {
-    .main-section__marquee-wrapper {
-        display: none;
+@media (min-width: 1400px) {
+    .main-section__content {
+        max-width: 1600px;
     }
 }
 
 @media (max-width: 1200px) {
     .best-fit-school__cards {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-section__content {
+        align-items: flex-start;
+        gap: 4rem;
+    }
+
+    .main-section__discover {
+        margin-left: 0; /* ignore previous inline styles */
+        transform: translateX(-40px);
+    }
+
+    .main-section__enquire-card {
+        margin-right: 0;
+        transform: translateX(40px);
+    }
+}
+
+@media (min-width: 1200px) {
+    :root {
+        --marquee-image-height: 280px;
+        --marquee-gap: 20px;
+    }
+    .main-section__marquee-column {
+        height: calc((var(--marquee-image-height) * 1.6) + var(--marquee-gap));
     }
 }
 
