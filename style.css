@@ -834,6 +834,26 @@ body {
     }
 }
 
+@media (max-width: 1470px) {
+    .main-section__discover {
+        padding-left: 0.5rem;
+        margin-right: none;
+    }
+
+    .main-section__marquee-wrapper {
+        max-width: auto;
+    }
+
+    .main-section__marquee-wrapper .main-section__marquee-column:last-child {
+        display: none;
+    }
+
+    .main-section__enquire-card {
+        margin-left: none;
+        padding-right: 0.5em;
+    }
+}
+
 @media (max-width: 1368px) {
     .main-section__discover {
         padding-left: 0.5rem;
