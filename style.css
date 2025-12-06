@@ -856,9 +856,8 @@ body {
 
 @media (max-width: 1368px) {
     .main-section__discover {
-        padding-left: 0.5rem;
-        margin-left: none;
-        margin-right: none;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .main-section__marquee-wrapper {
@@ -870,9 +869,8 @@ body {
     }
 
     .main-section__enquire-card {
-        margin-left: none;
-        margin-right: none;
-        padding-right: 0.5em;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
