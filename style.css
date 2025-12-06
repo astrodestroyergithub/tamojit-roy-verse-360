@@ -857,6 +857,7 @@ body {
 @media (max-width: 1368px) {
     .main-section__discover {
         padding-left: 0.5rem;
+        margin-left: none;
         margin-right: none;
     }
 
@@ -870,6 +871,7 @@ body {
 
     .main-section__enquire-card {
         margin-left: none;
+        margin-right: none;
         padding-right: 0.5em;
     }
 }
