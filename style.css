@@ -813,6 +813,9 @@ body {
 .contacts-section__social-icon--youtube::before {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon fill="%239b8edc" points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>');
 }
+.contacts-section__social-icon--x::before {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%239b8edc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.9 1.15h3.68l-8.05 9.2L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93Z"/></svg>');
+}
 
 /* SECTION 8: FOOTER */
 .footer {
