@@ -11,9 +11,11 @@ const pool = new Pool({
 exports.handler = async (event, context) => {
     // Enable CORS
     const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Origin': 'https://tamojitroyverse360.netlify.app',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Max-Age': '86400',
+        'Referrer-Policy': 'no-referrer',
         'Content-Type': 'application/json'
     };
 
@@ -22,7 +24,7 @@ exports.handler = async (event, context) => {
         return {
             statusCode: 200,
             headers,
-            body: ''
+            body: JSON.stringify({ ok: true })
         };
     }
 
