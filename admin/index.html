@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Newsletter Manager</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>📧 Admin Login</h1>
+                <p>Newsletter Management System</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input 
+                        type="password" 
+                        id="admin-password" 
+                        name="password" 
+                        placeholder="Enter admin password"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span>Login</span>
+                </button>
+                
+                <div id="error-message" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('admin-password').value;
+            const errorMsg = document.getElementById('error-message');
+            const btn = e.target.querySelector('button');
+            
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Verifying...';
+            errorMsg.textContent = '';
+            
+            try {
+                const response = await fetch('/.netlify/functions/admin-auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Store token
+                    localStorage.setItem('admin_token', data.token);
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMsg.textContent = data.error || 'Invalid password';
+                }
+            } catch (error) {
+                errorMsg.textContent = 'Connection error. Please try again.';
+            } finally {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Login';
+            }
+        });
+    </script>
+</body>
+</html>
