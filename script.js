@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             btnText.textContent = 'SUBSCRIBING...';
             
             try {
-                const response = await fetch('/netlify/functions/subscribe', {
+                const response = await fetch('/.netlify/functions/subscribe', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
