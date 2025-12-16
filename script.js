@@ -113,3 +113,86 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('pre-schedule-btn').addEventListener('click', function() {
     window.location.href = 'appointmentForm.html';
 });
+
+// Newsletter Form Submission
+document.addEventListener('DOMContentLoaded', function() {
+    const newsletterForm = document.getElementById('newsletter-form');
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const emailInput = document.getElementById('newsletter-email');
+            const submitBtn = form.querySelector('.newsletter__submit-btn');
+            const btnText = submitBtn.querySelector('.btn__text');
+            const email = emailInput.value.trim();
+            
+            // Remove any existing messages
+            const existingMessages = form.querySelectorAll('.newsletter__success, .newsletter__error');
+            existingMessages.forEach(msg => msg.remove());
+            
+            // Disable button and show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            btnText.textContent = 'SUBSCRIBING...';
+            
+            try {
+                const response = await fetch('/.netlify/functions/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Success
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'newsletter__success show';
+                    successMsg.textContent = '🎉 ' + data.message;
+                    form.appendChild(successMsg);
+                    
+                    // Reset form
+                    form.reset();
+                    
+                    // Remove success message after 5 seconds
+                    setTimeout(() => {
+                        successMsg.classList.remove('show');
+                        setTimeout(() => successMsg.remove(), 300);
+                    }, 5000);
+                } else {
+                    // Error
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'newsletter__error show';
+                    errorMsg.textContent = '❌ ' + (data.error || 'Failed to subscribe. Please try again.');
+                    form.appendChild(errorMsg);
+                    
+                    // Remove error message after 5 seconds
+                    setTimeout(() => {
+                        errorMsg.classList.remove('show');
+                        setTimeout(() => errorMsg.remove(), 300);
+                    }, 5000);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'newsletter__error show';
+                errorMsg.textContent = '❌ Network error. Please check your connection and try again.';
+                form.appendChild(errorMsg);
+                
+                setTimeout(() => {
+                    errorMsg.classList.remove('show');
+                    setTimeout(() => errorMsg.remove(), 300);
+                }, 5000);
+            } finally {
+                // Re-enable button
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                btnText.textContent = 'SUBSCRIBE';
+            }
+        });
+    }
+});

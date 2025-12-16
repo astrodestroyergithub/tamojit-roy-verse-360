@@ -1,0 +1,8 @@
+{
+  "name": "tamojit-roy-verse-360",
+  "version": "1.0.0",
+  "description": "Portfolio website with newsletter subscription",
+  "dependencies": {
+    "pg": "^8.11.3"
+  }
+}
