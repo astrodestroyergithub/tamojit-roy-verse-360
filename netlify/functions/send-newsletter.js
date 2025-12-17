@@ -80,6 +80,7 @@ function createEmailHTML(newsletter) {
 }
 
 exports.handler = async (event, context) => {
+    console.log('Send newsletter function invoked...');
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
