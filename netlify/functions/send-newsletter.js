@@ -152,6 +152,7 @@ exports.handler = async (event, context) => {
                     });
 
                     // Log successful send
+                    console.log(`Trying to successfully send newsletter...`);
                     await pool.query(
                         `INSERT INTO newsletter_sends (newsletter_id, subscriber_email, status, sent_at)
                          VALUES ($1, $2, 'sent', NOW())`,
@@ -159,6 +160,7 @@ exports.handler = async (event, context) => {
                     );
 
                     successCount++;
+                    console.log(`Success count incremented...`);
                     return { success: true, email: subscriber.email };
                 } catch (error) {
                     console.error(`Failed to send to ${subscriber.email}:`, error);
