@@ -145,7 +145,7 @@ exports.handler = async (event, context) => {
             const sendPromises = batch.map(async (subscriber) => {
                 try {
                     await resend.emails.send({
-                        from: process.env.FROM_EMAIL || 'newsletter@tamojitroyverse360.com',
+                        from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
                         to: subscriber.email,
                         subject: newsletter.subject,
                         html: emailHTML
