@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body class="login-page">
+    <script>
+        (function () {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+            if (isMobile) {
+            window.location.replace('/admin/mobile-block.html');
+            }
+        })();
+    </script>
+
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">

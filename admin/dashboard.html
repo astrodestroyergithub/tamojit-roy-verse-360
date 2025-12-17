@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+    <script>
+        (function () {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+            if (isMobile) {
+            window.location.replace('/admin/mobile-block.html');
+            }
+        })();
+    </script>
+
     <div class="dashboard">
         <!-- Sidebar -->
         <aside class="sidebar">

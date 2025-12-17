@@ -714,3 +714,34 @@ body {
         width: 100%;
     }
 }
+
+/* Desktop-only block screen */
+
+.desktop-only-card {
+    text-align: center;
+}
+
+.desktop-only-content {
+    margin-top: 30px;
+}
+
+.desktop-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+/* Make it extra polished on mobile */
+@media (max-width: 768px) {
+    .desktop-only-card {
+        padding: 30px 20px;
+    }
+
+    .desktop-only-card h1 {
+        font-size: 1.6rem;
+    }
+
+    .desktop-only-card p {
+        font-size: 0.95rem;
+        color: var(--text-light);
+    }
+}
