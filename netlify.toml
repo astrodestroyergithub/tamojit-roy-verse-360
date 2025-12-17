@@ -3,12 +3,4 @@
 
 [functions]
   node_bundler = "esbuild"
-
-[[plugins]]
-  package = "@netlify/plugin-scheduled-functions"
-
-[plugins.inputs]
-  [plugins.inputs.schedule]
-    cron = "*/15 * * * *"  # Run every 15 minutes
-    function = "check-scheduled"
   

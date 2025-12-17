@@ -80,10 +80,9 @@ function createEmailHTML(newsletter) {
 }
 
 exports.handler = async (event, context) => {
-    console.log('Send newsletter function invoked...');
     const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
@@ -146,14 +145,13 @@ exports.handler = async (event, context) => {
             const sendPromises = batch.map(async (subscriber) => {
                 try {
                     await resend.emails.send({
-                        from: 'onboarding@resend.dev',
+                        from: process.env.FROM_EMAIL || 'newsletter@tamojitroyverse360.com',
                         to: subscriber.email,
                         subject: newsletter.subject,
                         html: emailHTML
                     });
 
                     // Log successful send
-                    console.log(`Trying to successfully send newsletter...`);
                     await pool.query(
                         `INSERT INTO newsletter_sends (newsletter_id, subscriber_email, status, sent_at)
                          VALUES ($1, $2, 'sent', NOW())`,
@@ -161,7 +159,6 @@ exports.handler = async (event, context) => {
                     );
 
                     successCount++;
-                    console.log(`Success count incremented...`);
                     return { success: true, email: subscriber.email };
                 } catch (error) {
                     console.error(`Failed to send to ${subscriber.email}:`, error);
