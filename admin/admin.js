@@ -261,6 +261,17 @@ document
     btn.textContent = "Processing...";
 
     try {
+      /*** Code to be removed completely as per instructions 
+      const { response, data } = await apiCall(
+        "/.netlify/functions/create-newsletter",
+        {
+          method: "POST",
+          body: JSON.stringify(newsletter),
+        }
+      );
+      ***/
+
+      // The above was replaced with the below exact code as per instructions
       const { response, data } = await apiCall(
         "/.netlify/functions/create-newsletter",
         {
@@ -275,6 +286,7 @@ document
           body: JSON.stringify({ newsletter_id: data.id }),
         });
       }
+      // End of code to be used now after removing the old code snippet
 
       if (response.ok) {
         alert("Newsletter created successfully!");
