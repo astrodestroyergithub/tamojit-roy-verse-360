@@ -159,7 +159,7 @@ document
     a.download = `subscribers-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
   });
-  
+
 // Load Newsletters
 async function loadNewsletters() {
   const { data: newsletters } = await apiCall(
@@ -324,6 +324,86 @@ document
       btn.textContent = "Save as Draft";
     }
   });
+
+// Copy Emails Modal Functionality
+const copyEmailsBtn = document.getElementById("copy-emails-btn");
+const copyEmailsModal = document.getElementById("copy-emails-modal");
+const modalOverlay = document.getElementById("modal-overlay");
+const modalClose = document.getElementById("modal-close");
+const modalCancel = document.getElementById("modal-cancel");
+const copyToClipboardBtn = document.getElementById("copy-to-clipboard-btn");
+const emailsTextarea = document.getElementById("emails-textarea");
+const emailCount = document.getElementById("email-count");
+
+// Open modal
+copyEmailsBtn.addEventListener("click", async () => {
+  // Fetch subscribers
+  const { data: subscribers } = await apiCall(
+    "/.netlify/functions/get-subscribers"
+  );
+
+  if (subscribers.length === 0) {
+    alert("No subscribers found!");
+    return;
+  }
+
+  // Create comma-separated email list
+  const emailList = subscribers.map((s) => s.email).join(", ");
+
+  // Update modal content
+  emailsTextarea.value = emailList;
+  emailCount.textContent = subscribers.length;
+
+  // Show modal
+  copyEmailsModal.classList.add("show");
+  document.body.style.overflow = "hidden"; // Prevent background scrolling
+});
+
+// Close modal functions
+function closeModal() {
+  copyEmailsModal.classList.remove("show");
+  document.body.style.overflow = "auto"; // Re-enable scrolling
+}
+
+modalClose.addEventListener("click", closeModal);
+modalCancel.addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", closeModal);
+
+// Close on ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && copyEmailsModal.classList.contains("show")) {
+    closeModal();
+  }
+});
+
+// Copy to clipboard
+copyToClipboardBtn.addEventListener("click", async () => {
+  const emailList = emailsTextarea.value;
+
+  try {
+    // Modern clipboard API
+    await navigator.clipboard.writeText(emailList);
+
+    // Show success feedback
+    const btnText = copyToClipboardBtn.querySelector(".btn-text");
+    const originalText = btnText.textContent;
+
+    copyToClipboardBtn.classList.add("btn-success");
+    btnText.textContent = "Copied!";
+
+    // Reset after 2 seconds
+    setTimeout(() => {
+      copyToClipboardBtn.classList.remove("btn-success");
+      btnText.textContent = originalText;
+    }, 2000);
+  } catch (err) {
+    // Fallback for older browsers
+    emailsTextarea.select();
+    document.execCommand("copy");
+
+    alert("Email addresses copied to clipboard!");
+  }
+});
 
 // Initialize
 loadOverview();
