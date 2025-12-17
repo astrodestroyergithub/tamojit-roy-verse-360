@@ -31,9 +31,9 @@
                     <span class="icon">✏️</span>
                     <span>Create New</span>
                 </button>
-                <button class="nav-item" data-tab="subscribers">
-                    <span class="icon">👥</span>
-                    <span>Subscribers</span>
+                <button class="nav-item" data-tab="manualsend">
+                    <span class="icon">✍️</span>
+                    <span>Manual Send</span>
                 </button>
             </nav>
             <div class="sidebar-footer">
@@ -179,6 +179,30 @@ You can use simple formatting:
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- Manual Send Tab -->
+            <div class="tab-content" id="manualsend-tab">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>All Subscribers</h2>
+                        <button id="export-manualsend" class="btn-secondary">Manual Send</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Subscribed Date</th>
+                                    <th>IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody id="manualsend-table-body">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
