@@ -33,7 +33,6 @@ exports.handler = async (event, context) => {
 
     try {
         const { title, subject, content, image_url, status, scheduled_at } = JSON.parse(event.body);
-        console.log('Creating newsletter with data:', { title, subject, content, image_url, status, scheduled_at });
 
         // Validate required fields
         if (!title || !subject || !content) {

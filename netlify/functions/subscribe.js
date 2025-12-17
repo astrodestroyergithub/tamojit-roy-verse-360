@@ -38,7 +38,6 @@ exports.handler = async (event, context) => {
 
     try {
         const { email } = JSON.parse(event.body);
-        console.log('Subscription attempt for email:', email);
 
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
