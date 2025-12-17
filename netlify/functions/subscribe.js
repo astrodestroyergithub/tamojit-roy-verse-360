@@ -16,7 +16,8 @@ exports.handler = async (event, context) => {
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Access-Control-Max-Age': '86400',
         'Referrer-Policy': 'no-referrer',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
     };
 
     // Handle preflight request
@@ -37,7 +38,9 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        const { email } = JSON.parse(event.body);
+        const rawBody = event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body;
+
+        const { email } = JSON.parse(rawBody);
 
         console.log('Subscription attempt for email:', email);
 
