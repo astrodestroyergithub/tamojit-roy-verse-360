@@ -92,10 +92,7 @@
                 <div class="content-card">
                     <div class="card-header">
                         <h2>All Subscribers</h2>
-                        <div class="header-buttons">
-                            <button id="copy-emails-btn" class="btn-secondary">Copy Recipient Email Ids</button>
-                            <button id="export-subscribers" class="btn-secondary">Export CSV</button>
-                        </div>
+                        <button id="export-subscribers" class="btn-secondary">Export CSV</button>
                     </div>
                     <div class="table-container">
                         <table class="data-table">
@@ -110,36 +107,6 @@
                                 <!-- Populated by JS -->
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copy Emails Modal -->
-            <div id="copy-emails-modal" class="modal">
-                <div class="modal-overlay" id="modal-overlay"></div>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Copy Subscriber Email Ids</h3>
-                        <button class="modal-close" id="modal-close">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="modal-description">
-                            Click the button below to copy all subscriber email addresses. 
-                            Each email is separated by a comma and space (, ).
-                        </p>
-                        <div class="email-preview-box">
-                            <textarea id="emails-textarea" readonly></textarea>
-                        </div>
-                        <div class="email-count">
-                            Total Subscribers: <strong id="email-count">0</strong>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="copy-to-clipboard-btn" class="btn-primary">
-                            <span class="btn-icon">📋</span>
-                            <span class="btn-text">Copy to Clipboard</span>
-                        </button>
-                        <button id="modal-cancel" class="btn-secondary">Close</button>
                     </div>
                 </div>
             </div>
