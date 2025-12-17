@@ -344,5 +344,50 @@ document
     }
   });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const manualSendBtn = document.getElementById("manual-send-btn");
+  const emailModal = document.getElementById("email-modal");
+  const closeModalBtn = document.getElementById("close-modal-btn");
+  const emailStringArea = document.getElementById("email-string-area");
+  const copyEmailsBtn = document.getElementById("copy-emails-btn");
+
+  // 1. Function to grab emails from the table
+  manualSendBtn.addEventListener("click", () => {
+    const rows = document.querySelectorAll("#subscribers-table-body tr");
+    const emails = [];
+
+    rows.forEach((row) => {
+      const emailCell = row.cells[0]; // Email is the first column
+      if (emailCell) {
+        emails.push(emailCell.textContent.trim());
+      }
+    });
+
+    if (emails.length === 0) {
+      alert("No subscribers found.");
+      return;
+    }
+
+    // Join with comma and space
+    emailStringArea.value = emails.join(", ");
+    emailModal.style.display = "flex";
+  });
+
+  // 2. Function to copy text
+  copyEmailsBtn.addEventListener("click", () => {
+    emailStringArea.select();
+    document.execCommand("copy");
+    copyEmailsBtn.textContent = "Copied!";
+    setTimeout(() => {
+      copyEmailsBtn.textContent = "Copy to Clipboard";
+    }, 2000);
+  });
+
+  // 3. Close Modal
+  closeModalBtn.addEventListener("click", () => {
+    emailModal.style.display = "none";
+  });
+});
+
 // Initialize
 loadOverview();
