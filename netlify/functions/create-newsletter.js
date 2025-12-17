@@ -61,7 +61,6 @@ exports.handler = async (event, context) => {
 
         const newsletterId = result.rows[0].id;
 
-        /*** Code to be removed completely as per instructions
         // If status is 'sending', trigger immediate send
         if (status === 'sending') {
             // Trigger the send-newsletter function
@@ -72,7 +71,6 @@ exports.handler = async (event, context) => {
                 body: JSON.stringify({ newsletter_id: newsletterId })
             });
         }
-        ***/
 
         return {
             statusCode: 200,
