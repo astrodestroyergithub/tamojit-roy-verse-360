@@ -64,6 +64,7 @@ exports.handler = async (event, context) => {
         // If status is 'sending', trigger immediate send
         if (status === 'sending') {
             // Trigger the send-newsletter function
+            console.log('Triggering send-newsletter function...');
             await fetch(event.headers.referer.replace(/\/[^/]*$/, '') + '/.netlify/functions/send-newsletter', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
