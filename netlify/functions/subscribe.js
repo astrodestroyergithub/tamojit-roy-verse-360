@@ -50,10 +50,10 @@ exports.handler = async (event, context) => {
         }
 
         // Get IP and user agent
-        const ip_address = event.headers['x-forwarded-for'] || event.headers['client-ip'] || '';
-        // const ip_address = '';
-        const user_agent = event.headers['user-agent'] || '';
-        // const user_agent = '';
+        // const ip_address = event.headers['x-forwarded-for'] || event.headers['client-ip'] || '';
+        const ip_address = '';
+        // const user_agent = event.headers['user-agent'] || '';
+        const user_agent = '';
 
         // Insert into database
         const query = `
