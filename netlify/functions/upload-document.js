@@ -43,7 +43,6 @@ exports.handler = async (event, context) => {
       scheduledTimestamp 
     } = JSON.parse(event.body);
 
-    /*** COMMENT OUT FOR NOW
     // Validate filename format
     const filenameRegex = /^(.+)_(.+)_(sending|sent|scheduled|draft)(_\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})?_\d{4}-\d{2}-\d{2}\.docx$/;
     if (!filenameRegex.test(filename)) {
@@ -58,6 +57,7 @@ exports.handler = async (event, context) => {
 
     console.log('Uploading to GitHub...');
  
+    /*** COMMENT OUT FOR NOW
     // Upload to GitHub
     const githubResponse = await fetch(
       `https://api.github.com/repos/${process.env.GITHUB_REPO_OWNER}/${process.env.GITHUB_REPO_NAME}/contents/newsletter-uploads/${filename}`,
@@ -161,7 +161,7 @@ exports.handler = async (event, context) => {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
-        error: error.message || 'Upload failed' 
+        error: 'Upload fail hogya bro' 
       })
     };
   }
