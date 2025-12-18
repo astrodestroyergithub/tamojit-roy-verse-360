@@ -405,6 +405,9 @@ copyToClipboardBtn.addEventListener("click", async () => {
   }
 });
 
+// Initialize
+loadOverview();
+
 // Keep all existing functions from original admin.js and add new ones
 
 // ============================================
@@ -877,6 +880,3 @@ document.querySelectorAll('.nav-item').forEach(item => {
     if (tab === 'freelance') loadFreelance();
   });
 });
-
-// Initialize
-loadOverview();
