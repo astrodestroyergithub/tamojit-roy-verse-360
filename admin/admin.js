@@ -915,7 +915,7 @@ Status: ${appointment.status}
 Urgent: ${appointment.urgent_request ? 'Yes' : 'No'}
 NDA Required: ${appointment.nda_required ? 'Yes' : 'No'}
   `);
-} 
+} ***/
 
 // Export appointments
 document.getElementById('freelance-export-btn')?.addEventListener('click', () => {
@@ -940,7 +940,7 @@ document.getElementById('freelance-export-btn')?.addEventListener('click', () =>
   a.href = url;
   a.download = `appointments-${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
-}); ***/
+}); 
 
 // ============================================
 // UPDATE TAB NAVIGATION

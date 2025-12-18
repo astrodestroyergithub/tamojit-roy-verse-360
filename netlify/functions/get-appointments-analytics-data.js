@@ -33,6 +33,13 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Get all appointments
+    const appointmentsQuery = `
+      SELECT * FROM appointments 
+      ORDER BY submission_date DESC
+    `;
+    const appointments = await pool.query(appointmentsQuery);
+
     // Service popularity
     const serviceStatsQuery = `
       SELECT 
@@ -86,6 +93,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: JSON.stringify({
+        appointments: appointments.rows,
         serviceStats: serviceStats.rows,
         budgetStats: budgetStats.rows,
         monthlyTrends: monthlyTrends.rows,
