@@ -749,6 +749,31 @@ function renderMeetingChart(meetingTypeStats) {
 }
 
 // Render appointments table
+async function renderAppointmentsTable() {
+  const { data: appointments } = await apiCall(
+    "/.netlify/functions/get-appointments"
+  );
+  const tbody = document.getElementById('freelance-appointments-table');
+
+  if (appointments.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No appointments yet</td></tr>';
+  } else {
+    tbody.innerHTML = appointments
+      .map(
+        (a) => `
+          <tr>
+            <td>${new Date(a.created_at).toLocaleString()}</td>
+            <td>${a.email}</td>
+            <td>${a.project_title}</td>
+            <td>${a.budget}</td>
+            <td>${a.status}</td>
+            <td>${a.meeting_type}</td>
+          </tr>
+        `
+      ).join("");
+  }
+}
+/*** COMMENTING OUT FOR NOW
 function renderAppointmentsTable(appointments) {
   const tbody = document.getElementById('freelance-appointments-table');
   if (!tbody) return;
@@ -778,7 +803,7 @@ function renderAppointmentsTable(appointments) {
       </td>
     </tr>
   `).join('');
-}
+} ***/
 
 // Update appointment status
 async function updateAppointmentStatus(id, status) {
