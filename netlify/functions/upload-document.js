@@ -57,6 +57,7 @@ exports.handler = async (event, context) => {
 
     console.log('Uploading to GitHub...');
 
+    /*** COMMENT OUT FOR NOW 
     // Upload to GitHub
     const githubResponse = await fetch(
       `https://api.github.com/repos/${process.env.GITHUB_REPO_OWNER}/${process.env.GITHUB_REPO_NAME}/contents/newsletter-uploads/${filename}`,
@@ -115,6 +116,43 @@ exports.handler = async (event, context) => {
         success: true, 
         upload: result.rows[0],
         githubUrl: githubData.content.download_url
+      })
+    };
+    ***/
+
+    // Store metadata in DB
+    const query = `
+      INSERT INTO newsletter_uploads (
+        filename, 
+        newsletter_title, 
+        email_subject, 
+        status, 
+        scheduled_timestamp, 
+        upload_date, 
+        file_size, 
+        github_url, 
+        github_sha
+      ) VALUES (
+        ${filename}, 
+        ${newsletterTitle}, 
+        ${emailSubject}, 
+        ${status},
+        ${scheduledTimestamp || null}, 
+        NOW(), 
+        ${content.length}, 
+        ${githubData.content.download_url}, 
+        ${githubData.content.sha}
+      ) RETURNING *
+    `;
+    const result = await pool.query(query);
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ 
+        success: true, 
+        upload: result.rows[0],
+        githubUrl: ''
       })
     };
   } catch (error) {
