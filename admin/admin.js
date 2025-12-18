@@ -2,9 +2,9 @@
 function checkAuth() {
   const token = localStorage.getItem("admin_token");
   if (!token && !window.location.pathname.includes("index.html")) {
-    if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
+    /* if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
       window.location.href = "index.html";
-    }
+    } */
   }
 }
 
@@ -24,10 +24,10 @@ async function apiCall(endpoint, options = {}) {
   const data = await response.json();
 
   if (response.status === 401) {
-    if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
+    /* if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
       localStorage.removeItem("admin_token");
       window.location.href = "index.html";
-    }
+    } */
   }
 
   return { response, data };
