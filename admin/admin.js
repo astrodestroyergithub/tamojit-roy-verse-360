@@ -405,5 +405,478 @@ copyToClipboardBtn.addEventListener("click", async () => {
   }
 });
 
+// Keep all existing functions from original admin.js and add new ones
+
+// ============================================
+// UPLOAD TAB FUNCTIONALITY
+// ============================================
+
+// Update filename preview
+function updateFilenamePreview() {
+  const title = document.getElementById('upload-doc-newsletter-title').value.replace(/\s+/g, '_');
+  const subject = document.getElementById('upload-doc-email-subject').value.replace(/\s+/g, '_');
+  const status = document.getElementById('upload-doc-status').value;
+  const scheduledTime = document.getElementById('upload-doc-scheduled-time').value;
+  
+  if (!title || !subject || !status) {
+    document.getElementById('upload-doc-preview-filename').textContent = '-';
+    return;
+  }
+  
+  const today = new Date().toISOString().split('T')[0];
+  let filename = `${title}_${subject}_${status}`;
+  
+  if (status === 'scheduled' && scheduledTime) {
+    filename += `_${scheduledTime.replace('T', 'T')}`;
+  }
+  
+  filename += `_${today}.docx`;
+  document.getElementById('upload-doc-preview-filename').textContent = filename;
+}
+
+// Show/hide scheduled time field
+document.getElementById('upload-doc-status')?.addEventListener('change', function() {
+  const scheduledGroup = document.getElementById('upload-doc-scheduled-group');
+  if (this.value === 'scheduled') {
+    scheduledGroup.style.display = 'block';
+  } else {
+    scheduledGroup.style.display = 'none';
+  }
+  updateFilenamePreview();
+});
+
+// Update preview on input
+['upload-doc-newsletter-title', 'upload-doc-email-subject', 'upload-doc-scheduled-time'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', updateFilenamePreview);
+});
+
+// Upload form submission
+document.getElementById('upload-doc-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const fileInput = document.getElementById('upload-doc-file');
+  const file = fileInput.files[0];
+  
+  if (!file) {
+    alert('Please select a file');
+    return;
+  }
+  
+  if (file.size > 10 * 1024 * 1024) {
+    alert('File size must be less than 10MB');
+    return;
+  }
+  
+  const btn = document.getElementById('upload-doc-submit-btn');
+  btn.disabled = true;
+  btn.querySelector('.btn-text').textContent = 'Uploading...';
+  
+  try {
+    // Read file as base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    
+    reader.onload = async () => {
+      const base64Content = reader.result.split(',')[1];
+      const filename = document.getElementById('upload-doc-preview-filename').textContent;
+      
+      const uploadData = {
+        filename,
+        content: base64Content,
+        newsletterTitle: document.getElementById('upload-doc-newsletter-title').value,
+        emailSubject: document.getElementById('upload-doc-email-subject').value,
+        status: document.getElementById('upload-doc-status').value,
+        scheduledTimestamp: document.getElementById('upload-doc-scheduled-time').value || null
+      };
+      
+      const { response, data } = await apiCall('/.netlify/functions/upload-document', {
+        method: 'POST',
+        body: JSON.stringify(uploadData)
+      });
+      
+      if (response.ok) {
+        alert('Document uploaded successfully!');
+        document.getElementById('upload-doc-form').reset();
+        document.getElementById('upload-doc-preview-filename').textContent = '-';
+        loadUploads();
+      } else {
+        alert(data.error || 'Upload failed');
+      }
+    };
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    alert('Upload failed: ' + error.message);
+  } finally {
+    btn.disabled = false;
+    btn.querySelector('.btn-text').textContent = 'Upload Document';
+  }
+});
+
+// Reset form
+document.getElementById('upload-doc-reset-btn')?.addEventListener('click', () => {
+  document.getElementById('upload-doc-form').reset();
+  document.getElementById('upload-doc-preview-filename').textContent = '-';
+  document.getElementById('upload-doc-scheduled-group').style.display = 'none';
+});
+
+// Load uploads
+async function loadUploads() {
+  try {
+    const { data: uploads } = await apiCall('/.netlify/functions/get-uploads');
+    const container = document.getElementById('upload-doc-list-container');
+    
+    if (uploads.length === 0) {
+      container.innerHTML = `
+        <div class="upload-doc-empty-state">
+          <div class="upload-doc-empty-icon">📭</div>
+          <p>No documents uploaded yet</p>
+        </div>
+      `;
+      return;
+    }
+    
+    container.innerHTML = uploads.map(upload => `
+      <div class="upload-doc-card">
+        <div class="upload-doc-file-icon">📄</div>
+        <div class="upload-doc-card-info">
+          <h4>${upload.newsletter_title}</h4>
+          <p>${upload.email_subject}</p>
+          <div class="upload-doc-card-meta">
+            <span class="upload-doc-meta-item">📅 ${new Date(upload.upload_date).toLocaleDateString()}</span>
+            <span class="upload-doc-meta-item">📦 ${(upload.file_size / 1024).toFixed(2)} KB</span>
+          </div>
+          <span class="upload-doc-status-badge upload-doc-status-${upload.status}">${upload.status.toUpperCase()}</span>
+          ${upload.scheduled_timestamp ? `<p style="margin-top: 8px; color: #856404;">⏰ Scheduled: ${new Date(upload.scheduled_timestamp).toLocaleString()}</p>` : ''}
+        </div>
+        <div class="upload-doc-card-actions">
+          <a href="${upload.github_url}" download class="upload-doc-btn-download">📥 Download</a>
+          <button class="upload-doc-btn-delete" onclick="deleteUpload(${upload.id}, '${upload.filename}', '${upload.github_sha}')">🗑️ Delete</button>
+        </div>
+      </div>
+    `).join('');
+    
+  } catch (error) {
+    console.error('Load uploads error:', error);
+  }
+}
+
+// Delete upload
+async function deleteUpload(id, filename, sha) {
+  if (!confirm('Are you sure you want to delete this document?')) return;
+  
+  try {
+    await apiCall('/.netlify/functions/delete-upload', {
+      method: 'POST',
+      body: JSON.stringify({ id, filename, sha })
+    });
+    
+    alert('Document deleted successfully');
+    loadUploads();
+  } catch (error) {
+    console.error('Delete error:', error);
+    alert('Delete failed: ' + error.message);
+  }
+}
+
+// ============================================
+// FREELANCE TAB FUNCTIONALITY
+// ============================================
+
+let appointmentsData = null;
+let chartInstances = {};
+
+// Load freelance data
+async function loadFreelance() {
+  try {
+    const { data } = await apiCall('/.netlify/functions/get-appointments');
+    appointmentsData = data;
+    
+    // Update stats
+    document.getElementById('freelance-total-appointments').textContent = data.analytics.total_appointments;
+    document.getElementById('freelance-pending-count').textContent = data.analytics.pending_count;
+    document.getElementById('freelance-confirmed-count').textContent = data.analytics.confirmed_count;
+    document.getElementById('freelance-urgent-count').textContent = data.analytics.urgent_count;
+    
+    // Render charts
+    renderServiceChart(data.serviceStats);
+    renderBudgetChart(data.budgetStats);
+    renderMonthlyChart(data.monthlyTrends);
+    renderMeetingChart(data.meetingTypeStats);
+    
+    // Render table
+    renderAppointmentsTable(data.appointments);
+    
+  } catch (error) {
+    console.error('Load freelance error:', error);
+  }
+}
+
+// Render service chart
+function renderServiceChart(serviceStats) {
+  const ctx = document.getElementById('freelance-service-chart');
+  if (!ctx) return;
+  
+  if (chartInstances.service) chartInstances.service.destroy();
+  
+  chartInstances.service = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: serviceStats.map(s => s.service),
+      datasets: [{
+        label: 'Requests',
+        data: serviceStats.map(s => s.count),
+        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+        borderColor: 'rgba(102, 126, 234, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// Render budget chart
+function renderBudgetChart(budgetStats) {
+  const ctx = document.getElementById('freelance-budget-chart');
+  if (!ctx) return;
+  
+  if (chartInstances.budget) chartInstances.budget.destroy();
+  
+  chartInstances.budget = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: budgetStats.map(b => b.budget),
+      datasets: [{
+        data: budgetStats.map(b => b.count),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+}
+
+// Render monthly chart
+function renderMonthlyChart(monthlyTrends) {
+  const ctx = document.getElementById('freelance-monthly-chart');
+  if (!ctx) return;
+  
+  if (chartInstances.monthly) chartInstances.monthly.destroy();
+  
+  chartInstances.monthly = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: monthlyTrends.map(m => m.month).reverse(),
+      datasets: [{
+        label: 'Appointments',
+        data: monthlyTrends.map(m => m.count).reverse(),
+        borderColor: 'rgba(118, 75, 162, 1)',
+        backgroundColor: 'rgba(118, 75, 162, 0.2)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// Render meeting chart
+function renderMeetingChart(meetingTypeStats) {
+  const ctx = document.getElementById('freelance-meeting-chart');
+  if (!ctx) return;
+  
+  if (chartInstances.meeting) chartInstances.meeting.destroy();
+  
+  chartInstances.meeting = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: meetingTypeStats.map(m => m.meeting_type),
+      datasets: [{
+        data: meetingTypeStats.map(m => m.count),
+        backgroundColor: [
+          'rgba(76, 175, 80, 0.8)',
+          'rgba(33, 150, 243, 0.8)',
+          'rgba(255, 152, 0, 0.8)',
+          'rgba(156, 39, 176, 0.8)'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { position: 'bottom' }
+      }
+    }
+  });
+}
+
+// Render appointments table
+function renderAppointmentsTable(appointments) {
+  const tbody = document.getElementById('freelance-appointments-table');
+  if (!tbody) return;
+  
+  if (appointments.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No appointments yet</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = appointments.map(apt => `
+    <tr>
+      <td>${new Date(apt.submission_date).toLocaleDateString()}</td>
+      <td>${apt.first_name} ${apt.last_name}<br><small>${apt.email}</small></td>
+      <td>${apt.project_title}</td>
+      <td>${apt.budget}</td>
+      <td>
+        <select class="freelance-status-select freelance-status-${apt.status}" 
+                onchange="updateAppointmentStatus(${apt.id}, this.value)">
+          <option value="pending" ${apt.status === 'pending' ? 'selected' : ''}>Pending</option>
+          <option value="confirmed" ${apt.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+          <option value="completed" ${apt.status === 'completed' ? 'selected' : ''}>Completed</option>
+          <option value="cancelled" ${apt.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+        </select>
+      </td>
+      <td>
+        <button class="freelance-view-details-btn" onclick="viewAppointmentDetails(${apt.id})">View</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// Update appointment status
+async function updateAppointmentStatus(id, status) {
+  try {
+    await apiCall('/.netlify/functions/update-appointment-status', {
+      method: 'POST',
+      body: JSON.stringify({ id, status })
+    });
+    
+    loadFreelance();
+  } catch (error) {
+    console.error('Update status error:', error);
+    alert('Failed to update status');
+  }
+}
+
+// View appointment details
+function viewAppointmentDetails(id) {
+  const appointment = appointmentsData.appointments.find(a => a.id === id);
+  if (!appointment) return;
+  
+  // Create and show modal (you can enhance this further)
+  alert(`
+Appointment Details:
+
+Client: ${appointment.first_name} ${appointment.last_name}
+Email: ${appointment.email}
+Phone: ${appointment.phone}
+Company: ${appointment.company || 'N/A'}
+
+Project: ${appointment.project_title}
+Description: ${appointment.project_description}
+
+Budget: ${appointment.budget}
+Timeline: ${appointment.timeline}
+
+Meeting Type: ${appointment.meeting_type}
+Preferred Date: ${new Date(appointment.preferred_date).toLocaleDateString()}
+Preferred Time: ${appointment.preferred_time}
+
+Services: ${appointment.services.join(', ')}
+
+Status: ${appointment.status}
+Urgent: ${appointment.urgent_request ? 'Yes' : 'No'}
+NDA Required: ${appointment.nda_required ? 'Yes' : 'No'}
+  `);
+}
+
+// Export appointments
+document.getElementById('freelance-export-btn')?.addEventListener('click', () => {
+  if (!appointmentsData) return;
+  
+  const csv = [
+    ['Date', 'Name', 'Email', 'Phone', 'Project', 'Budget', 'Status'],
+    ...appointmentsData.appointments.map(a => [
+      new Date(a.submission_date).toISOString(),
+      `${a.first_name} ${a.last_name}`,
+      a.email,
+      a.phone,
+      a.project_title,
+      a.budget,
+      a.status
+    ])
+  ].map(row => row.join(',')).join('\n');
+  
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `appointments-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+});
+
+// ============================================
+// UPDATE TAB NAVIGATION
+// ============================================
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    const tab = this.dataset.tab;
+    
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+    
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById(`${tab}-tab`).classList.add('active');
+    
+    const titles = {
+      overview: 'Overview',
+      subscribers: 'Subscribers',
+      newsletters: 'All Newsletters',
+      create: 'Create Newsletter',
+      upload: 'Upload Documents',
+      freelance: 'Freelance Dashboard'
+    };
+    document.getElementById('page-title').textContent = titles[tab];
+    
+    // Load data for specific tabs
+    if (tab === 'overview') loadOverview();
+    if (tab === 'subscribers') loadSubscribers();
+    if (tab === 'newsletters') loadNewsletters();
+    if (tab === 'upload') loadUploads();
+    if (tab === 'freelance') loadFreelance();
+  });
+});
+
 // Initialize
 loadOverview();

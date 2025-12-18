@@ -745,3 +745,512 @@ body {
         color: var(--text-light);
     }
 }
+
+/* Base styles from original admin.css remain the same */
+/* Adding new styles for Upload and Freelance tabs */
+
+/* ============================================
+   UPLOAD TAB STYLES
+   ============================================ */
+
+.upload-doc-section {
+    margin-bottom: 40px;
+}
+
+.upload-doc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.upload-doc-info-box {
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.upload-doc-info-box h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.upload-doc-format-text {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin: 15px 0;
+    border-left: 4px solid var(--primary);
+}
+
+.upload-doc-requirements-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.upload-doc-requirements-list li {
+    padding: 8px 0;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.upload-doc-requirements-list li strong {
+    color: var(--primary);
+}
+
+.upload-doc-file-note {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.upload-doc-generated-filename {
+    background: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success);
+}
+
+.upload-doc-generated-filename strong {
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+}
+
+.upload-doc-list-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border);
+}
+
+.upload-doc-list-section h3 {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 25px;
+}
+
+.upload-doc-list-container {
+    display: grid;
+    gap: 20px;
+}
+
+.upload-doc-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.upload-doc-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.upload-doc-file-icon {
+    font-size: 3rem;
+}
+
+.upload-doc-card-info h4 {
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.upload-doc-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.upload-doc-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.upload-doc-status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.upload-doc-status-draft {
+    background: #e0e0e0;
+    color: #666;
+}
+
+.upload-doc-status-sending {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.upload-doc-status-sent {
+    background: #d4edda;
+    color: #155724;
+}
+
+.upload-doc-status-scheduled {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.upload-doc-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-doc-btn-download {
+    background: var(--info);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.upload-doc-btn-download:hover {
+    background: #1976d2;
+    transform: translateY(-2px);
+}
+
+.upload-doc-btn-delete {
+    background: var(--danger);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.upload-doc-btn-delete:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+}
+
+.upload-doc-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.upload-doc-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   FREELANCE TAB STYLES
+   ============================================ */
+
+.freelance-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.freelance-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.freelance-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    border-left: 5px solid;
+}
+
+.freelance-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.freelance-stat-primary {
+    border-left-color: var(--primary);
+}
+
+.freelance-stat-warning {
+    border-left-color: var(--warning);
+}
+
+.freelance-stat-success {
+    border-left-color: var(--success);
+}
+
+.freelance-stat-info {
+    border-left-color: var(--info);
+}
+
+.freelance-stat-icon {
+    font-size: 3rem;
+    opacity: 0.8;
+}
+
+.freelance-stat-content h3 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.freelance-stat-content p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.freelance-charts-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+}
+
+.freelance-chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.freelance-chart-card h3 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
+.freelance-chart-card canvas {
+    max-height: 300px;
+}
+
+.freelance-status-select {
+    padding: 6px 12px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.freelance-status-select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.freelance-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.freelance-status-confirmed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.freelance-status-completed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.freelance-status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.freelance-view-details-btn {
+    background: var(--primary);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.freelance-view-details-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Freelance Details Modal */
+.freelance-details-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.freelance-details-modal.show {
+    display: flex;
+}
+
+.freelance-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.freelance-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 90%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10000;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.freelance-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    border-bottom: 2px solid var(--border);
+}
+
+.freelance-modal-header h3 {
+    font-size: 1.5rem;
+    color: var(--dark);
+}
+
+.freelance-modal-body {
+    padding: 25px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.freelance-detail-section {
+    margin-bottom: 25px;
+}
+
+.freelance-detail-section h4 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+}
+
+.freelance-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.freelance-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.freelance-detail-label {
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.freelance-detail-value {
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.freelance-services-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.freelance-service-tag {
+    background: var(--light);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.freelance-urgent-badge,
+.freelance-nda-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.freelance-urgent-badge {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.freelance-nda-badge {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .freelance-charts-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .upload-doc-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .upload-doc-card-actions {
+        flex-direction: row;
+    }
+    
+    .freelance-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

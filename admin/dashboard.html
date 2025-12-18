@@ -11,9 +11,8 @@
     <script>
         (function () {
             const isMobile = window.matchMedia('(max-width: 768px)').matches;
-
             if (isMobile) {
-            window.location.replace('/admin/mobile-block.html');
+                window.location.replace('/admin/mobile-block.html');
             }
         })();
     </script>
@@ -40,6 +39,14 @@
                 <button class="nav-item" data-tab="create">
                     <span class="icon">✏️</span>
                     <span>Create New</span>
+                </button>
+                <button class="nav-item" data-tab="upload">
+                    <span class="icon">📤</span>
+                    <span>Upload</span>
+                </button>
+                <button class="nav-item" data-tab="freelance">
+                    <span class="icon">💼</span>
+                    <span>Freelance</span>
                 </button>
             </nav>
             <div class="sidebar-footer">
@@ -91,9 +98,7 @@
 
                 <div class="recent-activity">
                     <h2>Recent Activity</h2>
-                    <div id="recent-newsletters" class="activity-list">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div id="recent-newsletters" class="activity-list"></div>
                 </div>
             </div>
 
@@ -116,9 +121,7 @@
                                     <th>IP Address</th>
                                 </tr>
                             </thead>
-                            <tbody id="subscribers-table-body">
-                                <!-- Populated by JS -->
-                            </tbody>
+                            <tbody id="subscribers-table-body"></tbody>
                         </table>
                     </div>
                 </div>
@@ -160,9 +163,7 @@
                     <div class="card-header">
                         <h2>All Newsletters</h2>
                     </div>
-                    <div id="newsletters-list" class="newsletters-grid">
-                        <!-- Populated by JS -->
-                    </div>
+                    <div id="newsletters-list" class="newsletters-grid"></div>
                 </div>
             </div>
 
@@ -175,28 +176,19 @@
                             <label for="newsletter-title">Newsletter Title</label>
                             <input type="text" id="newsletter-title" required placeholder="e.g., Monthly Update - January 2025">
                         </div>
-
                         <div class="form-group">
                             <label for="newsletter-subject">Email Subject</label>
                             <input type="text" id="newsletter-subject" required placeholder="e.g., Your Monthly Tech Update 🚀">
                         </div>
-
                         <div class="form-group">
                             <label for="newsletter-image">Header Image URL (Optional)</label>
                             <input type="url" id="newsletter-image" placeholder="https://example.com/image.jpg">
                             <small>Tip: Upload to Imgur, Cloudinary, or any image hosting service</small>
                         </div>
-
                         <div class="form-group">
                             <label for="newsletter-content">Newsletter Content</label>
-                            <textarea id="newsletter-content" rows="15" required placeholder="Write your newsletter content here...
-
-You can use simple formatting:
-- **bold text** for bold
-- *italic text* for italic
-- Links: [text](url)"></textarea>
+                            <textarea id="newsletter-content" rows="15" required placeholder="Write your newsletter content here..."></textarea>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label>
@@ -205,12 +197,10 @@ You can use simple formatting:
                                 </label>
                             </div>
                         </div>
-
                         <div class="form-group" id="schedule-group" style="display: none;">
                             <label for="schedule-datetime">Schedule Date & Time</label>
                             <input type="datetime-local" id="schedule-datetime">
                         </div>
-
                         <div class="form-actions">
                             <button type="button" id="save-draft-btn" class="btn-secondary">Save as Draft</button>
                             <button type="submit" class="btn-primary">
@@ -220,9 +210,176 @@ You can use simple formatting:
                     </form>
                 </div>
             </div>
+
+            <!-- Upload Tab -->
+            <div class="tab-content" id="upload-tab">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>📤 Upload Newsletter Documents</h2>
+                    </div>
+
+                    <!-- Upload Form -->
+                    <div class="upload-doc-section">
+                        <form id="upload-doc-form" class="upload-doc-form">
+                            <div class="upload-doc-info-box">
+                                <h3>📋 Filename Format Requirements</h3>
+                                <p class="upload-doc-format-text">
+                                    <code>&lt;Newsletter_Title&gt;_&lt;Email_Subject&gt;_&lt;Status&gt;_&lt;Date&gt;.docx</code>
+                                </p>
+                                <ul class="upload-doc-requirements-list">
+                                    <li><strong>Status:</strong> sending, sent, scheduled, or draft</li>
+                                    <li><strong>For scheduled:</strong> Add timestamp like: scheduled_2025-01-15T10:30:00</li>
+                                    <li><strong>Date format:</strong> YYYY-MM-DD</li>
+                                    <li><strong>Example:</strong> MonthlyUpdate_TechNews_sent_2025-01-10.docx</li>
+                                </ul>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="upload-doc-newsletter-title">Newsletter Title</label>
+                                    <input type="text" id="upload-doc-newsletter-title" required placeholder="e.g., Monthly Tech Update">
+                                </div>
+                                <div class="form-group">
+                                    <label for="upload-doc-email-subject">Email Subject</label>
+                                    <input type="text" id="upload-doc-email-subject" required placeholder="e.g., Your January Newsletter">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="upload-doc-status">Status</label>
+                                    <select id="upload-doc-status" required>
+                                        <option value="">Select status</option>
+                                        <option value="draft">Draft</option>
+                                        <option value="sending">Sending</option>
+                                        <option value="sent">Sent</option>
+                                        <option value="scheduled">Scheduled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="upload-doc-scheduled-group" style="display: none;">
+                                    <label for="upload-doc-scheduled-time">Scheduled Time</label>
+                                    <input type="datetime-local" id="upload-doc-scheduled-time">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="upload-doc-file">Upload Word Document (.docx)</label>
+                                <input type="file" id="upload-doc-file" accept=".docx" required>
+                                <p class="upload-doc-file-note">Maximum file size: 10MB</p>
+                            </div>
+
+                            <div class="form-group">
+                                <p class="upload-doc-generated-filename">
+                                    Generated filename: <strong id="upload-doc-preview-filename">-</strong>
+                                </p>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary" id="upload-doc-submit-btn">
+                                    <span class="btn-icon">📤</span>
+                                    <span class="btn-text">Upload Document</span>
+                                </button>
+                                <button type="button" class="btn-secondary" id="upload-doc-reset-btn">Reset Form</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Uploaded Documents List -->
+                    <div class="upload-doc-list-section">
+                        <h3>📁 Uploaded Documents</h3>
+                        <div id="upload-doc-list-container" class="upload-doc-list-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Freelance Tab -->
+            <div class="tab-content" id="freelance-tab">
+                <div class="freelance-dashboard">
+                    <!-- Top Stats -->
+                    <div class="freelance-stats-grid">
+                        <div class="freelance-stat-card freelance-stat-primary">
+                            <div class="freelance-stat-icon">📋</div>
+                            <div class="freelance-stat-content">
+                                <h3 id="freelance-total-appointments">0</h3>
+                                <p>Total Appointments</p>
+                            </div>
+                        </div>
+                        <div class="freelance-stat-card freelance-stat-warning">
+                            <div class="freelance-stat-icon">⏳</div>
+                            <div class="freelance-stat-content">
+                                <h3 id="freelance-pending-count">0</h3>
+                                <p>Pending</p>
+                            </div>
+                        </div>
+                        <div class="freelance-stat-card freelance-stat-success">
+                            <div class="freelance-stat-icon">✅</div>
+                            <div class="freelance-stat-content">
+                                <h3 id="freelance-confirmed-count">0</h3>
+                                <p>Confirmed</p>
+                            </div>
+                        </div>
+                        <div class="freelance-stat-card freelance-stat-info">
+                            <div class="freelance-stat-icon">🔥</div>
+                            <div class="freelance-stat-content">
+                                <h3 id="freelance-urgent-count">0</h3>
+                                <p>Urgent Requests</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="freelance-charts-row">
+                        <div class="freelance-chart-card">
+                            <h3>📊 Service Distribution</h3>
+                            <canvas id="freelance-service-chart"></canvas>
+                        </div>
+                        <div class="freelance-chart-card">
+                            <h3>💰 Budget Distribution</h3>
+                            <canvas id="freelance-budget-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- More Charts -->
+                    <div class="freelance-charts-row">
+                        <div class="freelance-chart-card">
+                            <h3>📈 Monthly Trends</h3>
+                            <canvas id="freelance-monthly-chart"></canvas>
+                        </div>
+                        <div class="freelance-chart-card">
+                            <h3>🎯 Meeting Type Preferences</h3>
+                            <canvas id="freelance-meeting-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Appointments Table -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>All Appointments</h2>
+                            <button id="freelance-export-btn" class="btn-secondary">Export CSV</button>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Client</th>
+                                        <th>Project</th>
+                                        <th>Budget</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="freelance-appointments-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>

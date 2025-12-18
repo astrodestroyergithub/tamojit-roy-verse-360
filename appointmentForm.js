@@ -1,4 +1,4 @@
-// Appointment Form JavaScript - EmailJS Integration
+// Appointment Form JavaScript - EmailJS Integration + Database Storage
 // appointmentForm.js
 
 // Initialize EmailJS with your public key
@@ -42,7 +42,8 @@ document.getElementById('appointment-form').addEventListener('submit', async fun
             company: document.getElementById('company').value || 'N/A',
             
             // Services (gather all checked services)
-            services: Array.from(servicesChecked).map(cb => cb.value).join(', '),
+            services: Array.from(servicesChecked).map(cb => cb.value),
+            servicesText: Array.from(servicesChecked).map(cb => cb.value).join(', '), // For email
             otherServices: document.getElementById('otherServices').value || 'N/A',
             
             // Project Details
@@ -53,12 +54,10 @@ document.getElementById('appointment-form').addEventListener('submit', async fun
             deliverables: document.getElementById('deliverables').value || 'N/A',
             
             // Appointment Details
-            preferredDate: formatDate(document.getElementById('preferredDate').value),
-            preferredTime: formatTime(document.getElementById('preferredTime').value),
-            alternateDate: document.getElementById('alternateDate').value ? 
-                formatDate(document.getElementById('alternateDate').value) : 'N/A',
-            alternateTime: document.getElementById('alternateTime').value ? 
-                formatTime(document.getElementById('alternateTime').value) : 'N/A',
+            preferredDate: document.getElementById('preferredDate').value,
+            preferredTime: document.getElementById('preferredTime').value,
+            alternateDate: document.getElementById('alternateDate').value || null,
+            alternateTime: document.getElementById('alternateTime').value || null,
             meetingType: document.getElementById('meetingType').value,
             timezone: document.getElementById('timezone').value,
             
@@ -75,14 +74,38 @@ document.getElementById('appointment-form').addEventListener('submit', async fun
             })
         };
         
-        // Send email using EmailJS
-        const response = await emailjs.send(
+        // 1. Save to database first
+        const dbResponse = await fetch('/.netlify/functions/save-appointment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        
+        const dbData = await dbResponse.json();
+        
+        if (!dbResponse.ok) {
+            throw new Error('Database save failed: ' + (dbData.error || 'Unknown error'));
+        }
+        
+        console.log('Saved to database with ID:', dbData.appointmentId);
+        
+        // 2. Send email using EmailJS
+        const emailData = {
+            ...formData,
+            services: formData.servicesText, // Use formatted string for email
+            preferredDate: formatDate(formData.preferredDate),
+            preferredTime: formatTime(formData.preferredTime),
+            alternateDate: formData.alternateDate ? formatDate(formData.alternateDate) : 'N/A',
+            alternateTime: formData.alternateTime ? formatTime(formData.alternateTime) : 'N/A'
+        };
+        
+        const emailResponse = await emailjs.send(
             'service_3wdbmij',
             'template_qwjtp68',
-            formData
+            emailData
         );
         
-        console.log('Email sent successfully:', response);
+        console.log('Email sent successfully:', emailResponse);
         
         // Show success modal
         showSuccessModal();
@@ -91,9 +114,9 @@ document.getElementById('appointment-form').addEventListener('submit', async fun
         form.reset();
         
     } catch (error) {
-        console.error('Error sending email:', error);
-        alert('There was an error submitting your appointment request. Please try again or contact directly via email.');
-        
+        console.error('Error submitting appointment:', error);
+        alert('There was an error submitting your appointment request. The data has been saved, but the email notification may have failed. Please try again or contact directly via email.');
+    } finally {
         // Reset button state
         submitBtn.disabled = false;
         submitBtn.classList.remove('loading');
