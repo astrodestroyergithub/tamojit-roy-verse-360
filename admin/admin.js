@@ -2,7 +2,9 @@
 function checkAuth() {
   const token = localStorage.getItem("admin_token");
   if (!token && !window.location.pathname.includes("index.html")) {
-    window.location.href = "index.html";
+    if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
+      window.location.href = "index.html";
+    }
   }
 }
 
@@ -22,8 +24,10 @@ async function apiCall(endpoint, options = {}) {
   const data = await response.json();
 
   if (response.status === 401) {
-    localStorage.removeItem("admin_token");
-    window.location.href = "index.html";
+    if(document.getElementById("page-title").textContent != "Upload Documents" || document.getElementById("page-title").textContent != "Freelance Dashboard") {
+      localStorage.removeItem("admin_token");
+      window.location.href = "index.html";
+    }
   }
 
   return { response, data };
@@ -52,8 +56,8 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       subscribers: "Subscribers",
       newsletters: "All Newsletters",
       create: "Create Newsletter",
-      upload: "Upload Newsletter",
-      freelance: "Appointments Analytics",
+      upload: "Upload Documents",
+      freelance: "Freelance Dashboard",
     };
     document.getElementById("page-title").textContent = titles[tab];
 
