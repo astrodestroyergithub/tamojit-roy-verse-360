@@ -140,8 +140,8 @@ exports.handler = async (event, context) => {
         ${scheduledTimestamp || null}, 
         NOW(), 
         ${content.length}, 
-        ${githubData.content.download_url}, 
-        ${githubData.content.sha}
+        '', 
+        ''
       ) RETURNING *
     `;
     const result = await pool.query(query);
