@@ -787,7 +787,7 @@ async function getTotalAppointmentsCount() {
   );
   const h3 = document.getElementById('freelance-total-appointments');
 
-  h3.innerHTML = count.total_appointments_count;
+  h3.innerHTML = count[0].total_appointments_count;
 }
 
 /*** COMMENTING OUT FOR NOW
