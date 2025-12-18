@@ -134,12 +134,12 @@ exports.handler = async (event, context) => {
         github_sha
       ) VALUES (
         '', 
-        ${newsletterTitle}, 
-        ${emailSubject}, 
-        ${status},
-        ${scheduledTimestamp || null}, 
+        '', 
+        '', 
+        '',
+        '', 
         NOW(), 
-        ${content.length}, 
+        '', 
         '', 
         ''
       ) RETURNING *
