@@ -595,6 +595,7 @@ let chartInstances = {};
 
 async function loadFreelance() {
   getTotalAppointmentsCount();
+  getPendingAppointmentsCount();
   renderAppointmentsTable();
 }
 
@@ -788,6 +789,16 @@ async function getTotalAppointmentsCount() {
   const h3 = document.getElementById('freelance-total-appointments');
 
   h3.innerHTML = count[0].total_appointments_count;
+}
+
+// Get total appointments count data
+async function getPendingAppointmentsCount() {
+  const { data: count } = await apiCall(
+    "/.netlify/functions/get-pending-appointments-count"
+  );
+  const h3 = document.getElementById('freelance-pending-count');
+
+  h3.innerHTML = count[0].pending_appointments_count;
 }
 
 /*** COMMENTING OUT FOR NOW
