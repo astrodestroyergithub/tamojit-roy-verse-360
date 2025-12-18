@@ -593,6 +593,9 @@ async function deleteUpload(id, filename, sha) {
 let appointmentsData = null;
 let chartInstances = {};
 
+async function loadFreelance() {
+}
+
 /*** COMMENTING OUT FOR NOW
 // Load freelance data
 async function loadFreelance() {
