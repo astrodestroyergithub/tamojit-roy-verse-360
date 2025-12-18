@@ -161,7 +161,7 @@ exports.handler = async (event, context) => {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
-        error: 'Upload fail hogya bro' 
+        error: filename 
       })
     };
   }
