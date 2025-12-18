@@ -55,7 +55,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    alert('Uploading to GitHub...');
+    console.log('Uploading to GitHub...');
 
     // Upload to GitHub
     const githubResponse = await fetch(
