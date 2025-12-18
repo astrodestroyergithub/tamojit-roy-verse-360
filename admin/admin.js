@@ -593,6 +593,7 @@ async function deleteUpload(id, filename, sha) {
 let appointmentsData = null;
 let chartInstances = {};
 
+/*** COMMENTING OUT FOR NOW
 // Load freelance data
 async function loadFreelance() {
   try {
@@ -746,7 +747,7 @@ function renderMeetingChart(meetingTypeStats) {
       }
     }
   });
-}
+} ***/
 
 // Render appointments table
 async function renderAppointmentsTable() {
