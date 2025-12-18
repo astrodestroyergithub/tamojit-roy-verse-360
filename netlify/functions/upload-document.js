@@ -55,6 +55,8 @@ exports.handler = async (event, context) => {
       };
     }
 
+    alert('Uploading to GitHub...');
+
     // Upload to GitHub
     const githubResponse = await fetch(
       `https://api.github.com/repos/${process.env.GITHUB_REPO_OWNER}/${process.env.GITHUB_REPO_NAME}/contents/newsletter-uploads/${filename}`,
