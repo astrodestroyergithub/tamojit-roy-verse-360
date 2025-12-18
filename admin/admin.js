@@ -922,7 +922,7 @@ document.getElementById('freelance-export-btn')?.addEventListener('click', () =>
   if (!appointmentsData) return;
   
   const csv = [
-    ['Date', 'Name', 'Email', 'Phone', 'Project', 'Status'],
+    ['Submission Date', 'Submission Time', 'Name', 'Email', 'Phone', 'Project', 'Status'],
     ...appointmentsData.appointments.map(a => [
       new Date(a.submission_date).toLocaleString(),
       `${a.first_name} ${a.last_name}`,
