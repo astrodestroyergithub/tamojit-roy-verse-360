@@ -16,11 +16,22 @@ exports.handler = async (event, context) => {
   // Auth check
   const token = event.headers.authorization?.replace('Bearer ', '');
   if (token !== process.env.ADMIN_TOKEN) {
-    return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
+    return { 
+      statusCode: 401, 
+      headers, 
+      body: JSON.stringify({ error: 'Unauthorized' }) 
+    };
   }
 
   try {
-    const { filename, content, newsletterTitle, emailSubject, status, scheduledTimestamp } = JSON.parse(event.body);
+    const { 
+      filename, 
+      content, 
+      newsletterTitle, 
+      emailSubject, 
+      status, 
+      scheduledTimestamp 
+    } = JSON.parse(event.body);
 
     // Validate filename format
     const filenameRegex = /^(.+)_(.+)_(sending|sent|scheduled|draft)(_\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})?_\d{4}-\d{2}-\d{2}\.docx$/;
@@ -28,7 +39,9 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: 'Invalid filename format' })
+        body: JSON.stringify({ 
+          error: 'Invalid filename format. Must be: Title_Subject_Status_Date.docx' 
+        })
       };
     }
 
@@ -39,7 +52,8 @@ exports.handler = async (event, context) => {
         method: 'PUT',
         headers: {
           'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
         },
         body: JSON.stringify({
           message: `Upload newsletter: ${newsletterTitle}`,
@@ -52,6 +66,7 @@ exports.handler = async (event, context) => {
     const githubData = await githubResponse.json();
 
     if (!githubResponse.ok) {
+      console.error('GitHub API Error:', githubData);
       throw new Error(githubData.message || 'GitHub upload failed');
     }
 
@@ -59,12 +74,25 @@ exports.handler = async (event, context) => {
     const sql = neon(process.env.DATABASE_URL);
     const result = await sql`
       INSERT INTO newsletter_uploads (
-        filename, newsletter_title, email_subject, status, 
-        scheduled_timestamp, upload_date, file_size, github_url, github_sha
+        filename, 
+        newsletter_title, 
+        email_subject, 
+        status, 
+        scheduled_timestamp, 
+        upload_date, 
+        file_size, 
+        github_url, 
+        github_sha
       ) VALUES (
-        ${filename}, ${newsletterTitle}, ${emailSubject}, ${status},
-        ${scheduledTimestamp || null}, NOW(), ${content.length}, 
-        ${githubData.content.download_url}, ${githubData.content.sha}
+        ${filename}, 
+        ${newsletterTitle}, 
+        ${emailSubject}, 
+        ${status},
+        ${scheduledTimestamp || null}, 
+        NOW(), 
+        ${content.length}, 
+        ${githubData.content.download_url}, 
+        ${githubData.content.sha}
       ) RETURNING *
     `;
 
@@ -83,7 +111,9 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ 
+        error: error.message || 'Upload failed' 
+      })
     };
   }
 };
