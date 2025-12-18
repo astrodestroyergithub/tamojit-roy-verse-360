@@ -127,7 +127,6 @@ exports.handler = async (event, context) => {
         newsletter_title, 
         email_subject, 
         status, 
-        scheduled_timestamp, 
         upload_date, 
         file_size, 
         github_url, 
@@ -137,9 +136,8 @@ exports.handler = async (event, context) => {
         '', 
         '', 
         '',
-        '', 
         NOW(), 
-        '', 
+        0, 
         '', 
         ''
       ) RETURNING *
