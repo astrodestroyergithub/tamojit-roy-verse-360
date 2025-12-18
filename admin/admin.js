@@ -52,6 +52,8 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       subscribers: "Subscribers",
       newsletters: "All Newsletters",
       create: "Create Newsletter",
+      upload: "Upload Newsletter",
+      freelance: "Appointments Analytics",
     };
     document.getElementById("page-title").textContent = titles[tab];
 
@@ -59,6 +61,8 @@ document.querySelectorAll(".nav-item").forEach((item) => {
     if (tab === "overview") loadOverview();
     if (tab === "subscribers") loadSubscribers();
     if (tab === "newsletters") loadNewsletters();
+    if (tab === "upload") loadUploads();
+    if (tab === "freelance") loadFreelance();
   });
 });
 
