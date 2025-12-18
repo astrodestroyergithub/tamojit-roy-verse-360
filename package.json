@@ -1,9 +1,21 @@
 {
   "name": "tamojit-roy-verse-360",
-  "version": "1.0.0",
-  "description": "Portfolio website with newsletter subscription",
+  "version": "2.0.0",
+  "description": "Portfolio website with all sorts of functionalities",
   "dependencies": {
     "pg": "^8.11.3",
-    "resend": "^3.0.0"
+    "resend": "^3.0.0",
+    "@neondatabase/serverless": "^0.9.0"
+  },
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "netlify build",
+    "deploy": "netlify deploy --prod"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
