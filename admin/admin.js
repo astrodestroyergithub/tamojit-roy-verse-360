@@ -598,7 +598,22 @@ async function loadFreelance() {
   getPendingAppointmentsCount();
   getConfirmedAppointmentsCount();
   getUrgentAppointmentsCount();
+  loadAppointmentsAnalyticsData();
   renderAppointmentsTable();
+}
+
+// Render appointments analytics in the form of various charts and stats
+async function loadAppointmentsAnalyticsData() {
+  const { data: analytics } = await apiCall(
+    "/.netlify/functions/get-appointments-analytics-data"
+  );
+  appointmentsData = analytics;
+
+  // Render charts
+  renderServiceChart(analytics.serviceStats);
+  renderBudgetChart(analytics.budgetStats);
+  renderMonthlyChart(analytics.monthlyTrends);
+  renderMeetingChart(analytics.meetingTypeStats);
 }
 
 /*** COMMENTING OUT FOR NOW
@@ -626,7 +641,7 @@ async function loadFreelance() {
   } catch (error) {
     console.error('Load freelance error:', error);
   }
-}
+} ***/
 
 // Render service chart
 function renderServiceChart(serviceStats) {
@@ -755,7 +770,7 @@ function renderMeetingChart(meetingTypeStats) {
       }
     }
   });
-} ***/
+} 
 
 // Render appointments table
 async function renderAppointmentsTable() {
