@@ -133,7 +133,7 @@ exports.handler = async (event, context) => {
         github_url, 
         github_sha
       ) VALUES (
-        ${filename}, 
+        '', 
         ${newsletterTitle}, 
         ${emailSubject}, 
         ${status},
@@ -151,7 +151,7 @@ exports.handler = async (event, context) => {
       headers,
       body: JSON.stringify({ 
         success: true, 
-        upload: result.rows[0],
+        upload: '',
         githubUrl: ''
       })
     };
@@ -161,7 +161,7 @@ exports.handler = async (event, context) => {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
-        error: filename 
+        error: error.message || 'Upload failed' 
       })
     };
   }
