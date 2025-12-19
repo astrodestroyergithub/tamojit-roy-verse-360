@@ -55,7 +55,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       upload: "Upload Documents",
       freelance: "Freelance Dashboard",
       threeSixty: "360° Analytics",
-      techUpdates: "Tech Updates",
+      techUpdates: "Tech Updates"
     };
     document.getElementById("page-title").textContent = titles[tab];
 
