@@ -1345,3 +1345,14 @@ body {
   justify-content: center;
   gap: 20px;
 }
+
+.techUpdates-card.no-image::before {
+  content: "🧑‍💻";
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}

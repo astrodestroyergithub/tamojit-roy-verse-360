@@ -1178,9 +1178,12 @@ function renderTechUpdates(items) {
       index === 0 ? "large" :
       index < 4 ? "medium" : "small";
 
+    const hasImage = !!item.imageUrl;
+
     grid.innerHTML += `
-      <div class="techUpdates-card ${size}">
-        ${item.imageUrl ? `<img src="${item.imageUrl}">` : ""}
+      <div class="techUpdates-card ${size} ${hasImage ? "" : "no-image"}"
+          onclick="openTechArticle('${item.id}')">
+        ${hasImage ? `<img src="${item.imageUrl}" onerror="this.remove()">` : ""}
         <div class="techUpdates-content">
           <h4>${item.title}</h4>
           <p>${item.description || ""}</p>
@@ -1204,6 +1207,14 @@ document.getElementById("techUpdatesPrev").onclick = () => {
     loadTechUpdates();
   }
 };
+
+function openTechArticle(id) {
+  const item = techUpdatesCache.find(i => i.id === id);
+  if (!item) return;
+
+  localStorage.setItem("selectedTechArticle", JSON.stringify(item));
+  window.location.href = "/tech-article.html";
+}
 
 // ============================================
 // UPDATE TAB NAVIGATION
