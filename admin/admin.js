@@ -947,6 +947,14 @@ document.getElementById('freelance-export-btn')?.addEventListener('click', () =>
 // 360° ANALYTICS TAB FUNCTIONALITY
 // ============================================
 
+const threeSixtyDegreeAnalyticsCharts = {};
+
+function destroyThreeSixtyChartIfExists(canvasId) {
+  if (threeSixtyDegreeAnalyticsCharts[canvasId]) {
+    threeSixtyDegreeAnalyticsCharts[canvasId].destroy();
+  }
+}
+
 async function loadThreeSixtyDegreeAnalyticsDashboard() {
   const { data: threeSixtyDegreeAnalyticsData } = await apiCall(
     "/.netlify/functions/get-three-sixty-degree-analytics-data"
@@ -970,6 +978,126 @@ function renderThreeSixtyNewsletterAnalytics(data) {
 
 function renderThreeSixtySubscriberAnalytics(data) {
   renderThreeSixtyGeo("threeSixtyGraph11", data.subscribers.geoSpread);
+}
+
+function renderThreeSixtyLineChart(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: data.map(d => d.day),
+      datasets: [{
+        label: "Appointments Over Time",
+        data: data.map(d => d.count),
+        borderWidth: 2,
+        tension: 0.4,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: true } }
+    }
+  });
+}
+
+function renderThreeSixtyRadarChart(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: data.map(d => d.service),
+      datasets: [{
+        label: "Service Demand Intensity",
+        data: data.map(d => d.count),
+        borderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+function renderThreeSixtyHeatmap(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "bubble",
+    data: {
+      datasets: [{
+        label: "Appointments by Hour",
+        data: data.map(d => ({
+          x: d.hour,
+          y: 1,
+          r: d.count * 2
+        }))
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { title: { display: true, text: "Hour of Day" } },
+        y: { display: false }
+      }
+    }
+  });
+}
+
+function renderThreeSixtyFunnel(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: data.map(d => d.status),
+      datasets: [{
+        label: "Newsletter Pipeline",
+        data: data.map(d => d.count),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true
+    }
+  });
+}
+
+function renderThreeSixtySubscriberGrowth(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: data.map(d => d.day),
+      datasets: [{
+        label: "Subscriber Growth",
+        data: data.map(d => d.count),
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
 }
 
 // ============================================
