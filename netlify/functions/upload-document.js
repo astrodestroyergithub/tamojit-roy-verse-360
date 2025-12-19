@@ -62,7 +62,8 @@ exports.handler = async (event) => {
       {
         method: 'PUT',
         headers: {
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          'X-GitHub-Api-Version': '2022-11-28',
           Accept: 'application/vnd.github.v3+json'
         },
         body: JSON.stringify({
