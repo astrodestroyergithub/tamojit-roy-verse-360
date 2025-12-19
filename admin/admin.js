@@ -1169,7 +1169,10 @@ async function loadTechUpdates() {
   updateTechPagination(res.data);
 }
 
+let techUpdatesCache = [];
+
 function renderTechUpdates(items) {
+  techUpdatesCache = items;
   const grid = document.getElementById("techUpdatesGrid");
   grid.innerHTML = "";
 
@@ -1212,8 +1215,7 @@ function openTechArticle(id) {
   const item = techUpdatesCache.find(i => i.id === id);
   if (!item) return;
 
-  localStorage.setItem("selectedTechArticle", JSON.stringify(item));
-  window.location.href = "/tech-article.html";
+  window.open(item.url, "_blank", "noopener");
 }
 
 // ============================================
