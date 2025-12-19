@@ -54,7 +54,8 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       create: "Create Newsletter",
       upload: "Upload Documents",
       freelance: "Freelance Dashboard",
-      threeSixty: "360° Analytics"
+      threeSixty: "360° Analytics",
+      techUpdates: "Tech Updates",
     };
     document.getElementById("page-title").textContent = titles[tab];
 
