@@ -989,6 +989,7 @@ async function loadThreeSixtyDegreeAnalyticsDashboard() {
   renderThreeSixtyLineChart("threeSixtyGraph20", data.appointments.dailyTrend);
 }
 
+/*** COMMENT OUT FOR NOW 
 function renderThreeSixtyAppointmentsAnalytics(data) {
   renderThreeSixtyLineChart("threeSixtyGraph01", data.appointments.dailyTrend);
   renderThreeSixtyRadarChart("threeSixtyGraph02", data.appointments.servicesRadar);
@@ -1002,7 +1003,7 @@ function renderThreeSixtyNewsletterAnalytics(data) {
 
 function renderThreeSixtySubscriberAnalytics(data) {
   renderThreeSixtyGeo("threeSixtyGraph11", data.subscribers.geoSpread);
-}
+} ***/
 
 function renderThreeSixtyLineChart(canvasId, data) {
   destroyThreeSixtyChartIfExists(canvasId);
