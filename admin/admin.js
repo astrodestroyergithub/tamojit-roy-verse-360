@@ -956,13 +956,37 @@ function destroyThreeSixtyChartIfExists(canvasId) {
 }
 
 async function loadThreeSixtyDegreeAnalyticsDashboard() {
-  const { data: threeSixtyDegreeAnalyticsData } = await apiCall(
+  const { data } = await apiCall(
     "/.netlify/functions/get-three-sixty-degree-analytics-data"
   );
 
-  renderThreeSixtyAppointmentsAnalytics(threeSixtyDegreeAnalyticsData);
-  renderThreeSixtyNewsletterAnalytics(threeSixtyDegreeAnalyticsData);
-  renderThreeSixtySubscriberAnalytics(threeSixtyDegreeAnalyticsData);
+  // Row 1
+  renderThreeSixtyLineChart("threeSixtyGraph01", data.appointments.dailyTrend);
+  renderThreeSixtyRadarChart("threeSixtyGraph02", data.appointments.servicesRadar);
+  renderThreeSixtyHeatmap("threeSixtyGraph03", data.appointments.hourHeatmap);
+  renderThreeSixtyLineChart("threeSixtyGraph04", data.subscribers.growth);
+  renderThreeSixtyBarChart("threeSixtyGraph05", data.newsletters.sendFunnel);
+
+  // Row 2
+  renderThreeSixtyFunnel("threeSixtyGraph06", data.newsletters.sendFunnel);
+  renderThreeSixtyBarChart("threeSixtyGraph07", data.appointments.servicesRadar);
+  renderThreeSixtyLineChart("threeSixtyGraph08", data.appointments.dailyTrend);
+  renderThreeSixtyRadarChart("threeSixtyGraph09", data.appointments.servicesRadar);
+  renderThreeSixtyHeatmap("threeSixtyGraph10", data.appointments.hourHeatmap);
+
+  // Row 3
+  renderThreeSixtyLineChart("threeSixtyGraph11", data.subscribers.growth);
+  renderThreeSixtyBarChart("threeSixtyGraph12", data.newsletters.sendFunnel);
+  renderThreeSixtyRadarChart("threeSixtyGraph13", data.appointments.servicesRadar);
+  renderThreeSixtyLineChart("threeSixtyGraph14", data.appointments.dailyTrend);
+  renderThreeSixtyHeatmap("threeSixtyGraph15", data.appointments.hourHeatmap);
+
+  // Row 4
+  renderThreeSixtyFunnel("threeSixtyGraph16", data.newsletters.sendFunnel);
+  renderThreeSixtyLineChart("threeSixtyGraph17", data.subscribers.growth);
+  renderThreeSixtyBarChart("threeSixtyGraph18", data.appointments.servicesRadar);
+  renderThreeSixtyRadarChart("threeSixtyGraph19", data.appointments.servicesRadar);
+  renderThreeSixtyLineChart("threeSixtyGraph20", data.appointments.dailyTrend);
 }
 
 function renderThreeSixtyAppointmentsAnalytics(data) {
@@ -1096,6 +1120,34 @@ function renderThreeSixtySubscriberGrowth(canvasId, data) {
     },
     options: {
       responsive: true
+    }
+  });
+}
+
+function renderThreeSixtyBarChart(canvasId, data) {
+  destroyThreeSixtyChartIfExists(canvasId);
+
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  // Support both {service,count} and {status,count}
+  const labels = data.map(d => d.service || d.status || d.day);
+  const values = data.map(d => d.count);
+
+  threeSixtyDegreeAnalyticsCharts[canvasId] = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        label: "Distribution",
+        data: values,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      }
     }
   });
 }
