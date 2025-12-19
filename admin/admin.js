@@ -54,6 +54,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       create: "Create Newsletter",
       upload: "Upload Documents",
       freelance: "Freelance Dashboard",
+      threeSixty: "360° Analytics"
     };
     document.getElementById("page-title").textContent = titles[tab];
 
@@ -63,6 +64,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
     if (tab === "newsletters") loadNewsletters();
     if (tab === "upload") loadUploads();
     if (tab === "freelance") loadFreelance();
+    if (tab === "threeSixty") loadThreeSixtyDegreeAnalyticsDashboard();
   });
 });
 
@@ -942,6 +944,35 @@ document.getElementById('freelance-export-btn')?.addEventListener('click', () =>
 }); 
 
 // ============================================
+// 360° ANALYTICS TAB FUNCTIONALITY
+// ============================================
+
+async function loadThreeSixtyDegreeAnalyticsDashboard() {
+  const { data: threeSixtyDegreeAnalyticsData } = await apiCall(
+    "/.netlify/functions/get-three-sixty-degree-analytics-data"
+  );
+
+  renderThreeSixtyAppointmentsAnalytics(threeSixtyDegreeAnalyticsData);
+  renderThreeSixtyNewsletterAnalytics(threeSixtyDegreeAnalyticsData);
+  renderThreeSixtySubscriberAnalytics(threeSixtyDegreeAnalyticsData);
+}
+
+function renderThreeSixtyAppointmentsAnalytics(data) {
+  renderThreeSixtyLineChart("threeSixtyGraph01", data.appointments.dailyTrend);
+  renderThreeSixtyRadarChart("threeSixtyGraph02", data.appointments.servicesRadar);
+  renderThreeSixtyHeatmap("threeSixtyGraph03", data.appointments.hourHeatmap);
+}
+
+function renderThreeSixtyNewsletterAnalytics(data) {
+  renderThreeSixtyFunnel("threeSixtyGraph06", data.newsletters.sendFunnel);
+  renderThreeSixtyCohort("threeSixtyGraph07", data.newsletters.cohortRetention);
+}
+
+function renderThreeSixtySubscriberAnalytics(data) {
+  renderThreeSixtyGeo("threeSixtyGraph11", data.subscribers.geoSpread);
+}
+
+// ============================================
 // UPDATE TAB NAVIGATION
 // ============================================
 
@@ -961,7 +992,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
       newsletters: 'All Newsletters',
       create: 'Create Newsletter',
       upload: 'Upload Documents',
-      freelance: 'Freelance Dashboard'
+      freelance: 'Freelance Dashboard',
+      threeSixty: "360° Analytics"
     };
     document.getElementById('page-title').textContent = titles[tab];
     
@@ -971,5 +1003,6 @@ document.querySelectorAll('.nav-item').forEach(item => {
     if (tab === 'newsletters') loadNewsletters();
     if (tab === 'upload') loadUploads();
     if (tab === 'freelance') loadFreelance();
+    if (tab === 'threeSixty') loadThreeSixtyDegreeAnalyticsDashboard();
   });
 });

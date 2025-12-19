@@ -1254,3 +1254,40 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================
+   360° ANALYTICS DASHBOARD
+   ========================================== */
+
+.threeSixty-header {
+    margin-bottom: 30px;
+}
+
+.threeSixty-header h2 {
+    font-size: 2rem;
+    color: var(--dark);
+}
+
+.threeSixty-header p {
+    color: var(--text-light);
+}
+
+.threeSixty-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+}
+
+.threeSixty-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    height: 260px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+.threeSixty-card canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
