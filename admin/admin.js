@@ -65,6 +65,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
     if (tab === "upload") loadUploads();
     if (tab === "freelance") loadFreelance();
     if (tab === "threeSixty") loadThreeSixtyDegreeAnalyticsDashboard();
+    if (tab === "techUpdates") loadTechUpdates();
   });
 });
 
@@ -1154,6 +1155,57 @@ function renderThreeSixtyBarChart(canvasId, data) {
 }
 
 // ============================================
+// TECH UPDATES TAB FUNCTIONALITY
+// ============================================
+
+let techUpdatesPage = 1;
+
+async function loadTechUpdates() {
+  const res = await apiCall(
+    `/.netlify/functions/get-tech-updates?page=${techUpdatesPage}`
+  );
+
+  renderTechUpdates(res.data.items);
+  updateTechPagination(res.data);
+}
+
+function renderTechUpdates(items) {
+  const grid = document.getElementById("techUpdatesGrid");
+  grid.innerHTML = "";
+
+  items.forEach((item, index) => {
+    const size =
+      index === 0 ? "large" :
+      index < 4 ? "medium" : "small";
+
+    grid.innerHTML += `
+      <div class="techUpdates-card ${size}">
+        ${item.imageUrl ? `<img src="${item.imageUrl}">` : ""}
+        <div class="techUpdates-content">
+          <h4>${item.title}</h4>
+          <p>${item.description || ""}</p>
+          <div class="techUpdates-meta">
+            ${item.publisher} • ${new Date(item.publishedAt).toLocaleDateString()}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+document.getElementById("techUpdatesNext").onclick = () => {
+  techUpdatesPage++;
+  loadTechUpdates();
+};
+
+document.getElementById("techUpdatesPrev").onclick = () => {
+  if (techUpdatesPage > 1) {
+    techUpdatesPage--;
+    loadTechUpdates();
+  }
+};
+
+// ============================================
 // UPDATE TAB NAVIGATION
 // ============================================
 
@@ -1185,5 +1237,6 @@ document.querySelectorAll('.nav-item').forEach(item => {
     if (tab === 'upload') loadUploads();
     if (tab === 'freelance') loadFreelance();
     if (tab === 'threeSixty') loadThreeSixtyDegreeAnalyticsDashboard();
+    if (tab === 'techUpdates') loadTechUpdates();
   });
 });
