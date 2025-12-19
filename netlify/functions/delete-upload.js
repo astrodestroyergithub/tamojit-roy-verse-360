@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
-const fetch = require('node-fetch');
+const fetch = global.fetch;
+// const fetch = require('node-fetch');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
