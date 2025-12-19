@@ -1,39 +1,35 @@
-// netlify/functions/delete-upload.js
-const { neon } = require('@neondatabase/serverless');
+const { Pool } = require('pg');
+const fetch = require('node-fetch');
 
-exports.handler = async (event, context) => {
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
+function isAuthenticated(event) {
+  const authHeader = event.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return false;
+  return true;
+}
+
+exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Content-Type': 'application/json'
   };
 
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return { statusCode: 200, headers };
   }
 
-  // Auth check
-  const token = event.headers.authorization?.replace('Bearer ', '');
-  if (token !== process.env.ADMIN_TOKEN) {
-    return { 
-      statusCode: 401, 
-      headers, 
-      body: JSON.stringify({ error: 'Unauthorized' }) 
-    };
+  if (!isAuthenticated(event)) {
+    return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
   }
 
   try {
     const { id, filename, sha } = JSON.parse(event.body);
-
-    if (!id || !filename || !sha) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ 
-          error: 'Missing required fields: id, filename, sha' 
-        })
-      };
-    }
 
     // Delete from GitHub
     const githubResponse = await fetch(
@@ -41,48 +37,39 @@ exports.handler = async (event, context) => {
       {
         method: 'DELETE',
         headers: {
-          'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/vnd.github.v3+json'
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json'
         },
         body: JSON.stringify({
-          message: `Delete newsletter: ${filename}`,
-          sha: sha,
-          branch: 'newsletter-uploads'
+          message: `Delete newsletter document: ${filename}`,
+          sha,
+          branch: 'master'
         })
       }
     );
 
     if (!githubResponse.ok) {
-      const errorData = await githubResponse.json();
-      console.error('GitHub delete error:', errorData);
-      throw new Error(errorData.message || 'GitHub deletion failed');
+      const err = await githubResponse.json();
+      throw new Error(err.message || 'GitHub delete failed');
     }
 
-    // Delete from database
-    const sql = neon(process.env.DATABASE_URL);
-    await sql`
-      DELETE FROM newsletter_uploads 
-      WHERE id = ${id}
-    `;
+    // Delete DB row
+    await pool.query(
+      `DELETE FROM newsletter_uploads WHERE id = $1`,
+      [id]
+    );
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ 
-        success: true,
-        message: 'Document deleted successfully' 
-      })
+      body: JSON.stringify({ success: true })
     };
-
   } catch (error) {
     console.error('Delete error:', error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ 
-        error: error.message || 'Delete failed' 
-      })
+      body: JSON.stringify({ error: error.message })
     };
   }
 };
