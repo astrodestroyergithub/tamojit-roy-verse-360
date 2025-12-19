@@ -54,7 +54,8 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       create: "Create Newsletter",
       upload: "Upload Documents",
       freelance: "Freelance Dashboard",
-      threeSixty: "360° Analytics"
+      threeSixty: "360° Analytics",
+      techUpdates: "Tech Updates"
     };
     document.getElementById("page-title").textContent = titles[tab];
 
@@ -1169,7 +1170,10 @@ async function loadTechUpdates() {
   updateTechPagination(res.data);
 }
 
+let techUpdatesCache = [];
+
 function renderTechUpdates(items) {
+  techUpdatesCache = items;
   const grid = document.getElementById("techUpdatesGrid");
   grid.innerHTML = "";
 
@@ -1178,9 +1182,12 @@ function renderTechUpdates(items) {
       index === 0 ? "large" :
       index < 4 ? "medium" : "small";
 
+    const hasImage = !!item.imageUrl;
+
     grid.innerHTML += `
-      <div class="techUpdates-card ${size}">
-        ${item.imageUrl ? `<img src="${item.imageUrl}">` : ""}
+      <div class="techUpdates-card ${size} ${hasImage ? "" : "no-image"}"
+          onclick="openTechArticle('${item.id}')">
+        ${hasImage ? `<img src="${item.imageUrl}" onerror="this.remove()">` : ""}
         <div class="techUpdates-content">
           <h4>${item.title}</h4>
           <p>${item.description || ""}</p>
@@ -1205,6 +1212,13 @@ document.getElementById("techUpdatesPrev").onclick = () => {
   }
 };
 
+function openTechArticle(id) {
+  const item = techUpdatesCache.find(i => i.id === id);
+  if (!item) return;
+
+  window.open(item.url, "_blank", "noopener");
+}
+
 // ============================================
 // UPDATE TAB NAVIGATION
 // ============================================
@@ -1226,7 +1240,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
       create: 'Create Newsletter',
       upload: 'Upload Documents',
       freelance: 'Freelance Dashboard',
-      threeSixty: "360° Analytics"
+      threeSixty: "360° Analytics",
+      techUpdates: 'Tech Updates'
     };
     document.getElementById('page-title').textContent = titles[tab];
     
