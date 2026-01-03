@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TroyVerso360 Bot</title>
+  <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+  <link rel="stylesheet" href="chatAIPage.css" />
+</head>
+
+<body>
+  <div class="chat-wrapper">
+
+    <header class="chat-header">
+      <h1>TroyVerso360 Bot</h1>
+      <span>Your AI Companion by Tamojit Roy</span>
+    </header>
+
+    <div id="chatWindow" class="chat-window"></div>
+
+    <div class="chat-input-area">
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Ask anything..."
+        autocomplete="off"
+      />
+    </div>
+
+    <div id="thinkingOverlay" class="thinking-overlay hidden">
+      <div class="loader"></div>
+      <p>Thinking...</p>
+    </div>
+
+  </div>
+
+  <script src="chatAI.js"></script>
+</body>
+</html>
