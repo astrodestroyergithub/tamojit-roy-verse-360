@@ -45,6 +45,9 @@ body {
 .chat-input-area {
   padding: 15px;
   border-top: 1px solid #1e293b;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .chat-input-area input {
@@ -54,6 +57,28 @@ body {
   background: #020617;
   border: 1px solid #334155;
   color: #fff;
+  flex: 1;
+}
+
+.chat-input-area button {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  border: none;
+  color: white;
+  padding: 0 18px;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.chat-input-area button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.chat-input-area button:active {
+  transform: scale(0.95);
 }
 
 .thinking-overlay {
