@@ -1833,15 +1833,12 @@ body {
 }
 
 .ai-chat-section {
-  margin: 80px 0;
+  margin: 0;
 }
 
 .ai-chat-container {
   display: flex;
-  border-radius: 18px;
-  overflow: hidden;
   background: linear-gradient(135deg, #0f172a, #020617);
-  box-shadow: 0 0 40px rgba(56,189,248,0.15);
 }
 
 .ai-chat-image {
@@ -1872,9 +1869,18 @@ body {
   padding: 14px 28px;
   background: linear-gradient(135deg, #38bdf8, #6366f1);
   color: #fff;
-  border-radius: 10px;
   font-weight: 600;
   text-decoration: none;
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.ai-chat-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 10px 25px rgba(99,102,241,0.35);
 }
 
 @media (max-width: 900px) {
