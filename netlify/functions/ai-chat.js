@@ -58,9 +58,9 @@ exports.handler = async (event) => {
 
   await pool.query(
     `INSERT INTO ai_conversations
-     (conversation_id, user_message, ai_response)
-     VALUES (gen_random_uuid(), $1, $2)`,
-    [message, reply]
+     (conversation_id, ip_address, user_message, ai_response)
+     VALUES (gen_random_uuid(), $1, $2, $3)`,
+    [ip_address, message, reply]
   );
 
   return {
