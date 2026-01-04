@@ -37,6 +37,10 @@ const ai = new GoogleGenAI({
 exports.handler = async (event) => {
   const { message } = JSON.parse(event.body);
 
+  // Get IP and user agent
+  const ip_address = event.headers['x-forwarded-for'] || event.headers['client-ip'] || '';
+  const user_agent = event.headers['user-agent'] || '';
+
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash',
     contents: [
@@ -54,9 +58,9 @@ exports.handler = async (event) => {
 
   await pool.query(
     `INSERT INTO ai_conversations
-     (conversation_id, user_message, ai_response)
-     VALUES (gen_random_uuid(), $1, $2)`,
-    [message, reply]
+     (conversation_id, ip_address, user_message, ai_response, user_agent)
+     VALUES (gen_random_uuid(), $1, $2, $3, $4)`,
+    [ip_address, message, reply, user_agent]
   );
 
   return {
