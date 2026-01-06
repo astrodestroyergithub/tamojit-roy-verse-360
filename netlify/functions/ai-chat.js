@@ -42,7 +42,7 @@ exports.handler = async (event) => {
   // Get IP and user agent
   const ip_address = event.headers['x-forwarded-for'] || event.headers['client-ip'] || '';
   const user_agent = event.headers['user-agent'] || '';
-  const model_used = 'gemini-2.5-flash';
+  const ai_model_used = 'gemini-2.5-flash';
 
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash',
@@ -64,7 +64,7 @@ exports.handler = async (event) => {
     `INSERT INTO ai_conversations
      (conversation_id, model_used, ip_address, user_message, ai_response, user_agent)
      VALUES (gen_random_uuid(), $1, $2, $3, $4, $5)`,
-    [model_used, ip_address, message, reply_in_db, user_agent]
+    [ai_model_used, ip_address, message, reply_in_db, user_agent]
   );
 
   return {
