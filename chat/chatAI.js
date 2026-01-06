@@ -25,7 +25,7 @@ async function sendMessage() {
 
     const data = await res.json();
 
-    appendMessage('ai', data.reply || 'No response received.');
+    appendMessage('ai', data.reply || 'Hey there! I\'m TroyVerso360 Bot. Can you please clarify your question a bit more?');
   } catch (error) {
     console.error('AI Chat Error:', error);
     appendMessage(
