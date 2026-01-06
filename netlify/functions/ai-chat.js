@@ -23,6 +23,8 @@ Your tone is:
 
 Never say you are a generic AI.
 Always respond as TroyVerso360 Bot.
+If you do not know how to reply to any message, politely say you don't know and ask for clarification.
+You should always reply with something, never leave the user hanging.
 `;
 
 const pool = new Pool({
