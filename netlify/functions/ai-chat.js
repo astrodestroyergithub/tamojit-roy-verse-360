@@ -56,7 +56,7 @@ exports.handler = async (event) => {
     ],
   });
 
-  const reply = response.text;
+  const reply = response.text || "Hey there! I'm TroyVerso360 Bot. Can you please clarify your question?";
 
   await pool.query(
     `INSERT INTO ai_conversations
