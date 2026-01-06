@@ -42,6 +42,7 @@ exports.handler = async (event) => {
   // Get IP and user agent
   const ip_address = event.headers['x-forwarded-for'] || event.headers['client-ip'] || '';
   const user_agent = event.headers['user-agent'] || '';
+  const model_used = 'gemini-2.5-flash';
 
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash',
@@ -56,13 +57,14 @@ exports.handler = async (event) => {
     ],
   });
 
-  const reply = response.text || "Hey there! I'm TroyVerso360 Bot. Can you please clarify your question?";
+  const reply = response.text;
+  const reply_in_db = reply || 'Hey there! I\'m TroyVerso360 Bot. Can you please clarify your question a bit more?';
 
   await pool.query(
     `INSERT INTO ai_conversations
-     (conversation_id, ip_address, user_message, ai_response, user_agent)
-     VALUES (gen_random_uuid(), $1, $2, $3, $4)`,
-    [ip_address, message, reply, user_agent]
+     (conversation_id, model_used, ip_address, user_message, ai_response, user_agent)
+     VALUES (gen_random_uuid(), $1, $2, $3, $4, $5)`,
+    [model_used, ip_address, message, reply_in_db, user_agent]
   );
 
   return {
