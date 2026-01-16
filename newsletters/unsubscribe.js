@@ -22,6 +22,11 @@ document.getElementById('unsubscribeForm').addEventListener('submit', async (e) 
       })
     });
 
+    if (response.status === 404) {
+      errorMsg.textContent = 'This email is not subscribed to our newsletter.';
+      return;
+    }
+    
     const result = await response.json();
 
     if (!response.ok) {
