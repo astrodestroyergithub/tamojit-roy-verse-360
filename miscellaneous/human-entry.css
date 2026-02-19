@@ -21,15 +21,15 @@ h2{
     letter-spacing:1px;
 }
 
-/* ===== FORM CONTAINER ===== */
-
 form{
     width:100%;
     max-width:1000px;
 
     display:grid;
     grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-    gap:18px;
+
+    column-gap:24px;
+    row-gap:18px;
 
     padding:30px;
     border-radius:18px;
@@ -39,11 +39,13 @@ form{
     box-shadow: 0 20px 50px rgba(0,0,0,0.45);
 }
 
-/* ===== INPUT FIELDS ===== */
-
 input{
     width:100%;
+    box-sizing:border-box;   /* ⭐ critical */
+
     padding:14px 16px;
+    margin:2px 0;
+
     border-radius:10px;
     border:none;
     outline:none;
