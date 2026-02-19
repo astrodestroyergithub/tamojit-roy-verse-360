@@ -1,4 +1,4 @@
-const files=["note1.txt","note2.txt"];
+const files=["note1.txt","note2.txt","note3.txt","note4.txt","note5.txt","note6.txt"];
 
 async function load(){
  const container=document.getElementById("notes");
