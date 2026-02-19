@@ -1,0 +1,75 @@
+I want to add another section for 'Resolve All Your Queries Using AI Chat' in the index.html file above the newsletter section. I will be attaching the index.html as well as style.css files for your reference. I also want to add an image (chatPageBackground.jpg) which will be gradient smoothen into the other half of the section which will contain some suitable heading as well as some caption helping text to guide the user and also a button, which when clicked on takes user to a new page which will have very descriptive stuffs which are normally present in an AI chat interface. When the user types something in the text box and presses enter, it would freeze the screen and show "Thinking..." with some suitable animation and at that time user won't be able to interfere. Only after giving the response from the AI's side, the user will be able to type again. The AI would be named "TroyVerso360 Bot" and would be a very intelligent AI. I want to leverage the Google Gen AI library, and a sample code for React.js is given below:
+```
+const ai = new GoogleGenAI({ apiKey: process.env.REACT_APP_GEMINI_API_KEY });
+
+    async function getGeminiResponse() {
+    const geminiResponse = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+    });
+    return geminiResponse.text;
+    }
+
+    let response = getGeminiResponse()
+    .then(message => {
+        setApiResponse(message);
+        console.log("Message: ", message);
+        setIsLoading(false);
+    })
+    .catch(error => {
+        console.log("Error Message: ", error);
+        setApiResponse(`There is some error. ${error}`);
+        setIsLoading(false);
+    });
+  };
+```
+Note that the API Key will be already present in the netlify environment variables. I want you to create a page called chatAIPage.html as well as its css file but make sure to be in accordance with the existing css theme to maintain homogeneity. I want want you to create a PostgreSQL table which will store various details for each conversation with some unique user identifier, ip address, timestamp, conversation id, etc. and make the table very description with convenience to store multitude of information about the conversation between the user and the AI. Also create a netlify function to interact with the Neon DB. I will be attaching a sample netlify function .js file so that you get a hang of how to write the netlify function. As far as the files of the AI chat part goes, it should be stored inside a folder called "chat", which itself will be directly present inside the root directory. Also, one more thing, the prompt to be fed into the AI contents of the API call should be descriptive and introduce myself, Tamojit Roy who is a techy and is the creator of a website called "Tamojit Roy Verse 360" and provides various freelance services, writes blogs, sends newsletters, has a youtube channel called "AstroDestroyer146" and much more. I will also provide other files so that you can understand Tamojit Roy's vision a bit more clearly. Now, that you have understood my vision, devise a step-by-step plan along with code changes to be made and where to achieve this humongous task.
+
+"@google/genai": "^1.29.1"
+
+Hey, it looks great but only 2 observations:
+1. I don' want rounded edges to the AI chat section on index.html page, and also there should not be any gap between the AI chat section and the newsletters section. Also, the glow around the AI chat section should be discarded. Also, when user hovers over the button in the AI chat section, it should have some changes. Suggest specific changes for these needs.
+2. In the AI chat page, between consecutive AI or user chat text, there should be some gap for better visibility. Right now, they seem to be very close together. Suggest specific changes for this.
+
+I have 2 more observations:
+1. The messages by the user as well as the AI responses are displayed only as plaintext right now. It is seeming a bit odd. I want you to make some css changes such that they are displayed inside a thought box just like what is seen in messaging platforms like whatsapp, messenger, arrattai, telegram, etc. Also make sure to adjust the text colours accordingly and make sure that the background colours of the thought boxes are light and different shades in cases of user message and AI response.
+2. Right now, the AI chat page interface is looking a bit odd in smartphone screens in the sense that I have to scroll a bit down to get to the text box and type something there. Also, when I press the send button, the thinking loader and text is not showing right in the centre of the screen. Hence, there are some orientation issues, please fix those. Also, make sure to shift the text input box and send button a bit upwards and not to the extreme bottom of the smartphone screen and increase the sizes of texts, input box, etc. proportionally to not feel odd while using the feature on smartphone screen.
+Please do these changes and tell me step by step what I need to do. I am also attaching the three files inside the chat folder i.e. chatAI.js, chatAIPage.css, chatAIPage.html for your reference.
+
+Inside the root directory of my project, I want to create a folder called "miscellaneous". It will have a HTML file, JS file and CSS file. The page will have the heading as "Miscellaneous Services". It would have many tablets of medium size which should look like rectangular gold plates. The plates should be placed one after the other. Each plated will have some text written upon them. For now, keep 7 plates. The texts on the first 2 plates would be "Universal Human Personal Info Data Entry" and "Universal Human Database". The other plates should have text "Placeholder" on them. The whole page should be responsive across all screen sizes. Add some distinct colouring on each plate to distinguish them from one another and also some very high-end animation when the user hovers the cursor on any of them or even when any one of them are clicked. For the styling of the page, you can take hints from the attached CSS file called "style.css". When the first plate is clicked, it should redirect to a new page where the user can enter various info about a person, like his/her name, age, date of birth, email id, phone number, etc. It should have many fields (around 20-22). After entering the info pertaining to a person, when the user clicks on "Add to Database" button, it should add the information of that person in a PostgreSQL table by making use of a netlify function. I will attach a sample netlify function for your reference. It will be called "get-total-appointments-count.js". Add suitable performance improvements to the table as it may contain few crore entries/records and hence you should keep that in mind. Also, provide all the SQL queries and scripts. When the user clicks on the next tablet, i.e., "Universal Human Database", it should open a new page showing all the records present in the table till now in a suitable tabular format. It should have all the columns (all 20-22 columns). You can use pagination or any beautification you see fit. This page too should be highly responsive across all screen sizes. Now, for the third tablet, keep the text as "Notes". When the user clicks on this tablet, one page should open wherein various info present in various .txt files should be displayed 'separately' in typewriter text format. The .txt files would be present inside a folder called "notes" which is inside the "miscellaneous" folder. Also, in all the HTML files, the favicon should be same (The code to use would be: <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">). The actual favicon is present inside the folder "favicon" which in turn is present inside the root directory. Now, develop the code and tell me what changes to do in a clear step-wise manner.
+
+CREATE TABLE humans(
+ id BIGSERIAL PRIMARY KEY,
+ first_name TEXT,
+ last_name TEXT,
+ age INT,
+ dob DATE,
+ gender TEXT,
+ email TEXT,
+ phone TEXT,
+ country TEXT,
+ state TEXT,
+ city TEXT,
+ address TEXT,
+ zip TEXT,
+ nationality TEXT,
+ occupation TEXT,
+ company TEXT,
+ education TEXT,
+ blood TEXT,
+ marital TEXT,
+ father TEXT,
+ mother TEXT,
+ emergency TEXT,
+ notes TEXT,
+ created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE INDEX idx_humans_phone ON humans(phone);
+CREATE INDEX idx_humans_email ON humans(email);
+CREATE INDEX idx_humans_created ON humans(created_at DESC);
+
+CREATE TABLE humans_2026 PARTITION OF humans
+FOR VALUES FROM ('2026-01-01') TO ('2027-01-01');
+
+

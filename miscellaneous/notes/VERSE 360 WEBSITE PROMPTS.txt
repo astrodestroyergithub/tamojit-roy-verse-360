@@ -1,0 +1,362 @@
+CREATE TABLE appointments (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    company VARCHAR(255),
+    services TEXT[],
+    other_services TEXT,
+    project_title VARCHAR(255) NOT NULL,
+    project_description TEXT NOT NULL,
+    budget VARCHAR(100) NOT NULL,
+    timeline VARCHAR(100) NOT NULL,
+    deliverables TEXT,
+    preferred_date DATE NOT NULL,
+    preferred_time TIME NOT NULL,
+    alternate_date DATE,
+    alternate_time TIME,
+    meeting_type VARCHAR(100) NOT NULL,
+    timezone VARCHAR(100) NOT NULL,
+    referral_source VARCHAR(100),
+    additional_notes TEXT,
+    urgent_request BOOLEAN DEFAULT FALSE,
+    nda_required BOOLEAN DEFAULT FALSE,
+    status VARCHAR(50) DEFAULT 'pending',
+    submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletter_sends (
+    id SERIAL PRIMARY KEY,
+    newsletter_id INTEGER REFERENCES newsletters(id) ON DELETE CASCADE,
+    subscriber_email VARCHAR(255) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending', -- pending, sent, failed
+    sent_at TIMESTAMP,
+    error_message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletter_subscribers (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(45),
+    user_agent TEXT
+);
+
+CREATE TABLE newsletter_uploads (
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL,
+    newsletter_title VARCHAR(255) NOT NULL,
+    email_subject VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    scheduled_timestamp TIMESTAMP,
+    upload_date TIMESTAMP NOT NULL,
+    file_size INTEGER,
+    github_url TEXT NOT NULL,
+    github_sha VARCHAR(100),
+    uploaded_by VARCHAR(100) DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletters (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image_url TEXT,
+    status VARCHAR(50) DEFAULT 'draft', -- draft, scheduled, sending, sent, failed
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    total_recipients INTEGER DEFAULT 0,
+    successful_sends INTEGER DEFAULT 0,
+    failed_sends INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ai_conversations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID NOT NULL,
+  user_identifier TEXT,
+  ip_address VARCHAR(45),
+  user_agent TEXT,
+  user_message TEXT,
+  ai_response TEXT,
+  model_used TEXT,
+  prompt_tokens INT,
+  response_tokens INT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  metadata JSONB
+);
+
+I have a dashboard.html file in my website. The website is hosted on netlify with suitable environment variables already set. In the dashboard.html, I already have around 6 tabs on the left side. I want to add a new tab having the label "360° Analytics" with a suitable but distinct emoji like the other tabs. The right side content of this tab will be very very complex featuring all-round information especially around very detailed data analytics on the data obtained from 5 tables which are present at the moment in the database. The interface will feature 20 grids in total, each showing some kind of distinct graph about the data obtained from database. Each row will have 5 grids. That makes the number of rows to be 4 (each having 5 grids of a distinct graph). Involve very uncommon as well as common graphs known to humanity at present. I want something extravagant and new from you. The interface will also have proper labelling wherever required and all other kinds of things and designs which will make the interface very detailed and very very very complex to look at. I will provide the create postgresql queries for the 5 tables present in the database at the moment for your reference, so that you can understand the kind of data very well and come up with interesting types of graphs. Remember to add as many kinds of graphs of all sorts and sizes as possible (20 is just the lower limit, the sky is the limit). I want a very very very very very very complex data analytics interface (the kind which we see in big stock trading/analytics companies) consisting of all kinds of graphs. After making changes in the dashboard.html file also tell me where to add the code. Now, move to the next part, i.e. from where the data will be fetched from the DB. I am using Neon DB which has all data. I am using a admin.js file which will have single important function like below:
+```
+async function loadThreeSixtyDegreeAnalyticsDashboard() {
+  const { data: threeSixtyDegreeAnalyticsData } = await apiCall(
+    "/.netlify/functions/get-three-sixty-degree-analytics-data"
+  );
+  // Calling other normal functions for maintaining modular approach
+}
+```
+Inside it, you may call other normal functions (as many as you see fit) for maintaining modular approach. Each of the other functions will set the >=20 graphs inside the elements by id which you will make inside the dashboard.html, and also whatever naming you use for variables, functions, etc, make use of the substring: "threeSixtyDegreeAnalytics" as it helps to segregate them from others. Now, lets come to the netlify function "get-three-sixty-degree-analytics-data.js", which will actually interact with the database and fetch all the data from the 5 tables in different formats so that it becomes easy to play with them and make graphs with them. You may use any many queries you like (there is no bound to it, you may use 42 queries as well). I will attach a sample netlify function js file called "get-appointments-analytics-data.js" for your reference so that you can take hints from it and develop the netlify function which may have many queries for getting data from DB. Once the netlify function gets the data and sends all at once to the admin.js file's `loadThreeSixtyDegreeAnalyticsDashboard` function, you can invoke the various modular normal functions as I already discussed about to set the 20+ graphs in the element ids of the dashboard.html webpage. Remember to be creative and understand the data as much as possible and come up with numerous and uncommon graphs, for making the interface very attractive and informative. I will also attach the admin.js file, in addition to the dashboard.html and get-appointments-analytics-data.js file. I will also provide the 5 queries as I promised below:
+```
+CREATE TABLE appointments (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    company VARCHAR(255),
+    services TEXT[],
+    other_services TEXT,
+    project_title VARCHAR(255) NOT NULL,
+    project_description TEXT NOT NULL,
+    budget VARCHAR(100) NOT NULL,
+    timeline VARCHAR(100) NOT NULL,
+    deliverables TEXT,
+    preferred_date DATE NOT NULL,
+    preferred_time TIME NOT NULL,
+    alternate_date DATE,
+    alternate_time TIME,
+    meeting_type VARCHAR(100) NOT NULL,
+    timezone VARCHAR(100) NOT NULL,
+    referral_source VARCHAR(100),
+    additional_notes TEXT,
+    urgent_request BOOLEAN DEFAULT FALSE,
+    nda_required BOOLEAN DEFAULT FALSE,
+    status VARCHAR(50) DEFAULT 'pending',
+    submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletter_sends (
+    id SERIAL PRIMARY KEY,
+    newsletter_id INTEGER REFERENCES newsletters(id) ON DELETE CASCADE,
+    subscriber_email VARCHAR(255) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending', -- pending, sent, failed
+    sent_at TIMESTAMP,
+    error_message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletter_subscribers (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(45),
+    user_agent TEXT
+);
+
+CREATE TABLE newsletter_uploads (
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL,
+    newsletter_title VARCHAR(255) NOT NULL,
+    email_subject VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    scheduled_timestamp TIMESTAMP,
+    upload_date TIMESTAMP NOT NULL,
+    file_size INTEGER,
+    github_url TEXT NOT NULL,
+    github_sha VARCHAR(100),
+    uploaded_by VARCHAR(100) DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletters (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    image_url TEXT,
+    status VARCHAR(50) DEFAULT 'draft', -- draft, scheduled, sending, sent, failed
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    total_recipients INTEGER DEFAULT 0,
+    successful_sends INTEGER DEFAULT 0,
+    failed_sends INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE newsletter_unsubscribers (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    reason VARCHAR(100) NOT NULL,
+    additional_reason TEXT,
+    unsubscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address VARCHAR(45),
+    user_agent TEXT
+);
+
+-- Fast lookups by email
+CREATE INDEX idx_unsubscribers_email
+ON newsletter_unsubscribers (email);
+
+-- Prevent duplicate unsubscribe records
+CREATE UNIQUE INDEX uniq_unsubscribers_email
+ON newsletter_unsubscribers (email);
+
+-- Helps analytics & reporting
+CREATE INDEX idx_unsubscribed_at
+ON newsletter_unsubscribers (unsubscribed_at);
+
+ALTER TABLE newsletter_unsubscribers
+ADD CONSTRAINT fk_unsub_email
+CHECK (email IS NOT NULL);
+```
+Also one more thing, the dashboard.html is taking styles from admin.css file. If you want to add any new css classes with distinct names inside it you can also do so. I will also attach the admin.css file for your reference and so that you can get a hang of the overall theme. Now, understand and do the code changes and tell me where you made changes in index.html, admin.css and admin.js files and also provide me the full code for get-three-sixty-degree-analytics-data.js file. I think I covered pretty much everything. Although, if I accidentally missed anything, feel free to ask me. Now, do the coding and after doing that tell me in a step-by-step manner where all to make the changes to achieve the desired result.
+
+https://newsapi.org/v2/everything?q=technology
+https://gnews.io/api/v4/search?q=technology
+https://newsdata.io/api/1/news?category=technology
+https://dev.to/api/articles?tag=technology
+https://hacker-news.firebaseio.com/v0/topstories.json
+https://api.gitterapp.com/repositories
+https://www.reddit.com/r/technology.json
+
+79d31656c592462e9611ebd6d90bf29e
+725bbd1d705f0f0c4b60831feb6e7b19
+pub_634adc12caf24acba578c28a0c59050b
+
+=======================================================================================================================================
+
+delete from newsletter_subscribers where id in (11,13);
+
+select * from newsletter_subscribers;
+
+select id,subject,status from newsletters where status <> 'sent';
+
+select id,title,subject,status,scheduled_at,sent_at,total_recipients,successful_sends,failed_sends,created_at,updated_at from newsletters where status <> 'sent';
+
+update newsletters set updated_at=now() where id=20;
+
+UPDATE newsletters
+SET
+    scheduled_at     = NULL,
+    status           = 'sent',
+    sent_at          = NOW(),
+    total_recipients = (
+        SELECT COUNT(*)
+        FROM newsletter_subscribers
+    ),
+    successful_sends = (
+        SELECT COUNT(*)
+        FROM newsletter_subscribers
+    ),
+    updated_at       = NOW()
+WHERE id IN (6,7,9,14,15,16,17);
+
+INSERT INTO newsletter_sends (
+    newsletter_id,
+    subscriber_email,
+    status,
+    sent_at,
+    created_at
+)
+SELECT
+    n.id,
+    s.email,
+    n.status,
+    n.sent_at,
+    n.created_at
+FROM newsletters AS n
+CROSS JOIN newsletter_subscribers AS s
+WHERE n.status = 'sent' 
+  AND n.id IN (6,7,9,14,15,16,17)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM newsletter_sends AS ns
+      WHERE ns.newsletter_id     = n.id
+        AND ns.subscriber_email  = s.email
+  )
+RETURNING *;
+
+select * from newsletter_sends order by sent_at desc, subscriber_email asc limit 21;
+
+CREATE TABLE humans(
+ id BIGSERIAL PRIMARY KEY,
+ first_name TEXT,
+ last_name TEXT,
+ age INT,
+ dob DATE,
+ gender TEXT,
+ email TEXT,
+ phone TEXT,
+ country TEXT,
+ state TEXT,
+ city TEXT,
+ address TEXT,
+ zip TEXT,
+ nationality TEXT,
+ occupation TEXT,
+ company TEXT,
+ education TEXT,
+ blood TEXT,
+ marital TEXT,
+ father TEXT,
+ mother TEXT,
+ emergency TEXT,
+ notes TEXT,
+ created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE INDEX idx_humans_phone ON humans(phone);
+CREATE INDEX idx_humans_email ON humans(email);
+CREATE INDEX idx_humans_created ON humans(created_at DESC);
+
+CREATE TABLE humans_2026 PARTITION OF humans
+FOR VALUES FROM ('2026-01-01') TO ('2027-01-01');
+
+SELECT COUNT(*) FROM humans;
+
+DROP TABLE humans;
+
+CREATE TABLE humans(
+ id BIGSERIAL,
+ first_name TEXT,
+ last_name TEXT,
+ age INT,
+ dob DATE,
+ gender TEXT,
+ email TEXT,
+ phone TEXT,
+ country TEXT,
+ state TEXT,
+ city TEXT,
+ address TEXT,
+ zip TEXT,
+ nationality TEXT,
+ occupation TEXT,
+ company TEXT,
+ education TEXT,
+ blood TEXT,
+ marital TEXT,
+ father TEXT,
+ mother TEXT,
+ emergency TEXT,
+ notes TEXT,
+ created_at TIMESTAMP DEFAULT now()
+) PARTITION BY RANGE (created_at);
+
+CREATE TABLE humans_default PARTITION OF humans DEFAULT;
+
+CREATE TABLE humans_2026
+PARTITION OF humans
+FOR VALUES FROM ('2026-01-01') TO ('2027-01-01');
+
+CREATE INDEX idx_humans_phone ON humans(phone);
+CREATE INDEX idx_humans_email ON humans(email);
+CREATE INDEX idx_humans_created ON humans(created_at DESC);
+
+CREATE INDEX idx_humans_2026_phone ON humans_2026(phone);
+CREATE INDEX idx_humans_2026_email ON humans_2026(email);
+
+INSERT INTO humans(first_name) VALUES ('Test');
+
+SELECT tableoid::regclass,* FROM humans;
