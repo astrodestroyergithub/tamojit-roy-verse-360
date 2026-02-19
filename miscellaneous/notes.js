@@ -7,14 +7,14 @@ async function load(){
 
   const t = await fetch(`notes/${f}`).then(r=>r.text());
 
+  const title=document.createElement("h3");
+  title.textContent=f;
+  container.appendChild(title);
+
   const div = document.createElement("div");
   container.appendChild(div);
 
   div.textContent = t;
-
-  const title=document.createElement("h3");
-  title.textContent=f;
-  container.appendChild(title);
 
   // div.innerHTML = '<span class="cursor"></span>';
 
