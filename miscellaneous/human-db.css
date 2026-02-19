@@ -1,0 +1,125 @@
+/* ===== BASE ===== */
+
+body{
+    margin:0;
+    padding:30px 20px;
+    font-family:"Segoe UI",system-ui,sans-serif;
+    background: linear-gradient(135deg,#12062c,#2b1a6b,#0b0321);
+    color:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* ===== TITLE ===== */
+
+h2{
+    font-size:2.3rem;
+    margin-bottom:25px;
+    text-align:center;
+}
+
+/* ===== TABLE WRAPPER (important for mobile scroll) ===== */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+
+    border-radius:16px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+
+    padding:10px;
+}
+
+/* ===== TABLE ===== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+/* ===== HEADER ===== */
+
+thead{
+    background: linear-gradient(145deg,#ffd700,#c9a000);
+    color:#2a1e5f;
+}
+
+th{
+    padding:12px 14px;
+    text-align:left;
+    white-space:nowrap;
+    font-weight:600;
+}
+
+/* ===== BODY ===== */
+
+td{
+    padding:10px 14px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    white-space:nowrap;
+}
+
+/* Zebra rows */
+tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.04);
+}
+
+/* Hover row */
+tbody tr:hover{
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.002);
+    transition:0.2s;
+}
+
+/* ===== PAGINATION BUTTON ===== */
+
+button{
+    margin-top:20px;
+    padding:12px 24px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+
+    background: linear-gradient(145deg,#ffd700,#c9a000);
+    color:#2a1e5f;
+
+    transition:0.3s;
+    box-shadow:0 0 16px rgba(255,215,0,0.6);
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow:0 0 26px gold;
+}
+
+button:active{
+    transform: scale(0.95);
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:700px){
+
+    h2{
+        font-size:1.9rem;
+    }
+
+    table{
+        font-size:13px;
+    }
+
+    th,td{
+        padding:8px 10px;
+    }
+
+    button{
+        width:100%;
+    }
+}

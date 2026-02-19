@@ -1,0 +1,83 @@
+/* ===== BASE ===== */
+
+body{
+    margin:0;
+    padding:40px 20px;
+    font-family: "Courier New", monospace;
+    background:#0a0a0a;
+    color:#00ff9c;
+    min-height:100vh;
+}
+
+/* ===== NOTES CONTAINER ===== */
+
+#notes{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+}
+
+/* ===== NOTE CARD ===== */
+
+#notes div{
+    padding:25px;
+    border-radius:12px;
+
+    background: rgba(0,255,156,0.05);
+    border:1px solid rgba(0,255,156,0.2);
+
+    white-space:pre-wrap;
+    line-height:1.6;
+    font-size:16px;
+
+    box-shadow: 0 0 20px rgba(0,255,156,0.08);
+    backdrop-filter: blur(4px);
+
+    position:relative;
+}
+
+/* ===== TERMINAL HEADER ===== */
+
+#notes div::before{
+    content:"NOTE";
+    position:absolute;
+    top:-10px;
+    left:12px;
+
+    font-size:11px;
+    background:#0a0a0a;
+    padding:2px 8px;
+    color:#00ff9c;
+    letter-spacing:1px;
+}
+
+/* ===== CURSOR BLINK ===== */
+
+.cursor{
+    display:inline-block;
+    width:8px;
+    height:18px;
+    background:#00ff9c;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    0%,50%,100%{opacity:1;}
+    25%,75%{opacity:0;}
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:600px){
+
+    body{
+        padding:25px 14px;
+    }
+
+    #notes div{
+        padding:18px;
+        font-size:14px;
+    }
+}
