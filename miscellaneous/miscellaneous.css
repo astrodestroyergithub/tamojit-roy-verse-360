@@ -54,6 +54,10 @@ body{
 .p6{background:linear-gradient(145deg,#f7e98e,#ffd700);}
 .p7{background:linear-gradient(145deg,#f4c430,#ffdf00);}
 
+.p8{
+ background:linear-gradient(145deg,#f7e98e,#ffd700);
+}
+
 @media(max-width:600px){
  .plate{width:90%;}
 }
