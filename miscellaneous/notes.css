@@ -8,7 +8,7 @@
 
 html,body{
     max-width:100%;
-    overflow-x:hidden;      /* ⭐ prevents horizontal bleed */
+    overflow-x:hidden;
 }
 
 /* ===== BASE ===== */
@@ -61,32 +61,13 @@ body{
     word-break:break-word;
     overflow-wrap:anywhere;
 
-    /* ⭐ KEY CHANGE */
     overflow-x:hidden;
-    overflow-y:visible;   /* allow badge to show */
+    overflow-y:visible;
 
     box-shadow: 0 0 20px rgba(0,255,156,0.08);
     backdrop-filter: blur(4px);
 
     position:relative;
-}
-
-/* ===== TERMINAL HEADER ===== */
-
-#notes div::before{
-    content:"NOTE";
-    position:absolute;
-    top:-12px;
-    left:14px;
-
-    font-size:11px;
-    background:#0a0a0a;
-    padding:2px 8px;
-    color:#00ff9c;
-    letter-spacing:1px;
-
-    border-radius:4px;   /* nicer */
-    box-shadow:0 0 8px rgba(0,255,156,0.25);
 }
 
 /* ===== MOBILE ===== */
@@ -98,7 +79,7 @@ body{
     }
 
     #notes{
-        max-width:none;       /* ⭐ full width */
+        max-width:none;
     }
 
     #notes div{
