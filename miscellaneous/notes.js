@@ -1,4 +1,4 @@
-const files=["note1.txt","note2.txt","note3.txt","note4.txt","note5.txt","note6.txt"];
+const files=["SCRIPT.txt","VERSE 360 WEBSITE PROMPTS.txt","SCRIPT OF DHURANDHAR.txt","PROMPTS FOR MAKING AI CHAT SECTION.txt","CRYPTOCURRENCY.txt","ARIJIT SINGH.txt"];
 
 async function load(){
  const container=document.getElementById("notes");
@@ -10,23 +10,29 @@ async function load(){
   const div = document.createElement("div");
   container.appendChild(div);
 
-  /* ⭐ ADD CURSOR HERE */
-  div.innerHTML = '<span class="cursor"></span>';
+  div.textContent = t;
 
-  const cursor = div.querySelector(".cursor");
+  const title=document.createElement("h3");
+  title.textContent=f;
+  container.appendChild(title);
 
-  let i = 0;
+  // div.innerHTML = '<span class="cursor"></span>';
 
+  // const cursor = div.querySelector(".cursor");
+
+  // let i = 0;
+
+  /* 
   const inter = setInterval(()=>{
 
       const char = t[i++] || "";
 
-      /* insert text BEFORE cursor */
       cursor.insertAdjacentText("beforebegin", char);
 
       if(i >= t.length) clearInterval(inter);
 
   },10);
+  */
  }
 }
 load();
