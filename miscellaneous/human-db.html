@@ -10,9 +10,22 @@
 <body>
 
 <h2>Universal Human Database</h2>
+
 <div class="table-wrapper">
-<table id="table"></table>
+<table id="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
 </div>
+
 <button onclick="next()">Next</button>
 
 <script src="human-db.js"></script>
