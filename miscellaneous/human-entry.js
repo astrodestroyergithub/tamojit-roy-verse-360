@@ -1,13 +1,30 @@
 document.getElementById("humanForm").addEventListener("submit", async e=>{
- e.preventDefault();
+    e.preventDefault();
 
- const data = Object.fromEntries(new FormData(e.target));
+    /* ===== Collect form data ===== */
+    const raw = Object.fromEntries(new FormData(e.target));
 
- await fetch("/.netlify/functions/add-human",{
-  method:"POST",
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify(data)
- });
+    /* ⭐ Remove empty values */
+    const data = {};
 
- alert("Added!");
+    Object.entries(raw).forEach(([k,v])=>{
+        if(v !== null && v !== undefined && v.trim() !== ""){
+            data[k] = v.trim();
+        }
+    });
+
+    /* ⭐ Only require first & last name */
+    if(!data.first_name || !data.last_name){
+        alert("First and Last name required");
+        return;
+    }
+
+    await fetch("/.netlify/functions/add-human",{
+        method:"POST",
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+    });
+
+    alert("Added!");
+    e.target.reset();
 });

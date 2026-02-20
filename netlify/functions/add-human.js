@@ -1,16 +1,44 @@
 const {Pool}=require("pg");
-const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:{rejectUnauthorized:false}});
+
+const pool=new Pool({
+    connectionString:process.env.DATABASE_URL,
+    ssl:{rejectUnauthorized:false}
+});
 
 exports.handler=async(event)=>{
- const data=JSON.parse(event.body);
 
- const cols=Object.keys(data);
- const vals=Object.values(data);
+    try{
 
- const q=`INSERT INTO humans(${cols.join(",")})
-          VALUES(${cols.map((_,i)=>`$${i+1}`).join(",")})`;
+        let data = JSON.parse(event.body);
 
- await pool.query(q,vals);
+        /* ⭐ Backend safety filter */
+        const filtered = {};
 
- return {statusCode:200,body:"ok"};
+        Object.entries(data).forEach(([k,v])=>{
+            if(v !== null && v !== undefined && String(v).trim() !== ""){
+                filtered[k] = v;
+            }
+        });
+
+        /* ⭐ Ensure minimal fields */
+        if(!filtered.first_name || !filtered.last_name){
+            return {statusCode:400, body:"first/last required"};
+        }
+
+        const cols = Object.keys(filtered);
+        const vals = Object.values(filtered);
+
+        const q = `
+            INSERT INTO humans(${cols.join(",")})
+            VALUES(${cols.map((_,i)=>`$${i+1}`).join(",")})
+        `;
+
+        await pool.query(q,vals);
+
+        return {statusCode:200,body:"ok"};
+
+    }catch(err){
+        console.error(err);
+        return {statusCode:500, body:"error"};
+    }
 };
