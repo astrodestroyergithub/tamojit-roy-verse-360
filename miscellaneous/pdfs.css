@@ -40,9 +40,14 @@ h2{
 /* title */
 
 .pdf-title{
+ max-width:100%;
  font-weight:600;
  margin-bottom:15px;
  opacity:0.9;
+
+ /* ⭐ overflow fix */
+ word-break:break-word;
+ overflow-wrap:anywhere;
 }
 
 /* viewer */
