@@ -71,5 +71,3 @@ CREATE INDEX idx_humans_created ON humans(created_at DESC);
 
 CREATE TABLE humans_2026 PARTITION OF humans
 FOR VALUES FROM ('2026-01-01') TO ('2027-01-01');
-
-

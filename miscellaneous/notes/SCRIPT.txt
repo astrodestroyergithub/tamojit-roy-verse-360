@@ -37,3 +37,6 @@ The video captures not only the comparison but also the key learnings, limitatio
 
 If you’re curious about where AI is headed, how these models differ in capability, or what practical outcomes they deliver beyond the hype, I’d love for you to check out the video. Your thoughts, feedback, and perspectives would mean a lot, and I hope it sparks meaningful discussion as we all navigate the future of intelligent technology together.
 
+Username: neondb_owner
+Password: npg_rMVob8s7yFLg
+Host: ep-curly-fog-adb4t5zk-pooler.c-2.us-east-1.aws.neon.tech
