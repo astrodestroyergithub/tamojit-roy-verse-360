@@ -360,3 +360,16 @@ CREATE INDEX idx_humans_2026_email ON humans_2026(email);
 INSERT INTO humans(first_name) VALUES ('Test');
 
 SELECT tableoid::regclass,* FROM humans;
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE INDEX humans_search_idx ON humans
+USING gin (
+ first_name gin_trgm_ops,
+ last_name gin_trgm_ops,
+ email gin_trgm_ops,
+ phone gin_trgm_ops,
+ city gin_trgm_ops,
+ country gin_trgm_ops,
+ occupation gin_trgm_ops
+);

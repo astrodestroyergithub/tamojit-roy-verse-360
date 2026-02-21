@@ -11,6 +11,16 @@
 
 <h2>Universal Human Database</h2>
 
+<!-- ===== SEARCH BAR ===== -->
+<div class="top-bar">
+    <div class="search-box">
+        <input id="searchInput" placeholder="Search humans...">
+        <button onclick="doSearch()">Search</button>
+    </div>
+</div>
+
+<div id="searchInfo" class="search-info"></div>
+
 <div class="table-wrapper">
 <table id="table">
     <thead id="tableHead"></thead>
@@ -18,7 +28,12 @@
 </table>
 </div>
 
-<button onclick="next()">Next</button>
+<!-- ===== PAGINATION ===== -->
+<div class="pagination">
+    <button class="nav" onclick="prev()">◀</button>
+    <div id="pageInfo"></div>
+    <button class="nav" onclick="next()">▶</button>
+</div>
 
 <script src="human-db.js"></script>
 </body>

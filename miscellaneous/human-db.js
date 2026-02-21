@@ -1,106 +1,112 @@
 let page = 0;
+const LIMIT = 50;
+let total = 0;
+let searchMode = false;
+let searchQuery = "";
 
 /* ===== FORMAT DOB ===== */
 function formatDate(dob){
     if(!dob) return "";
     const d = new Date(dob);
     if(isNaN(d)) return dob;
-
-    const dd = String(d.getDate()).padStart(2,'0');
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    const yyyy = d.getFullYear();
-    return `${dd}-${mm}-${yyyy}`;
+    return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
 }
 
-/* ===== BUILD HEADER ===== */
+/* ===== HEADER ===== */
 function buildHeader(keys){
-
     const thead = document.getElementById("tableHead");
     thead.innerHTML="";
-
     const tr=document.createElement("tr");
-
     keys.forEach(k=>{
         const th=document.createElement("th");
-
-        /* Pretty labels */
-        let label=k
-            .replaceAll("_"," ")
-            .replace(/\b\w/g,c=>c.toUpperCase());
-
-        th.textContent=label;
+        th.textContent=k.replaceAll("_"," ").replace(/\b\w/g,c=>c.toUpperCase());
         tr.appendChild(th);
     });
-
     thead.appendChild(tr);
 }
 
 /* ===== LOAD ===== */
 async function load(){
 
-    const res = await fetch(`/.netlify/functions/get-humans?page=${page}`);
-    let data = await res.json();
+    let url;
 
-    if(!data.length) return;
+    if(searchMode)
+        url=`/.netlify/functions/get-humans?page=${page}&q=${encodeURIComponent(searchQuery)}`;
+    else
+        url=`/.netlify/functions/get-humans?page=${page}`;
 
-    /* ⭐ Sort latest → oldest */
-    data.sort((a,b)=> new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+    const res=await fetch(url);
+    const {rows,count}=await res.json();
 
-    const tbody = document.getElementById("tableBody");
+    total=count;
+
+    const tbody=document.getElementById("tableBody");
     tbody.innerHTML="";
 
-    /* ===== Determine columns dynamically ===== */
+    if(!rows.length) return;
 
-    const sample = data[0];
-    let keys = Object.keys(sample);
+    let keys=Object.keys(rows[0]);
 
-    /* ⭐ Remove first serial-like column automatically */
-    keys = keys.filter(k =>
-        !["sno","serial","sl","sr","id"].includes(k.toLowerCase())
-    );
-
-    /* ⭐ Remove first_name & last_name (we will replace with full name) */
-    keys = keys.filter(k => k!=="first_name" && k!=="last_name");
-
-    /* ⭐ Remove last column automatically */
+    keys=keys.filter(k=>!["sno","serial","sl","sr","id"].includes(k.toLowerCase()));
+    keys=keys.filter(k=>k!=="first_name" && k!=="last_name");
     keys.pop();
-
-    /* ⭐ Insert computed columns */
     keys.unshift("full_name");
     keys.unshift("natural_id");
 
-    /* ⭐ Build header only first time */
-    if(page===0) buildHeader(keys);
+    buildHeader(keys);
 
-    /* ===== Render rows ===== */
-    data.forEach((r,index)=>{
-
+    rows.forEach((r,index)=>{
         const tr=document.createElement("tr");
-
-        const naturalId = page*data.length + index + 1;
-        const fullName = `${r.first_name ?? ""} ${r.last_name ?? ""}`.trim();
+        const naturalId=page*LIMIT + index + 1;
+        const fullName=`${r.first_name??""} ${r.last_name??""}`.trim();
 
         keys.forEach(k=>{
-
             const td=document.createElement("td");
-
-            if(k==="natural_id") td.textContent = naturalId;
-            else if(k==="full_name") td.textContent = fullName;
-            else if(k==="dob") td.textContent = formatDate(r[k]);
-            else td.textContent = r[k] ?? "";
-
+            if(k==="natural_id") td.textContent=naturalId;
+            else if(k==="full_name") td.textContent=fullName;
+            else if(k==="dob") td.textContent=formatDate(r[k]);
+            else td.textContent=r[k]??"";
             tr.appendChild(td);
         });
 
         tbody.appendChild(tr);
     });
+
+    /* page info */
+    const start=page*LIMIT+1;
+    const end=Math.min(start+rows.length-1,total);
+    document.getElementById("pageInfo").textContent=`Showing ${start}-${end} of ${total}`;
 }
 
-/* ===== PAGINATION ===== */
+/* ===== NAV ===== */
 function next(){
-    page++;
+    if((page+1)*LIMIT>=total) return;
+    page++; load();
+}
+function prev(){
+    if(page===0) return;
+    page--; load();
+}
+
+/* ===== SEARCH ===== */
+function doSearch(){
+    const v=document.getElementById("searchInput").value.trim();
+    page=0;
+    if(!v){
+        searchMode=false;
+        document.getElementById("searchInfo").textContent="";
+    }else{
+        searchMode=true;
+        searchQuery=v;
+    }
     load();
 }
 
-/* ===== INIT ===== */
+/* debounce */
+let t;
+document.getElementById("searchInput").addEventListener("input",()=>{
+    clearTimeout(t);
+    t=setTimeout(doSearch,500);
+});
+
 load();
