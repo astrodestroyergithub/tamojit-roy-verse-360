@@ -373,3 +373,29 @@ USING gin (
  country gin_trgm_ops,
  occupation gin_trgm_ops
 );
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE INDEX humans_full_search_idx
+ON humans
+USING gin (
+ first_name gin_trgm_ops,
+ last_name gin_trgm_ops,
+ email gin_trgm_ops,
+ phone gin_trgm_ops,
+ country gin_trgm_ops,
+ state gin_trgm_ops,
+ city gin_trgm_ops,
+ address gin_trgm_ops,
+ zip gin_trgm_ops,
+ nationality gin_trgm_ops,
+ occupation gin_trgm_ops,
+ company gin_trgm_ops,
+ education gin_trgm_ops,
+ blood gin_trgm_ops,
+ marital gin_trgm_ops,
+ father gin_trgm_ops,
+ mother gin_trgm_ops,
+ emergency gin_trgm_ops,
+ notes gin_trgm_ops
+);

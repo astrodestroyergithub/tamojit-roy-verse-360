@@ -1,5 +1,8 @@
 const {Pool}=require("pg");
-const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:{rejectUnauthorized:false}});
+const pool=new Pool({
+ connectionString:process.env.DATABASE_URL,
+ ssl:{rejectUnauthorized:false}
+});
 
 exports.handler=async(event)=>{
 
@@ -15,16 +18,39 @@ exports.handler=async(event)=>{
   const like=`%${q}%`;
 
   const where=`
-  first_name ILIKE $1 OR last_name ILIKE $1 OR email ILIKE $1 OR
-  phone ILIKE $1 OR city ILIKE $1 OR country ILIKE $1 OR occupation ILIKE $1
+   first_name ILIKE $1 OR
+   last_name ILIKE $1 OR
+   email ILIKE $1 OR
+   phone ILIKE $1 OR
+   country ILIKE $1 OR
+   state ILIKE $1 OR
+   city ILIKE $1 OR
+   address ILIKE $1 OR
+   zip ILIKE $1 OR
+   nationality ILIKE $1 OR
+   occupation ILIKE $1 OR
+   company ILIKE $1 OR
+   education ILIKE $1 OR
+   blood ILIKE $1 OR
+   marital ILIKE $1 OR
+   father ILIKE $1 OR
+   mother ILIKE $1 OR
+   emergency ILIKE $1 OR
+   notes ILIKE $1
   `;
 
   const data=await pool.query(
-   `SELECT * FROM humans WHERE ${where} ORDER BY id DESC LIMIT $2 OFFSET $3`,
+   `SELECT * FROM humans
+    WHERE ${where}
+    ORDER BY id DESC
+    LIMIT $2 OFFSET $3`,
    [like,limit,offset]
   );
 
-  const c=await pool.query(`SELECT count(*) FROM humans WHERE ${where}`,[like]);
+  const c=await pool.query(
+   `SELECT count(*) FROM humans WHERE ${where}`,
+   [like]
+  );
 
   rows=data.rows;
   count=parseInt(c.rows[0].count);
@@ -32,7 +58,9 @@ exports.handler=async(event)=>{
  }else{
 
   const data=await pool.query(
-   `SELECT * FROM humans ORDER BY id DESC LIMIT $1 OFFSET $2`,
+   `SELECT * FROM humans
+    ORDER BY id DESC
+    LIMIT $1 OFFSET $2`,
    [limit,offset]
   );
 
@@ -42,5 +70,8 @@ exports.handler=async(event)=>{
   count=parseInt(c.rows[0].count);
  }
 
- return {statusCode:200,body:JSON.stringify({rows,count})};
+ return {
+  statusCode:200,
+  body:JSON.stringify({rows,count})
+ };
 };
