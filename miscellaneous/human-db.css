@@ -146,6 +146,32 @@ tbody tr:hover{
     opacity:.9;
 }
 
+/* no results */
+.no-results{
+    margin-top:18px;
+    font-size:18px;
+    opacity:.9;
+    text-align:center;
+}
+
+/* remove button gap now */
+.search-box{
+    display:flex;
+}
+
+/* better right alignment */
+.top-bar{
+    width:100%;
+    max-width:1200px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+/* hide helper */
+.hidden{
+    display:none !important;
+}
+
 /* ===== MOBILE ===== */
 
 @media(max-width:700px){

@@ -28,12 +28,13 @@ function buildHeader(keys){
 /* ===== LOAD ===== */
 async function load(){
 
-    let url;
+    const pagination=document.getElementById("pagination");
+    const noResults=document.getElementById("noResults");
+    const searchInfo=document.getElementById("searchInfo");
 
-    if(searchMode)
-        url=`/.netlify/functions/get-humans?page=${page}&q=${encodeURIComponent(searchQuery)}`;
-    else
-        url=`/.netlify/functions/get-humans?page=${page}`;
+    let url = searchMode
+        ? `/.netlify/functions/get-humans?page=${page}&q=${encodeURIComponent(searchQuery)}`
+        : `/.netlify/functions/get-humans?page=${page}`;
 
     const res=await fetch(url);
     const {rows,count}=await res.json();
@@ -42,11 +43,27 @@ async function load(){
 
     const tbody=document.getElementById("tableBody");
     tbody.innerHTML="";
+    noResults.textContent="";
 
-    if(!rows.length) return;
+    /* ⭐ NO RESULT STATE */
+    if(!rows.length){
 
+        document.getElementById("tableHead").innerHTML="";
+        pagination.classList.add("hidden");
+        document.getElementById("pageInfo").textContent="";
+
+        if(searchMode){
+            noResults.textContent="No such result(s) found!";
+            searchInfo.textContent="0 total records found!";
+        }
+
+        return;
+    }
+
+    pagination.classList.remove("hidden");
+
+    /* ===== KEYS ===== */
     let keys=Object.keys(rows[0]);
-
     keys=keys.filter(k=>!["sno","serial","sl","sr","id"].includes(k.toLowerCase()));
     keys=keys.filter(k=>k!=="first_name" && k!=="last_name");
     keys.pop();
@@ -55,6 +72,7 @@ async function load(){
 
     buildHeader(keys);
 
+    /* ===== ROWS ===== */
     rows.forEach((r,index)=>{
         const tr=document.createElement("tr");
         const naturalId=page*LIMIT + index + 1;
@@ -72,10 +90,15 @@ async function load(){
         tbody.appendChild(tr);
     });
 
-    /* page info */
+    /* ===== INFO ===== */
     const start=page*LIMIT+1;
     const end=Math.min(start+rows.length-1,total);
     document.getElementById("pageInfo").textContent=`Showing ${start}-${end} of ${total}`;
+
+    if(searchMode)
+        searchInfo.textContent=`${total} total records found!`;
+    else
+        searchInfo.textContent="";
 }
 
 /* ===== NAV ===== */
@@ -92,13 +115,15 @@ function prev(){
 function doSearch(){
     const v=document.getElementById("searchInput").value.trim();
     page=0;
+
     if(!v){
         searchMode=false;
-        document.getElementById("searchInfo").textContent="";
+        searchQuery="";
     }else{
         searchMode=true;
         searchQuery=v;
     }
+
     load();
 }
 
@@ -106,7 +131,7 @@ function doSearch(){
 let t;
 document.getElementById("searchInput").addEventListener("input",()=>{
     clearTimeout(t);
-    t=setTimeout(doSearch,500);
+    t=setTimeout(doSearch,400);
 });
 
 load();

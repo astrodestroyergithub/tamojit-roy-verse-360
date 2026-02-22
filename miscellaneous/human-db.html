@@ -11,15 +11,16 @@
 
 <h2>Universal Human Database</h2>
 
-<!-- ===== SEARCH BAR ===== -->
+<!-- SEARCH -->
 <div class="top-bar">
     <div class="search-box">
-        <input id="searchInput" placeholder="Search humans...">
-        <button onclick="doSearch()">Search</button>
+        <input id="searchInput"
+               placeholder="Search across all fields (name, city, phone, nationality, etc...)">
     </div>
 </div>
 
 <div id="searchInfo" class="search-info"></div>
+<div id="noResults" class="no-results"></div>
 
 <div class="table-wrapper">
 <table id="table">
@@ -28,8 +29,7 @@
 </table>
 </div>
 
-<!-- ===== PAGINATION ===== -->
-<div class="pagination">
+<div class="pagination" id="pagination">
     <button class="nav" onclick="prev()">◀</button>
     <div id="pageInfo"></div>
     <button class="nav" onclick="next()">▶</button>
