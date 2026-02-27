@@ -399,3 +399,196 @@ USING gin (
  emergency gin_trgm_ops,
  notes gin_trgm_ops
 );
+
+-- ============================================
+-- DROP TABLE (ONLY IF RESETTING)
+-- ============================================
+-- DROP TABLE IF EXISTS resume_download_logs CASCADE;
+
+
+-- ============================================
+-- MAIN TABLE
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS resume_download_logs (
+    id BIGSERIAL PRIMARY KEY,
+
+    -- ===============================
+    -- SERVER TIMING
+    -- ===============================
+    download_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
+    -- ===============================
+    -- CLIENT TIMING
+    -- ===============================
+    client_click_time TIMESTAMP WITH TIME ZONE,
+    hover_duration_ms INTEGER,
+    page_dwell_time_ms INTEGER,
+
+    -- ===============================
+    -- NETWORK
+    -- ===============================
+    ip TEXT,
+    country TEXT,
+    region TEXT,
+    city TEXT,
+    latitude TEXT,
+    longitude TEXT,
+
+    -- ===============================
+    -- DEVICE / BROWSER
+    -- ===============================
+    user_agent TEXT,
+    accept_language TEXT,
+    screen_resolution TEXT,
+    timezone TEXT,
+    cookies_enabled BOOLEAN,
+
+    -- ===============================
+    -- REQUEST / SESSION
+    -- ===============================
+    referrer TEXT,
+    page_url TEXT,
+    session_id TEXT,
+
+    -- ===============================
+    -- ANALYTICS
+    -- ===============================
+    intent_score INTEGER,
+    is_bot BOOLEAN DEFAULT FALSE,
+
+    -- ===============================
+    -- RAW HEADERS
+    -- ===============================
+    headers JSONB
+);
+
+
+-- ============================================
+-- PERFORMANCE INDEXES
+-- ============================================
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_time
+ON resume_download_logs (download_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_ip
+ON resume_download_logs (ip);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_session
+ON resume_download_logs (session_id);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_country
+ON resume_download_logs (country);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_is_bot
+ON resume_download_logs (is_bot);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_intent
+ON resume_download_logs (intent_score);
+
+CREATE INDEX IF NOT EXISTS idx_resume_download_headers_gin
+ON resume_download_logs
+USING GIN (headers);
+
+
+-- ============================================
+-- DUPLICATE SUPPRESSION HELPER INDEX
+-- (Improves 5-minute duplicate check)
+-- ============================================
+
+CREATE INDEX IF NOT EXISTS idx_resume_duplicate_window
+ON resume_download_logs (ip, session_id, download_at DESC);
+
+
+-- ============================================
+-- ANALYTICS VIEWS
+-- ============================================
+
+-- 1️⃣ Total Real Downloads (Excludes Bots)
+CREATE OR REPLACE VIEW resume_real_downloads AS
+SELECT *
+FROM resume_download_logs
+WHERE is_bot = FALSE;
+
+
+-- 2️⃣ Downloads Per Day
+CREATE OR REPLACE VIEW resume_downloads_per_day AS
+SELECT
+    DATE(download_at) AS day,
+    COUNT(*) AS total_downloads,
+    COUNT(*) FILTER (WHERE is_bot = FALSE) AS real_downloads,
+    COUNT(*) FILTER (WHERE is_bot = TRUE) AS bot_downloads
+FROM resume_download_logs
+GROUP BY DATE(download_at)
+ORDER BY day DESC;
+
+
+-- 3️⃣ Downloads By Country
+CREATE OR REPLACE VIEW resume_downloads_by_country AS
+SELECT
+    country,
+    COUNT(*) AS total_downloads,
+    AVG(intent_score) AS avg_intent_score
+FROM resume_download_logs
+WHERE is_bot = FALSE
+GROUP BY country
+ORDER BY total_downloads DESC;
+
+
+-- 4️⃣ High Intent Visitors
+CREATE OR REPLACE VIEW resume_high_intent_visitors AS
+SELECT *
+FROM resume_download_logs
+WHERE intent_score >= 60
+AND is_bot = FALSE
+ORDER BY download_at DESC;
+
+
+-- ============================================
+-- OPTIONAL: MATERIALIZED SUMMARY VIEW
+-- (Faster dashboard queries)
+-- ============================================
+
+CREATE MATERIALIZED VIEW IF NOT EXISTS resume_download_summary AS
+SELECT
+    COUNT(*) AS total_downloads,
+    COUNT(*) FILTER (WHERE is_bot = FALSE) AS real_downloads,
+    COUNT(*) FILTER (WHERE is_bot = TRUE) AS bot_downloads,
+    AVG(intent_score) AS avg_intent,
+    MAX(download_at) AS last_download_time
+FROM resume_download_logs;
+
+-- To refresh:
+-- REFRESH MATERIALIZED VIEW resume_download_summary;
+
+
+-- ============================================
+-- OPTIONAL: RECRUITER HEURISTIC VIEW
+-- (Very Interesting)
+-- ============================================
+
+CREATE OR REPLACE VIEW resume_probable_recruiters AS
+SELECT *
+FROM resume_download_logs
+WHERE is_bot = FALSE
+  AND intent_score >= 60
+  AND (
+        user_agent ILIKE '%windows%'
+        OR user_agent ILIKE '%macintosh%'
+      )
+ORDER BY download_at DESC;
+
+SELECT country, COUNT(*)
+FROM resume_real_downloads
+GROUP BY country
+ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+SELECT *
+FROM resume_high_intent_visitors
+WHERE download_at > NOW() - INTERVAL '24 hours';
+
+SELECT referrer, COUNT(*)
+FROM resume_download_logs
+WHERE referrer ILIKE '%linkedin%'
+GROUP BY referrer;
