@@ -12,7 +12,11 @@ const pdfFiles=[
  "Tamojit_Roy_Resume (1).pdf",
  "Tamojit_Roy_Resume (2).pdf",
  "Tamojit_Roy_Resume (3).pdf",
- "Tamojit_Roy_Resume.pdf"
+ "Tamojit_Roy_Resume.pdf",
+ "RBI_Assistant_Application_Fee_Payment_Details_5th_March_2026.pdf",
+ "RBI_Assistant_Application_Payment_Success_Receipt_5th_March_2026.pdf",
+ "RBI_Assistant_Application_Printout_5th_March_2026.pdf",
+ "RBI_Assistant_Application_Tax_Invoice_5th_March_2026"
 ];
 
 function loadPDFs(){
