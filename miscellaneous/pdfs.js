@@ -16,7 +16,7 @@ const pdfFiles=[
  "RBI_Assistant_Application_Fee_Payment_Details_5th_March_2026.pdf",
  "RBI_Assistant_Application_Payment_Success_Receipt_5th_March_2026.pdf",
  "RBI_Assistant_Application_Printout_5th_March_2026.pdf",
- "RBI_Assistant_Application_Tax_Invoice_5th_March_2026"
+ "RBI_Assistant_Application_Tax_Invoice_5th_March_2026.pdf"
 ];
 
 function loadPDFs(){
