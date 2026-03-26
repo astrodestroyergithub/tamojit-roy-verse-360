@@ -6,7 +6,8 @@ const files=[
  "CRYPTOCURRENCY.txt",
  "ARIJIT SINGH.txt",
  "PEP TALKS OR CONSPIRACY.txt",
- "DHURANDHAR - THE REVENGE.txt"
+ "DHURANDHAR - THE REVENGE.txt",
+ "THE FUNCTIONS AND RESPONSIBILITIES OF PRESS.txt"
 ];
 
 async function load(){
