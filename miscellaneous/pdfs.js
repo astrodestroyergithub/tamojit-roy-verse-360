@@ -18,7 +18,9 @@ const pdfFiles=[
  "RBI_Assistant_Application_Printout_5th_March_2026.pdf",
  "RBI_Assistant_Application_Tax_Invoice_5th_March_2026.pdf",
  "RRB NTPC 22 MAR 2026 ADMIT CARD.pdf",
- "APARNA DHAR BACKUP CODES.pdf"
+ "APARNA DHAR BACKUP CODES.pdf",
+ "RBI_Assistant_2025_Exam_Call_Letter.PDF",
+ "01_Handout_English_02042026.pdf"
 ];
 
 function loadPDFs(){
