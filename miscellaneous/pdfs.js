@@ -20,7 +20,8 @@ const pdfFiles=[
  "RRB NTPC 22 MAR 2026 ADMIT CARD.pdf",
  "APARNA DHAR BACKUP CODES.pdf",
  "RBI_Assistant_2025_Exam_Call_Letter.PDF",
- "01_Handout_English_02042026.pdf"
+ "01_Handout_English_02042026.pdf",
+ "SSC_CGL_APPLICATION_FORM_2026.pdf"
 ];
 
 function loadPDFs(){
