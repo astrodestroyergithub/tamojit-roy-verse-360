@@ -592,3 +592,109 @@ SELECT referrer, COUNT(*)
 FROM resume_download_logs
 WHERE referrer ILIKE '%linkedin%'
 GROUP BY referrer;
+
+========================================================================================
+========================================================================================
+
+CREATE TABLE blog_visit_logs (
+
+    id BIGSERIAL PRIMARY KEY,
+
+    visited_at TIMESTAMP DEFAULT NOW(),
+
+    blog_number INTEGER NOT NULL,
+
+    session_id VARCHAR(255),
+
+    ip VARCHAR(100),
+
+    country VARCHAR(100),
+    region VARCHAR(100),
+    city VARCHAR(100),
+
+    latitude NUMERIC(10,7),
+    longitude NUMERIC(10,7),
+
+    user_agent TEXT,
+
+    browser_name VARCHAR(100),
+    browser_version VARCHAR(100),
+
+    os_name VARCHAR(100),
+    os_version VARCHAR(100),
+
+    device_type VARCHAR(50),
+
+    screen_resolution VARCHAR(50),
+    viewport_size VARCHAR(50),
+
+    timezone VARCHAR(100),
+
+    language VARCHAR(100),
+
+    referrer TEXT,
+
+    cookies_enabled BOOLEAN,
+
+    touch_enabled BOOLEAN,
+
+    color_depth INTEGER,
+
+    hardware_concurrency INTEGER,
+
+    memory_gb NUMERIC(5,2),
+
+    network_type VARCHAR(50),
+
+    page_load_time_ms INTEGER,
+
+    headers JSONB,
+
+    is_bot BOOLEAN DEFAULT FALSE
+);
+
+
+CREATE INDEX idx_blog_number
+ON blog_visit_logs(blog_number);
+
+CREATE INDEX idx_visit_time
+ON blog_visit_logs(visited_at);
+
+CREATE INDEX idx_session
+ON blog_visit_logs(session_id);
+
+
+SELECT
+  blog_number,
+  COUNT(*) AS views
+FROM blog_visit_logs
+GROUP BY blog_number
+ORDER BY views DESC;
+
+SELECT
+  blog_number,
+  COUNT(DISTINCT session_id) AS unique_visitors
+FROM blog_visit_logs
+GROUP BY blog_number
+ORDER BY unique_visitors DESC;
+
+SELECT
+  country,
+  COUNT(*) AS views
+FROM blog_visit_logs
+GROUP BY country
+ORDER BY views DESC;
+
+SELECT
+  city,
+  COUNT(*) AS views
+FROM blog_visit_logs
+GROUP BY city
+ORDER BY views DESC;
+
+SELECT
+  os_name,
+  COUNT(*) AS views
+FROM blog_visit_logs
+GROUP BY os_name
+ORDER BY views DESC;
