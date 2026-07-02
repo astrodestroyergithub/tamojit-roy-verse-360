@@ -40,6 +40,15 @@ exports.handler = async (event) => {
       event.headers['client-ip'] ||
       'unknown';
 
+    console.log({
+        ip: event.headers['x-nf-client-connection-ip'],
+        country: event.headers['x-nf-geo-country'],
+        region: event.headers['x-nf-geo-region'],
+        city: event.headers['x-nf-geo-city'],
+        latitude: event.headers['x-nf-geo-latitude'],
+        longitude: event.headers['x-nf-geo-longitude']
+    });
+
     await pool.query(
       `
       INSERT INTO blog_visit_logs(
