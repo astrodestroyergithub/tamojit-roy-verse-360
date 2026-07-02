@@ -40,6 +40,8 @@ exports.handler = async (event) => {
       event.headers['client-ip'] ||
       'unknown';
 
+    console.log('Logging blog visit:');
+    
     console.log({
         ip: event.headers['x-nf-client-connection-ip'],
         country: event.headers['x-nf-geo-country'],
