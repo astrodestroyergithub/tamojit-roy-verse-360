@@ -40,7 +40,58 @@ exports.handler = async (event) => {
       event.headers['client-ip'] ||
       'unknown';
 
-    console.log("Headers:", event.headers);
+    // ==========================
+    // NETLIFY GEO PARSING
+    // ==========================
+
+    let country = null;
+    let region = null;
+    let city = null;
+    let latitude = null;
+    let longitude = null;
+
+    let countryCode = null;
+    let regionCode = null;
+    let postalCode = null;
+    let geoTimezone = null;
+
+    const geoHeader = event.headers['x-nf-geo'];
+
+    if (geoHeader) {
+      try {
+
+        const geo = JSON.parse(
+          Buffer.from(geoHeader, 'base64').toString('utf8')
+        );
+
+        console.log('Decoded Geo:', geo);
+
+        country = geo.country?.name || null;
+        countryCode = geo.country?.code || null;
+
+        region = geo.subdivision?.name || null;
+        regionCode = geo.subdivision?.code || null;
+
+        city = geo.city || null;
+
+        latitude = geo.latitude || null;
+        longitude = geo.longitude || null;
+
+        postalCode = geo.postal_code || null;
+        geoTimezone = geo.timezone || null;
+
+      } catch (err) {
+        console.error('Failed to decode x-nf-geo:', err);
+      }
+    }
+
+    console.log('Location Data:', {
+      country,
+      region,
+      city,
+      latitude,
+      longitude
+    });
 
     await pool.query(
       `
@@ -86,12 +137,12 @@ exports.handler = async (event) => {
 
         ip,
 
-        event.headers['x-nf-geo-country'],
-        event.headers['x-nf-geo-region'],
-        event.headers['x-nf-geo-city'],
+        country,
+        region,
+        city,
 
-        event.headers['x-nf-geo-latitude'],
-        event.headers['x-nf-geo-longitude'],
+        latitude,
+        longitude,
 
         ua,
 
@@ -133,9 +184,9 @@ exports.handler = async (event) => {
       })
     };
 
-  } catch(err) {
+  } catch (err) {
 
-    console.error(err);
+    console.error('Blog visit logging error:', err);
 
     return {
       statusCode: 500,
