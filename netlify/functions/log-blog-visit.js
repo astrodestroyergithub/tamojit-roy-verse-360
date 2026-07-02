@@ -40,16 +40,7 @@ exports.handler = async (event) => {
       event.headers['client-ip'] ||
       'unknown';
 
-    console.log('Logging blog visit:');
-    
-    console.log({
-        ip: event.headers['x-nf-client-connection-ip'],
-        country: event.headers['x-nf-geo-country'],
-        region: event.headers['x-nf-geo-region'],
-        city: event.headers['x-nf-geo-city'],
-        latitude: event.headers['x-nf-geo-latitude'],
-        longitude: event.headers['x-nf-geo-longitude']
-    });
+    console.log("Headers:", event.headers);
 
     await pool.query(
       `
