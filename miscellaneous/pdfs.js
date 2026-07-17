@@ -23,7 +23,8 @@ const pdfFiles=[
  "01_Handout_English_02042026.pdf",
  "SSC_CGL_APPLICATION_FORM_2026.pdf",
  "SBI_PO_APPLICATION_FORM_2026.pdf",
- "IBPS_PO_APPLICATION_FORM_2026.pdf"
+ "IBPS_PO_APPLICATION_FORM_2026.pdf",
+ "N226240225561.pdf"
 ];
 
 function loadPDFs(){
