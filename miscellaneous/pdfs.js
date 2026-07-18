@@ -24,7 +24,8 @@ const pdfFiles=[
  "SSC_CGL_APPLICATION_FORM_2026.pdf",
  "SBI_PO_APPLICATION_FORM_2026.pdf",
  "IBPS_PO_APPLICATION_FORM_2026.pdf",
- "N226240225561.pdf"
+ "N226240225561.pdf",
+ "N32624022556.pdf"
 ];
 
 function loadPDFs(){
